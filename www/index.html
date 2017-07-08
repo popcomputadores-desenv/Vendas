@@ -266,11 +266,11 @@
    <ons-pull-hook on-action="load(done);" var="loader">
     <span ng-switch="loader.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim trn"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim trn"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
              
@@ -288,11 +288,11 @@
    <ons-pull-hook on-action="load(done);" var="loader">
     <span ng-switch="loader.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
              
@@ -311,11 +311,11 @@
    <ons-pull-hook on-action="load(done);" var="loader">
     <span ng-switch="loader.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
              
@@ -367,13 +367,13 @@
     <ons-row>        
      <ons-col>     
      <button class="button green-btn button--large trn" onclick="acceptOrder();" data-trn-key="accept">
-	  Accept
+	  Aceitar
 	  </button>
      </ons-col>    
      
      <ons-col>
      <button class="button grey-btn button--large trn" onclick="declineOrder();" data-trn-key="decline">
-	  Decline
+	  Recusar
 	  </button>
      </ons-col>
     </ons-row>    
@@ -383,7 +383,7 @@
     <ons-row>        
      <ons-col>     
      <button class="trn button green-btn button--large" onclick="changeOrderStatus();" data-trn-key="change_order_status">
-	  Change Order Status
+	  Mudar Status do Pedido
 	  </button>
      </ons-col>                   
     </ons-row>    
@@ -393,7 +393,7 @@
     <ons-row>        
      <ons-col>     
      <button class="trn button green-btn button--large" onclick="changeOrderStatus();" data-trn-key="change_status">
-	  Change Status
+	  Mudar Status
 	  </button>
      </ons-col>     
      
@@ -410,13 +410,13 @@
     <ons-row>        
      <ons-col>     
      <button class="trn button green-btn button--large" onclick="changeOrderStatus();" data-trn-key="change_status">
-	  Change Status
+	  Mudar Status
 	  </button>
      </ons-col>     
      
      <ons-col>            
        <button class="button grey-btn button--large" onclick="TrackOrder();">
-	    <span class="trn" data-trn-key="track_order">Track Order</span>
+	    <span class="trn" data-trn-key="track_order">Rastrear Pedido</span>
 	  </button>
      </ons-col>     
           
@@ -433,7 +433,7 @@
    <ons-toolbar>          
     <div class="left"><ons-back-button></ons-back-button></div>     
     <div class="center white trn" data-trn-key="accept">
-      Accept
+      Aceito
     </div>   
    </ons-toolbar>
    
@@ -444,15 +444,15 @@
      
      <div class="field-wrapper">
       <input type="text" name="delivery_time"  class="delivery_time mobiscroll_time text-input text-input--underbar has_validation" 
-      placeholder="Delivery Time" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" >
+      placeholder="Horário da Entrega" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" >
       </div>
       
       <div class="field-wrapper">
-      <textarea name="remarks" id="remarks" class="text-input text-input--underbar" rows="3" placeholder="Write a comments..." data-trn-key="write_comments"></textarea>
+      <textarea name="remarks" id="remarks" class="text-input text-input--underbar" rows="3" placeholder="Escrever seus comentários..." data-trn-key="write_comments"></textarea>
       </div>
      
       <button class="trn button green-btn button--large" onclick="orderConfirm();" data-trn-key="accept_n_confirm">
-	   Accept & Confirm	   
+	   Aceitar & Confirmar	   
       </button>
        
       <p class="small-font-dim text-center delivery-notes"></p>
@@ -468,7 +468,7 @@
    <ons-toolbar>          
     <div class="left"><ons-back-button></ons-back-button></div>     
     <div class="center white trn" data-trn-key="decline">
-      Decline
+      Recusar
     </div>   
    </ons-toolbar>
    
@@ -481,11 +481,11 @@
            
       <div class="field-wrapper">
       <textarea name="remarks" id="remarks" class="text-input text-input--underbar" rows="3" 
-      placeholder="Reason.." data-trn-key="reason" ></textarea>
+      placeholder="Motivo..." data-trn-key="reason" ></textarea>
       </div>
      
       <button class="trn button green-btn button--large" onclick="declineConfirm();" data-trn-key="decline_order">
-	   Decline Order
+	   Recusar Pedido
       </button>
        
       <p class="small-font-dim text-center delivery-notes"></p>
@@ -502,7 +502,7 @@
    <ons-toolbar>          
     <div class="left"><ons-back-button onclick="setButtonTask();"></ons-back-button></div>     
     <div class="center white trn" data-trn-key="change_status">
-      Change Status
+      Mudar Status
     </div>   
    </ons-toolbar>
        
@@ -515,11 +515,11 @@
                     
       <div class="field-wrapper">
       <textarea name="remarks" id="remarks" class="text-input text-input--underbar" rows="3" 
-      placeholder="Write a comments..." data-trn-key="write_comments"></textarea>
+      placeholder="Escrever seus comentários..." data-trn-key="write_comments"></textarea>
       </div>
      
       <button class="trn button green-btn button--large" onclick="changeStatus();" data-trn-key="submit">
-	   Submit
+	   Enviar
       </button>
                               
      </form>
@@ -537,7 +537,7 @@
      </ons-toolbar-button>        
     </div> 
          
-    <div class="center white"><span id="search-text" class="trn" data-trn-key="settings">Settings</span></div>
+    <div class="center white"><span id="search-text" class="trn" data-trn-key="settings">Configurações</span></div>
     
    </ons-toolbar>
       
@@ -546,109 +546,109 @@
    		   
    <div class="wrapper">
    
-     <div class="settings-header trn" data-trn-key="software_version">Software Version</div>
+     <div class="settings-header trn" data-trn-key="software_version">Versão do Software</div>
      <ons-list modifier="inset" class="settings-list">        
         <ons-list-item >
           <span class="software_version_text concat-text"></span>          
         </ons-list-item>
       </ons-list>
    
-     <div class="settings-header trn" data-trn-key="device_id">Device ID</div>
+     <div class="settings-header trn" data-trn-key="device_id">ID do Dispositivo</div>
      <ons-list modifier="inset" class="settings-list">        
         <ons-list-item >
           <span class="device_id_val concat-text"></span>          
         </ons-list-item>
       </ons-list>
       
-     <div class="settings-header trn" data-trn-key="notifications">Notifications</div>
+     <div class="settings-header trn" data-trn-key="notifications">Notificações</div>
      <ons-list modifier="inset" class="settings-list">        
         <ons-list-item >
-          <span class="trn" data-trn-key="enabled_push_notification">Enabled Push Notification</span>
+          <span class="trn" data-trn-key="enabled_push_notification">Ativar Notificações Push</span>
           <ons-switch modifier="list-item" var="enabled_push" name="enabled_push" id="enabled_push"  ></ons-switch>
         </ons-list-item>
       </ons-list>
       
-      <div class="settings-header trn" data-trn-key="others">Others</div>
+      <div class="settings-header trn" data-trn-key="others">Outros</div>
                         
       <ons-list modifier="inset" class="settings-list">
         <ons-list-item modifier="chevron" onclick="showLanguageList();" class="trn" data-trn-key="select_your_language">
-          Select your language
+          Selecione o seu Idioma
         </ons-list-item>        
       </ons-list>
       
-      <div class="settings-header trn" data-trn-key="food_item_options">Food Item Options</div>
+      <div class="settings-header trn" data-trn-key="food_item_options">Opções de Produtos</div>
       <p class="trn small-font-dim" data-trn-key="item_not_available" style="text-indent: 10px" >
-      If item is not available do the following actions
+      Se o item não for disponível, faça as seguintes ações
       </p>
       
       <ons-list modifier="inset" class="settings-list">        
       
         <ons-list-item >
-          <span class="trn" data-trn-key="hide">Hide</span>
+          <span class="trn" data-trn-key="hide">Oculta</span>
           <ons-switch modifier="list-item" var="food_option_not_available" name="food_option_not_available" id="food_option_not_available" onchange="foodOptions(1)"  ></ons-switch>
         </ons-list-item>
         
         <ons-list-item >
-          <span class="trn" data-trn-key="disabled">Disabled</span>
+          <span class="trn" data-trn-key="disabled">Desativa</span>
           <ons-switch modifier="list-item" var="food_option_not_available_disabled" name="food_option_not_available_disabled" id="food_option_not_available_disabled" onchange="foodOptions(2)"   ></ons-switch>
         </ons-list-item>
       
      </ons-list>
         
-     <div class="settings-header trn" data-trn-key="merchant_settings">Merchant Settings</div>
+     <div class="settings-header trn" data-trn-key="merchant_settings">Opções da Empresa</div>
      <ons-list modifier="inset" class="settings-list">        
         <ons-list-item >
-          <span class="trn" data-trn-key="merchant_close_store">Close Store</span>
+          <span class="trn" data-trn-key="merchant_close_store">Fechado</span>
           <ons-switch modifier="list-item" var="merchant_close_store" name="merchant_close_store" id="merchant_close_store" ></ons-switch>
         </ons-list-item>
         
         <ons-list-item >
-          <span class="trn" data-trn-key="show_time">Show Merchant Current Time</span>
+          <span class="trn" data-trn-key="show_time">Exibir data atual da Empresa</span>
           <ons-switch modifier="list-item" var="merchant_show_time" name="merchant_show_time" id="merchant_show_time" ></ons-switch>
         </ons-list-item>
         
         <ons-list-item >
-          <span class="trn" data-trn-key="disabled_ordering">Disabled Ordering</span>
+          <span class="trn" data-trn-key="disabled_ordering">Desativar Pedidos</span>
           <ons-switch modifier="list-item" var="merchant_disabled_ordering" name="merchant_disabled_ordering" id="merchant_disabled_ordering" ></ons-switch>
         </ons-list-item>
         
       </ons-list>
       
-      <div class="settings-header trn" data-trn-key="voucher">Voucher</div>
+      <div class="settings-header trn" data-trn-key="voucher">Cupom</div>
       <ons-list modifier="inset" class="settings-list">        
       
        <ons-list-item >
-          <span class="trn" data-trn-key="enabled_voucher">Enabled Voucher</span>
+          <span class="trn" data-trn-key="enabled_voucher">Ativar Cupom</span>
           <ons-switch modifier="list-item" var="merchant_enabled_voucher" name="merchant_enabled_voucher" id="merchant_enabled_voucher" ></ons-switch>
         </ons-list-item>
         
         <ons-list-item >
-          <span class="trn" data-trn-key="make_delivery_time_required">Make Delivery Time Required</span>
+          <span class="trn" data-trn-key="make_delivery_time_required">Marque para ser obrigatória a hora da entrega</span>
           <ons-switch modifier="list-item" var="merchant_required_delivery_time" name="merchant_required_delivery_time" id="merchant_required_delivery_time" ></ons-switch>
         </ons-list-item>
       
       </ons-list>
       
-      <div class="settings-header trn" data-trn-key="tips">Tips</div>
+      <div class="settings-header trn" data-trn-key="tips">Gorjetas</div>
       <ons-list modifier="inset" class="settings-list">        
       
        <ons-list-item >
-          <span class="trn" data-trn-key="enabled_tip">Enabled Tip</span>
+          <span class="trn" data-trn-key="enabled_tip">Ativar Gorjetas</span>
           <ons-switch modifier="list-item" var="merchant_enabled_tip" name="merchant_enabled_tip" id="merchant_enabled_tip" ></ons-switch>
         </ons-list-item>
                
       </ons-list>
       
-      <div class="settings-header trn" data-trn-key="table_booking">Table Booking</div>
+      <div class="settings-header trn" data-trn-key="table_booking">Agendamento</div>
       <ons-list modifier="inset" class="settings-list">        
       
        <ons-list-item >
-          <span class="trn" data-trn-key="disabled_table_booking">Disabled Table Booking</span>
+          <span class="trn" data-trn-key="disabled_table_booking">Desativar Agendamentos</span>
           <ons-switch modifier="list-item" var="merchant_table_booking" name="merchant_table_booking" id="merchant_table_booking" ></ons-switch>
         </ons-list-item>
         
        <ons-list-item >
-          <span class="trn" data-trn-key="accept_booking_sameday">Accept booking same day</span>
+          <span class="trn" data-trn-key="accept_booking_sameday">Aceitar agendamento para o mesmo dia</span>
           <ons-switch modifier="list-item" var="accept_booking_sameday" name="accept_booking_sameday" id="accept_booking_sameday" ></ons-switch>
         </ons-list-item> 
                
@@ -656,7 +656,7 @@
             
    
    <button class="button green-btn button--large trn" onclick="saveSettings();" data-trn-key="save">
-	Save	
+	Salvar	
    </button>
    
    </div>
@@ -670,7 +670,7 @@
 
   <ons-page id="page-languageoptions" >  
 	  <ons-toolbar> 
-	      <div class="center white trn" data-trn-key="select_your_language">Select your language</div>   	      	      	      	      
+	      <div class="center white trn" data-trn-key="select_your_language">Selecione o seu Idioma</div>   	      	      	      	      
 	      <div class="right">         
             <ons-toolbar-button onclick="languageOptions.hide();" >
             <ons-icon icon="ion-checkmark-round"></ons-toolbar-button>
@@ -694,7 +694,7 @@
     <div class="center white">
       <ons-icon icon="ion-android-pin"></ons-icon>
       <span class="trn" data-trn-key="location">
-      Location
+      Localização
       </span>
     </div>
     
@@ -729,16 +729,16 @@
    
    <div class="field-wrapper">
    <input type="text" name="code"  class="code text-input text-input--underbar has_validation" 
-   placeholder="Verification code" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" data-trn-key="verification_code" >
+   placeholder="Cód. de Verificação" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" data-trn-key="verification_code" >
    </div>
    
    <div class="field-wrapper">
    <input type="password" name="newpass"  class="newpass text-input text-input--underbar has_validation" 
-   placeholder="New Password" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" data-trn-key="new_password" >
+   placeholder="Nova senha" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" data-trn-key="new_password" >
    </div>
    
    <button class="button green-btn button--large trn" onclick="changePassWord();" data-trn-key="change_password">
-	Change Password
+	Modificar Senha
    </button>
    
    </div> 
@@ -780,7 +780,7 @@
     </div> 
          
     <div class="center white">    
-    <span id="search-text" class="trn" data-trn-key="profile">Profile</span></div>
+    <span id="search-text" class="trn" data-trn-key="profile">Perfil</span></div>
     
    </ons-toolbar>
          
@@ -789,21 +789,21 @@
      
     <div class="field-wrapper">
       <input type="text" name="username"  class="username text-input text-input--underbar has_validation" 
-      placeholder="Username" disabled value="" data-trn-key="username" >
+      placeholder="Nome de usuário" disabled value="" data-trn-key="username" >
     </div> 
     
     <div class="field-wrapper">
       <input type="password" name="password"  class="text-input text-input--underbar has_validation" 
-      placeholder="Password" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" data-trn-key="password"  >
+      placeholder="Senha" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" data-trn-key="password"  >
     </div>  
     
     <div class="field-wrapper">
       <input type="password" name="cpassword"  class="text-input text-input--underbar has_validation" 
-      placeholder="Confirm Password" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" data-trn-key="confirm_password" >
+      placeholder="Confirmar senha" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" data-trn-key="confirm_password" >
     </div>  
    
    <button class="button green-btn button--large trn" onclick="saveProfile();" data-trn-key="update_profile">
-	Update Profile	
+	Atualizar Perfil	
    </button>
    
    </div>
@@ -828,8 +828,8 @@
 	  
 	   <p>          
           <ons-button class="trn button green-btn button--large" onclick="viewOrders();" data-trn-key="view">
-          View</ons-button>
-          <button onclick="pushDialog.hide();" class="button button--quiet trn" data-trn-key="cancel">Cancel</button>
+          Ver</ons-button>
+          <button onclick="pushDialog.hide();" class="button button--quiet trn" data-trn-key="cancel">Cancelar</button>
         </p>
 	  
 	  </div>  
@@ -868,18 +868,18 @@
   <ons-pull-hook on-action="pullNotification(done);" var="loaderNotification">
     <span ng-switch="loaderNotification.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim trn"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim trn"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
   
    <ons-toolbar>          
     <div class="left"><ons-back-button></ons-back-button></div> 
     <div class="center white trn" data-trn-key="notifications">      
-      Notifications
+      Notificações
     </div>      
   </ons-toolbar>
   
@@ -898,7 +898,7 @@
 
   <ons-page id="page-SearchPopUp" >  
 	  <ons-toolbar> 
-	      <div class="center white trn" data-trn-key="search_order" >Search Order</div>   	      	      
+	      <div class="center white trn" data-trn-key="search_order" >Procurar Pedido</div>   	      	      
 	  </ons-toolbar>
 
 	  <form id="frm-search" class="frm-search" method="post">       
@@ -906,14 +906,14 @@
 	  
 	  <div class="field-wrapper">
       <input type="text" name="order_id_customername"  class="order_id_customername text-input text-input--underbar has_validation" 
-      placeholder="Enter Order No or Customer name" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" data-trn-key="enter_order_id_or_customername" >
+      placeholder="Insira o nº do Pedido ou o Nome do cliente" value="" data-validation="required" data-validation-error-msg="este campo é obrigatório!" data-trn-key="enter_order_id_or_customername" >
       </div>
 	  
 	  </div> 
 	  
 	 <div class="wrapper center">                  
       <button class="button green-btn button--large trn" onclick="searchOrder();" data-trn-key="search">
-       Search
+       Procurar
        </button>                   
    </div>  
 	  </form>
@@ -928,7 +928,7 @@
    <ons-toolbar>          
     <div class="left"><ons-back-button></ons-back-button></div> 
     <div class="center white trn search_results_found" data-trn-key="search_results">      
-      Search Results
+      Restultados da sua Busca
     </div>      
   </ons-toolbar>
   
@@ -955,7 +955,7 @@
        </ons-toolbar-button>        
     </div> 
     <div class="center white trn page_label_book" data-trn-key="booking_table">      
-      Booking Table
+      Reserva / Agendamento
     </div>      
   </ons-toolbar>
   
@@ -963,12 +963,12 @@
   
     <ons-tab page="tablePending.html"active="true" class="tabs">
 	 <ons-icon icon="ion-coffee" class="tabicon"></ons-icon>
-	 <p class="trn concat-text" data-trn-key="pending_booking">Pending Booking</p>
+	 <p class="trn concat-text" data-trn-key="pending_booking">Agendamento Pendente</p>
 	</ons-tab>
 	
 	<ons-tab page="tableAll.html"  class="tabs">
 	 <ons-icon icon="ion-wineglass" class="tabicon"></ons-icon>
-	 <p class="trn concat-text" data-trn-key="all_booking">All Booking</p>
+	 <p class="trn concat-text" data-trn-key="all_booking">Todos os Agendamentos</p>
 	</ons-tab>
 
   </ons-tabbar>
@@ -982,11 +982,11 @@
    <ons-pull-hook on-action="loadTable(done);" var="loaderTable">
     <span ng-switch="loaderTable.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim trn"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim trn"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
              
@@ -1004,11 +1004,11 @@
    <ons-pull-hook on-action="loadTable(done);" var="loaderTable">
     <span ng-switch="loaderTable.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim trn"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim trn"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
   
@@ -1041,13 +1041,13 @@
     <ons-row>        
      <ons-col>     
      <button class="button green-btn button--large trn" onclick="bookingApproved();" data-trn-key="accept">
-	  Accept
+	  Aceitar
 	  </button>
      </ons-col>    
      
      <ons-col>
      <button class="button grey-btn button--large trn" onclick="bookingDenied();" data-trn-key="decline">
-	  Decline
+	  Recusar
 	  </button>
      </ons-col>
     </ons-row>    
@@ -1066,7 +1066,7 @@
    <ons-toolbar>          
     <div class="left"><ons-back-button></ons-back-button></div>     
     <div class="center white booking-form-title" >
-      Accept
+      Aceitar
     </div>   
    </ons-toolbar>
    
@@ -1077,11 +1077,11 @@
       <input type="hidden" name="status" id="status" class="status">
                
       <div class="field-wrapper">
-      <textarea name="remarks" id="remarks" class="text-input text-input--underbar" rows="3" placeholder="Write a comments..." data-trn-key="write_comments"></textarea>
+      <textarea name="remarks" id="remarks" class="text-input text-input--underbar" rows="3" placeholder="Escrever seu comentário..." data-trn-key="write_comments"></textarea>
       </div>
      
       <button class="booking-btn trn button green-btn button--large" onclick="bookingChangeStats();" data-trn-key="getting_booking">	    
-      Getting booking details
+      Obtendo detalhes do Agendamento
       </button>
        
       <p class="small-font-dim text-center booking-notes"></p>
@@ -1108,8 +1108,8 @@
 	  
 	   <p>          
           <ons-button class="trn button green-btn button--large" onclick="viewBookings();" data-trn-key="view">
-          View</ons-button>
-          <button onclick="pushDialogBooking.hide();" class="button button--quiet trn" data-trn-key="cancel">Cancel</button>
+          Ver</ons-button>
+          <button onclick="pushDialogBooking.hide();" class="button button--quiet trn" data-trn-key="cancel">Cancelar</button>
         </p>
 	  
 	  </div>  
@@ -1137,18 +1137,18 @@
      <ons-list>       
      
        <ons-list-item modifier="chevron" onclick="showTeamList();" > 
-       <span class="trn team_selected" data-trn-key="select_team">Select Team</span>       
+       <span class="trn team_selected" data-trn-key="select_team">Selecionar Equipe</span>       
        </ons-list-item>    
        
        <ons-list-item modifier="chevron" onclick="showDriverList();" > 
-       <span class="trn driver_selected" data-trn-key="assign_driver">Assign Driver</span>       
+       <span class="trn driver_selected" data-trn-key="assign_driver">Escolher Entregador</span>       
        </ons-list-item>    
        
      </ons-list>   
      
       <div class="wrapper">
       <button class="booking-btn trn button green-btn button--large" onclick="assignTask();" data-trn-key="assign">	    
-      Assign
+      Escolher
       </button>
       </div>
    
@@ -1161,7 +1161,7 @@
      
    <ons-toolbar inline>
       <div class="center white trn" data-trn-key="select_team" >
-        Select Team
+        Selecione a Equipe
       </div>
     </ons-toolbar>
     
@@ -1179,7 +1179,7 @@
      
    <ons-toolbar inline>
       <div class="center white trn" data-trn-key="assign_driver" >
-        Assign Driver
+        Selecione o Entregador
       </div>
     </ons-toolbar>
     
@@ -1208,9 +1208,9 @@
             </ons-col>
             <ons-col>
               <h3 class="_driver_name"></h3>
-              <p class="small-font-dim trn" data-trn-key="your_delivery_guy" >Your Delivery Guy</p>
+              <p class="small-font-dim trn" data-trn-key="your_delivery_guy" >Seu Entregador</p>
               <p class="small-font-dim">
-                 <span class="trn" data-trn-key="extimated_delivery" >Estimated Delivery</span>: <span class="time_left"></span> 
+                 <span class="trn" data-trn-key="extimated_delivery" >Entrega prevista para</span>: <span class="time_left"></span> 
               </p>
             </ons-col>
             <ons-col width="25%" class="center">
@@ -1232,11 +1232,11 @@
    <ons-pull-hook on-action="loadBooking(done);" var="loader">
     <span ng-switch="loader.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
              
