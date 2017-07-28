@@ -1233,12 +1233,6 @@ function displayOrderDetails(data)
      html+='<ons-col>';
      html+='<ons-icon icon="ion-ios-telephone"></ons-icon> <a href="tel:'+data.client_info.contact_phone+'">'+ data.client_info.contact_phone+"</a>";
      html+='</ons-col>';
-     
-     html+='<ons-col class="text-right">';
-     html+='<ons-button modifier="quiet" onclick="PrintFunctions()" class="view-location">';
-     html+= getTrans("Imprimir",'print') + '</ons-button>';
-     html+='</ons-col>';
-     
      html+='</ons-row>';
      html+='</ons-list-item>';
      }
@@ -2624,19 +2618,6 @@ function initMobileScroller()
 		});
 	}
 }
-
-// Função para imprimir o recibo do pedido '+data.order_id+'
-function PrintFunctions()
-{	
-
-
-
-var page = location.href;
-
-cordova.plugins.printer.print(page, 'displayOrder.html');
-}
-
-
 
 function isDebug()
 {	
