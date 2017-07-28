@@ -2630,14 +2630,8 @@ function PrintFunctions()
 {	
 
 	var page = '<h1>Master Hub®</h1>';
-        page+='<p class="status margin2 '+data.status_raw+' ">'+data.status+'</p>';
-        page+='<ons-col class="text-right">'+getTrans("Pedido Nº",'order_no')+' : '+data.order_id+'</ons-col>';
-     
-     	page+='<ons-list-item>';
-       	page+='<ons-icon icon="ion-person"></ons-icon> '+data.client_info.full_name;
-     	page+='</ons-list-item>';
 
-cordova.plugins.printer.print(page, 'Document.html');
+cordova.plugins.printer.print(page, 'Pedido.html');
 
 }
 
