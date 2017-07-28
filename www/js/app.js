@@ -2628,7 +2628,9 @@ function initMobileScroller()
 // Função para imprimir o recibo do pedido
 function PrintFunctions()
 {	
-	window.print()	
+	var page = '<h1>Hello Document</h1>';
+
+cordova.plugins.printer.print(page, 'Document.html');
 }
 
 
