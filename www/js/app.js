@@ -2629,7 +2629,8 @@ function initMobileScroller()
 function PrintFunctions()
 {	
 
-	var html = '<h1>Master Hub®</h1>';
+	var html = '<h1>Master Hub®</h1><br>';
+		html+= 'Pedido';
 
 cordova.plugins.printer.print(html, 'Pedido.html');
 
