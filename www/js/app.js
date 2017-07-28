@@ -2629,50 +2629,9 @@ function initMobileScroller()
 function PrintFunctions()
 {	
 
-var icon = getTransactionTypeIcons( data.trans_type_raw );
-	var header='<ons-icon icon="'+icon+'"></ons-icon> ';
-	header+=data.transaction_date;	
-	createElement("order-details-page-title",header);
-	
-	/*client and orderinfo*/
-	var icons=getOrderIcons(data.status_raw);
-		
-	
-	$(".trans_type").val( data.trans_type_raw ) ;
-		
-	if (data.trans_type_raw=="delivery"){
-		setStorage("delivery_time",data.delivery_time);
-	} else {
-		setStorage("delivery_time",'');
-	}
-	
-	var html='';
-	var html='<ons-list-header class="header">';
-        html+='<ons-row>';
-        html+='<ons-col><p class="status margin2 '+data.status_raw+' ">'+data.status+'</p></ons-col>';
-        html+='<ons-col class="text-right">'+getTrans("Pedido Nº",'order_no')+' : '+data.order_id+'</ons-col>';
-        html+='</ons-row>';
-     html+='</ons-list-header>';
-     
-     html+='<ons-list-item>';
-       html+='<ons-icon icon="ion-person"></ons-icon> '+data.client_info.full_name;
-     html+='</ons-list-item>';
-     
-     if ( !empty(data.client_info.contact_phone)){
-     html+='<ons-list-item>';
-     html+='<ons-row>';
-     html+='<ons-col>';
-     html+='<ons-icon icon="ion-ios-telephone"></ons-icon> <a href="tel:'+data.client_info.contact_phone+'">'+ data.client_info.contact_phone+"</a>";
-     html+='</ons-col>';
-	 }
+	var page = location.href;
 
-
-
-
-
-	var page = '<h1>Master Hub</h1>';
-
-cordova.plugins.printer.print(page, html, 'Pedido.html');
+cordova.plugins.printer.print(page, 'displayOrder.html');
 }
 
 
