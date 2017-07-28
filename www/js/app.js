@@ -2629,9 +2629,9 @@ function initMobileScroller()
 function PrintFunctions()
 {	
 
-	var page = '<h1>Master Hub®</h1>';
+	var html = '<h1>Master Hub®</h1>';
 
-cordova.plugins.printer.print(page, 'Pedido.html');
+cordova.plugins.printer.print(html, 'Pedido.html');
 
 }
 
