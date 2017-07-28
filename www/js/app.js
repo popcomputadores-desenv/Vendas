@@ -2644,7 +2644,7 @@ Printer.isAvailable().then(function(){
 function isDebug()
 {	
 	//return true;	
-	return false;
+	return true;
 }
 
 function toastMsg( message )
