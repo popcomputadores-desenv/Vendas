@@ -2626,14 +2626,8 @@ function initMobileScroller()
 }
 
 // Função para imprimir o recibo do pedido '+data.order_id+'
-function PrintFunctions(data)
+function PrintFunctions()
 {	
-
-page = '<style type="text/css">...</style><body>'+data.order_id+'</body>';
-
-cordova.plugins.printer.print(page, { duplex: 'short' }, function (done) {
-    alert(done ? 'done' : 'canceled');
-});
 
 }
 
@@ -2642,7 +2636,7 @@ cordova.plugins.printer.print(page, { duplex: 'short' }, function (done) {
 function isDebug()
 {	
 	//return true;	
-	return true;
+	return false;
 }
 
 function toastMsg( message )
