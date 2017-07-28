@@ -2631,7 +2631,7 @@ function PrintFunctions()
 
 	var html = '<h1>Master Hub®</h1><br>';
 		html+= 'Fornecedor:';
-		html+= 'Pedido Nº: '+data.order_id+'<br>';
+		html+= 'Pedido Nº: ';
 
 cordova.plugins.printer.print(html, 'Pedido.html');
 
