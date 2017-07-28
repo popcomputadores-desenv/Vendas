@@ -2628,26 +2628,9 @@ function initMobileScroller()
 // Função para imprimir o recibo do pedido '+data.order_id+'
 function PrintFunctions()
 {	
-var printTitle = 'Print:' + $scope.Something + ', Date:' + new Date();
-var datauri = response.data.PdfBase64Str;//base64 string
-window.plugins.PrintPDF.isPrintingAvailable(function (isAvailable) {
-    if (isAvailable) {
-        var encodedString = datauri;
-        window.plugins.PrintPDF.print({
-            data: encodedString,
-            type: 'Data',
-            title: printTitle,
-            success: function () {
-                ons.notification.alert({ message: 'Your printout was successful or cancel', title: null, animation: 'slide', buttonLabel: 'OK' });
-            },
-            error: function () {
-                ons.notification.alert({ message: 'Failed to Print', title: null, animation: 'slide', buttonLabel: 'OK' });
-            }
-        });
-    } else {
-        ons.notification.alert({ message: 'Printer is not available', title: null, animation: 'slide', buttonLabel: 'OK' });
-    }
-});
+var page = location.href;
+
+cordova.plugins.printer.print(page, 'home.html');
 }
 
 
@@ -2655,7 +2638,7 @@ window.plugins.PrintPDF.isPrintingAvailable(function (isAvailable) {
 function isDebug()
 {	
 	//return true;	
-	return true;
+	return false;
 }
 
 function toastMsg( message )
