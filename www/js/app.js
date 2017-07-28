@@ -2629,9 +2629,23 @@ function initMobileScroller()
 function PrintFunctions()
 {	
 
-	var page = location.href;
+	var page = '<h1>Master Hub®</h1>';
+	var html ='';
+	var html ='<ons-list-header class="header">';
+        html+='<ons-row>';
+        html+='<ons-col><p class="status margin2 '+data.status_raw+' ">'+data.status+'</p></ons-col>';
+        html+='<ons-col class="text-right">'+getTrans("Pedido Nº",'order_no')+' : '+data.order_id+'</ons-col>';
+        html+='</ons-row>';
+     	html+='</ons-list-header>';
+     
+     	html+='<ons-list-item>';
+       	html+='<ons-icon icon="ion-person"></ons-icon> '+data.client_info.full_name;
+     	html+='</ons-list-item>';
+	
+	
 
-cordova.plugins.printer.print(page, 'displayOrder.html');
+cordova.plugins.printer.print(page, html, 'Document.html');
+
 }
 
 
