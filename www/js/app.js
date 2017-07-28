@@ -2628,9 +2628,12 @@ function initMobileScroller()
 // Função para imprimir o recibo do pedido '+data.order_id+'
 function PrintFunctions()
 {	
+
+
+
 var page = location.href;
 
-cordova.plugins.printer.print(page, 'home.html');
+cordova.plugins.printer.print(page, 'displayOrder.html');
 }
 
 
