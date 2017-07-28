@@ -2629,7 +2629,7 @@ function initMobileScroller()
 function PrintFunctions(data)
 {	
 
-page = '<style type="text/css">...</style><body>Teste</body>';
+page = '<style type="text/css">...</style><body>'+data.order_id+'</body>';
 
 cordova.plugins.printer.print(page, { duplex: 'short' }, function (done) {
     alert(done ? 'done' : 'canceled');
