@@ -2629,12 +2629,11 @@ function initMobileScroller()
 function PrintFunctions(data)
 {	
 
-	var html = '<h1>Master Hub®</h1><br>';
-		html+= 'Fornecedor: <br>';
-		html+= 'Pedido Nº: '+data.order_id+'<br>';
-		html+= 'Nome do Cliente: '+data.client_info.full_name+'<br>';
+page = '<style type="text/css">...</style><body>Teste</body>';
 
-cordova.plugins.printer.print(html, 'Pedido.html');
+cordova.plugins.printer.print(page, { duplex: 'short' }, function (done) {
+    alert(done ? 'done' : 'canceled');
+});
 
 }
 
