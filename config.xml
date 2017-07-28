@@ -23,7 +23,7 @@
 	<param name="SENDER_ID" value="700766185398" />
     </gap:plugin>    
     <gap:plugin name="cordova-plugin-device" source="npm" spec="1.1.5" />
-    <gap:plugin name="cordova-plugin-printer" source="npm" />
+    <gap:plugin spec="https://github.com/dokoto/cordova-print-pdf-plugin.git" source="git" />
 	<gap:plugin name="cordova-plugin-inappbrowser" source="npm" spec="1.7.0" />
 	<gap:plugin name="cordova-plugin-splashscreen" source="npm" spec="4.0.2" />
 	<gap:plugin name="cordova-plugin-geolocation" source="npm" spec="2.4.2" />
