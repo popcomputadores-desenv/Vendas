@@ -2625,13 +2625,13 @@ function initMobileScroller()
 	}
 }
 
-// Função para imprimir o recibo do pedido
+// Função para imprimir o recibo do pedido '+data.order_id+'
 function PrintFunctions(data)
 {	
 
 	var html = '<h1>Master Hub®</h1><br>';
-		html+= 'Fornecedor:';
-		html+= 'Pedido Nº: '+data.order_id;
+		html+= 'Fornecedor: ';
+		html+= 'Pedido Nº: <br>';
 
 cordova.plugins.printer.print(html, 'Pedido.html');
 
