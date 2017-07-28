@@ -2628,7 +2628,15 @@ function initMobileScroller()
 // Função para imprimir o recibo do pedido '+data.order_id+'
 function PrintFunctions()
 {	
-
+Printer.isAvailable().then(function(){
+            Printer.print("https://www.techiediaries.com").then(function(){
+            alert("printing done successfully !");
+            },function(){
+            alert("Error while printing !");
+            });
+        }, function(){
+        alert('Error : printing is unavailable on your device ');
+        });
 }
 
 
