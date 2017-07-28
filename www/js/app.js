@@ -2664,7 +2664,7 @@ var icon = getTransactionTypeIcons( data.trans_type_raw );
      html+='<ons-col>';
      html+='<ons-icon icon="ion-ios-telephone"></ons-icon> <a href="tel:'+data.client_info.contact_phone+'">'+ data.client_info.contact_phone+"</a>";
      html+='</ons-col>';
-
+	 }
 
 
 
