@@ -1247,7 +1247,7 @@ function displayOrderDetails(data)
 	        html+='<ons-col size="21px"><ons-icon icon="ion-ios-location"></ons-icon></ons-col>';        
 	        html+='<ons-col class="fixed-col">'+data.client_info.address+'</ons-col>';
 	        html+='<ons-col class="text-right">';
-	          html+='<ons-button modifier="quiet" onclick="viewLocationNew('+lat_lng+')" class="view-location">';
+	          html+='<ons-button modifier="quiet" onclick="viewLocation('+address+')" class="view-location">';
 	          html+= getTrans("Ver Localização",'view_location') + '</ons-button>';
 	        html+='</ons-col>';
 	       html+='</ons-row>';  
