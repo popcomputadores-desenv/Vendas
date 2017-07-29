@@ -1282,7 +1282,8 @@ function displayOrderDetails(data)
      }
      
      if ( data.trans_type_raw=="delivery"){
-        html+=TPLorderRow( getTrans("Instruções para Entrega",'delivery_instructions') ,  data.delivery_instruction);     
+        html+=TPLorderRow( getTrans("Instruções para Entrega",'delivery_instructions') ,  data.delivery_instruction);
+        html+=TPLorderRow( getTrans("CPF na Nota?",'cpf_nota') ,  data.cpf_nota);     
         html+=TPLorderRow( getTrans("Nome da Localidade",'location_name') ,  data.client_info.location_name);     
      }
      
