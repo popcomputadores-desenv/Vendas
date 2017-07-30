@@ -11,7 +11,7 @@
     </description>
     <author email="robson@popcomputadores.com.br" href="http://popcomputadores.com.br">
         popcomputadores.com.br 
-    </author>
+    </author> 
             
     <content src="index.html" />
     <preference name="phonegap-version" value="cli-6.5.0" />       
