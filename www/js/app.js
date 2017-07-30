@@ -21,6 +21,19 @@ var map_marker;
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {    
+
+	var notificationOpenedCallback = function(jsonData) {
+    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+  };
+
+  	window.plugins.OneSignal
+    .startInit("301a946a-a73a-4709-ac33-20df7c193e5a")
+	//e9551666-218a-4c65-9d2b-565fcb49bf86 - Cliente
+	//71edbca4-0ff2-4a52-b45b-036f92d8af0b - Entregadores
+	//301a946a-a73a-4709-ac33-20df7c193e5a - Empresas
+    .handleNotificationOpened(notificationOpenedCallback)
+    .endInit();
+
 	    					
 	navigator.splashscreen.hide();
 				
