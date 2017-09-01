@@ -1,6 +1,6 @@
 /**
 Karenderia Order Taking App
-Version 1.0.6
+Version 2.0
 */
 
 /**
@@ -36,6 +36,10 @@ function onDeviceReady() {
 
 	    					
 	navigator.splashscreen.hide();
+	
+	if (!isDebug()){	    	   
+	   getLanguageSettings();
+	}				
 				
 	if ( !empty(krms_config.pushNotificationSenderid)) {
 					
@@ -51,10 +55,10 @@ function onDeviceReady() {
 
 	    	setStorage("merchant_device_id", data.registrationId );
 	    	     
-	        var params="registrationId="+ data.registrationId;
+	        /*var params="registrationId="+ data.registrationId;
 	            params+="&device_platform="+device.platform;
 		        params+="&token="+getStorage("merchant_token");
-		        callAjax("registerMobile",params);	 
+		        callAjax("registerMobile",params);	 */
 	    });
 	    
 	    push.on('notification', function(data) {	    	
@@ -164,7 +168,7 @@ function noNetConnection()
 {
 	hideAllModal();	
     ajax_request.abort();
-	toastMsg( getTrans("A Conexão com a internet foi perdida!","net_connection_lost") );	
+	toastMsg( getTrans("Internet connection lost","net_connection_lost") );	
 }
 
 
@@ -215,27 +219,17 @@ $( document ).on( "keyup", ".numeric_only", function() {
 ons.bootstrap();  
 ons.ready(function() {
 			
-	dump("ready");
-	refreshConnection();	
-	if (!empty(getStorage("merchant_token"))){
-		dump('has token');
-	    dump( getStorage("merchant_token") );	    
-	    showHomePage();
-	    
-	    if (isDebug()){
-	    	setStorage("merchant_device_id","device_999");
-	    	/* var params="registrationId="+ "device_999"
-             params+="&device_platform="+"android";
-	         params+="&token="+getStorage("merchant_token");
-	         callAjax("registerMobile",params);	 */	  	    		    	
-	    }
-	    
-	} else {
-		dump('no token');
-		$("#page-login").show();
-	}
-		    
-	setTimeout('getLanguageSettings()', 1100);	
+	dump("onsen ready");
+	
+	/*removeStorage("merchant_info");
+	removeStorage("merchant_token");	
+	removeStorage("mt_default_lang");*/
+	
+	if (isDebug()){	    
+	   setStorage("merchant_device_id","device_555");
+	   setTimeout('getLanguageSettings()', 500);
+	}				
+	
 			   			
 }); /*end ready*/
 
@@ -248,7 +242,7 @@ function refreshConnection()
 }
 
 function hasConnection()
-{
+{	
 	/*myconn*/
 	if(isDebug()){
 		return true;
@@ -274,6 +268,10 @@ document.addEventListener("pageinit", function(e) {
 	
 	switch (e.target.id)
 	{
+		case "page-bookingForm":
+		   $(".write_comments").attr("placeholder",  getTrans('Write a comments...','write_comments') );
+		break;
+		
 		case "page-acceptOrderForm":
 		initMobileScroller();
 		translatePage();
@@ -290,21 +288,32 @@ document.addEventListener("pageinit", function(e) {
 		case "page-SearchPopUp":
 		case "page-searchResults":
 		case "page-map":
-		case "page-assignDriver":
+		case "page-assignDriver":				
 		translatePage();
 		break;
 		
+		case "page-login":		
+		   if (!empty( getStorage("is_login_already") )){
+		   	  if ( getStorage("is_login_already")==1 ){
+		   	  	  dump('hide login');
+		   	  	  $(".auto-login-wrap").show();
+		   	  	  $(".frm-login").hide();
+		   	  }
+		   }
+		   translatePage();
+		break;
+				
 		case "page-orderstoday":
 		$(".tab-action").val('GetTodaysOrder');
 		$(".display-div").val('new-orders');
-		$(".tab-active-page").html( getTrans('Novos Pedidos','new_order') );
+		$(".tab-active-page").html( getTrans('New Orders','new_order') );
 							
 		if ( !empty( getStorage("notification_push_type")  )){
 			if (  getStorage("notification_push_type")=="order" ){				
 				
 		         $(".tab-action").val('GetTodaysOrder');
                  $(".display-div").val('new-orders');
-                 $(".tab-active-page").html( getTrans('Novos Pedidos','new_order') );
+                 $(".tab-active-page").html( getTrans('New Orders','new_order') );
                  tabbar.setActiveTab(0);		       	 
 		       	 removeStorage("notification_push_type");
 		       	 
@@ -313,7 +322,7 @@ document.addEventListener("pageinit", function(e) {
 			} else if ( getStorage("notification_push_type")=="booking" ){
 				
 				   $("#display-div").val('booking-pending');
-				   $(".tab-active-page").html( getTrans("Agendamentos","booking") );	 
+				   $(".tab-active-page").html( getTrans("Booking","booking") );	 
 				   tabbar.setActiveTab(3);				   
 				   removeStorage("notification_push_type");
 				   
@@ -333,14 +342,14 @@ document.addEventListener("pageinit", function(e) {
 		case "page-pendingorders":
 		$(".tab-action").val('GetPendingOrders');
 		$(".display-div").val('pending-orders');
-		$(".tab-active-page").html( getTrans('Pedidos Pendentes','pending_orders') );
+		$(".tab-active-page").html( getTrans('Pending Orders','pending_orders') );
 		getPendingOrders();
 		break;
 		
 		case "page-allorders":
 		$(".tab-action").val('GetAllOrders');
 		$(".display-div").val('allorders-orders');
-		$(".tab-active-page").html( getTrans('Todos os Pedidos','all_orders') );
+		$(".tab-active-page").html( getTrans('All Orders','all_orders') );
 		getGetAllOrders();
 		break;		
 		
@@ -358,9 +367,18 @@ document.addEventListener("pageinit", function(e) {
 	    	$(".software_version_text").html( BuildInfo.version );
 	    }
 	    
-	    callAjax("getSettings",
+	    /*callAjax("getSettings",
 	     "device_id="+getStorage("merchant_device_id")
-	    ); 
+	    ); */
+	    
+	    var info=getMerchantInfoStorage();	      	 
+	    var params='';
+	    params+="&token="+getStorage("merchant_token");
+	    params+="&user_type="+info.user_type;
+	    params+="&mtid="+info.merchant_id;		  
+	    params+="&device_id="+getStorage("merchant_device_id");
+	    callAjax("getSettings",params); 
+	    
 	    translatePage();
 	    break; 
 	    
@@ -392,7 +410,7 @@ document.addEventListener("pageinit", function(e) {
 	      
 	      $("#tab-action").val('pendingBooking');
 	      $("#display-div").val('table-pending');
-	      $(".page_label_book").html( getTrans("Agendamentos Pendentes","pending_booking") );      	     
+	      $(".page_label_book").html( getTrans("Pending Booking","pending_booking") );      	     
 	   break; 
 	   
 	   case "page-tableAll":	
@@ -406,11 +424,11 @@ document.addEventListener("pageinit", function(e) {
 	      
 	      $("#tab-action").val('AllBooking');
 	      $("#display-div").val('table-all');
-	      $(".page_label_book").html( getTrans("Todos os Agendamentos","all_booking") );	      
+	      $(".page_label_book").html( getTrans("All Booking","all_booking") );	      
 	   break; 
 	   	   
 	   case "page-bookingtab":	   
-	      $(".tab-active-page").html( getTrans("Agendamentos","booking") );	 
+	      $(".tab-active-page").html( getTrans("Booking","booking") );	 
 	      $("#display-div").val('booking-pending');
 	      
 	      var info=getMerchantInfoStorage();	      	 
@@ -447,15 +465,25 @@ function hideAllModal()
 /*mycallajax*/
 function callAjax(action,params)
 {	
-	if ( !hasConnection() ){
-		if ( action!="registerMobile"){
-		    //onsenAlert(  getTrans("CONNECTION LOST",'connection_lost') );
-		    notyAlert(  getTrans("CONEXÃO PERDIDA",'connection_lost'),'error' );
-		}		
+	if ( !hasConnection() ){		
+		switch (action)
+		{
+			case "registerMobile":			
+			break;
+			
+			case "getLanguageSettings":
+			  $(".retry-language").show();
+			break;
+			
+			default:
+			toastMsg(  getTrans("CONNECTION LOST",'connection_lost') );
+			break;
+			
+		}
 		return;
 	}
 	
-	params+="&lang_id="+getStorage("mt_default_lang");
+	params+="&lang="+getStorage("mt_default_lang");
 	if(!empty(krms_config.APIHasKey)){
 		params+="&api_key="+krms_config.APIHasKey;
 	}
@@ -652,7 +680,7 @@ function callAjax(action,params)
 			    break;
 			    
 			    case "OrderHistory":
-			    $(".order-history-title").html( getTrans('Histórico do pedido Nº','order_history')  + data.details.order_id);
+			    $(".order-history-title").html( getTrans('Order history #','order_history')  + data.details.order_id);
 			    displayHistory(data.details.data);
 			    break;
 			    
@@ -665,21 +693,63 @@ function callAjax(action,params)
 			    $(".username").val(data.details.username);
 			    break; 
 			    
-			    case "getLanguageSettings":			      			      
-			      setStorage("mt_translation",JSON.stringify(data.details.translation));
+			    case "getLanguageSettings":		
+			    
+			       setStorage("mt_translation",JSON.stringify(data.details.translation));			      
+			       var device_set_lang=getStorage("mt_default_lang");
+			       dump("device_set_lang=>"+device_set_lang);
 			      
-			      var device_set_lang=getStorage("mt_default_lang");
-			      dump("device_set_lang=>"+device_set_lang);
+			      if (empty(device_set_lang)){		
+
+			      	  if (!empty(data.details.app_force_lang)){
+			      	  	  setStorage("mt_default_lang",data.details.app_force_lang);
+			      	  } else {			      	        	   
+					       if(!empty(data.details.default_lang)){			       	  
+					       	  dump(" set language "  + data.details.default_lang);
+					          setStorage("mt_default_lang",data.details.default_lang);
+					       } else {
+					       	  dump("remove language");
+					       	  setStorage("mt_default_lang","");
+					       }		
+			      	  }	
+			       } else {
+			       	  dump('already has language');
+			       	  if (!empty(data.details.app_force_lang)){
+			       	  	 setStorage("mt_default_lang",data.details.app_force_lang);
+			       	  }
+			       }
+			       
+			       setStorage("is_login_already",0);
+			       			       
+			       if (data.details.is_login){
+			       	   dump('already login');			       	   
+			       	   setStorage("is_login_already",1);
+			       	   var options = {
+					      animation: 'fade',
+					      onTransitionEnd: function() { 	
+					      	   var options = {
+							      animation: 'slide',
+							      onTransitionEnd: function() {					      	
+							      } 
+							   };     
+							   kNavigator.pushPage("slidemenu.html", options);  			      	  				      
+					      } 
+					   };     
+					   kNavigator.pushPage("pageLogin.html", options);
+			       } else {
+			       	
+			       	   $(".auto-login-wrap").hide();
+			       	   $(".frm-login").show();
+			       	   
+			       	   dump('show login page');
+			       	   var options = {
+					      animation: 'fade',
+					      onTransitionEnd: function() {					      	
+					      } 
+					   };     
+					   kNavigator.pushPage("pageLogin.html", options);
+			       }
 			      
-			      if (empty(device_set_lang)){
-			       	   dump('proceed');
-				       if(!empty(data.details.settings.default_lang)){			       	  
-				          setStorage("mt_default_lang",data.details.settings.default_lang);
-				       } else {
-				       	  setStorage("mt_default_lang","");
-				       }			
-			       }			       
-			       translatePage();	  			      
 			    break;
 			    
 			    
@@ -701,7 +771,7 @@ function callAjax(action,params)
 			    break;
 			    
 			    case "GetBookingDetails":
-			    $("#booking-view-title").html( getTrans("Detalhes do agendamento Nº",'booking_details') + data.details.booking_id );
+			    $("#booking-view-title").html( getTrans("Booking Details #",'booking_details') + data.details.booking_id );
 			    displayBookingDetails(data.details.data);
 			    translatePage();	  	
 			    break;
@@ -717,7 +787,7 @@ function callAjax(action,params)
 			    break;
 			    
 			    case "loadTeamList":
-			       $(".driver_selected").html( getTrans('Entregador Escolhido','assigned_driver') ); 
+			       $(".driver_selected").html( getTrans('Assigned Driver','assigned_driver') ); 
 			       $(".driver_id").val('');
 			       displayTeamList(data.details);
 			    break;
@@ -784,11 +854,11 @@ function callAjax(action,params)
 				case "OrderHistory":
 				//onsenAlert(data.msg);
 				notyAlert(data.msg,"error");
-			    $(".order-history-title").html( getTrans('Histórico do pedido Nº','order_history') + data.details);			    
+			    $(".order-history-title").html( getTrans('Order history #','order_history') + data.details);			    
 			    break;
 			    
 			    case "GetBookingDetails":
-			    $("#booking-view-title").html( getTrans("Detalhes do agendamento Nº",'booking_details') );
+			    $("#booking-view-title").html( getTrans("Booking Details #",'booking_details') );
 			    notyAlert(data.msg,"error");
 			    break;
 			    
@@ -797,14 +867,14 @@ function callAjax(action,params)
 			    break;
 			    
 			    case "loadTeamList":			       
-			      $(".team_selected").html( getTrans('Selecione a Equipe','select_team') ); 
+			      $(".team_selected").html( getTrans('Select Team','select_team') ); 
 			      onsenAlert(data.msg);
 			      createElement("team-list",'');
 			      teamListDialog.hide();
 			    break;
 			    
 			    case "driverList":			      
-			       $(".driver_selected").html( getTrans('Escolha o Entregador','assigned_driver') ); 
+			       $(".driver_selected").html( getTrans('Assigned Driver','assigned_driver') ); 
 			       onsenAlert(data.msg);
 			       createElement("driver-list",'');
 			       driverListDialog.hide();
@@ -828,12 +898,12 @@ function callAjax(action,params)
 			break;
 			
 			case "GetTodaysOrder":
-			notyAlert( getTrans("Ocorreu um erro de rede, tente novamente!",'network_error')  ,"error");
+			notyAlert( getTrans("Network error has occurred please try again!",'network_error')  ,"error");
 			break;
 			
 			default:
 			//onsenAlert( getTrans("Network error has occurred please try again!",'network_error') );
-			notyAlert( getTrans("Ocorreu um erro de rede, tente novamente!",'network_error')  ,"error");
+			notyAlert( getTrans("Network error has occurred please try again!",'network_error')  ,"error");
 		    break;
 		}
 	}
@@ -856,6 +926,11 @@ function login()
 	    onSuccess : function() {     	   	      
 	      var params = $( "#frm-login").serialize();
 	      params+="&merchant_device_id="+getStorage("merchant_device_id");
+	      if (isDebug()){
+	      	params+="&device_platform=Android" ;
+	      } else {
+	      	params+="&device_platform=" + device.platform ;
+	      }	      
 	      callAjax("login",params);	       
 	      return false;
 	    }  
@@ -868,7 +943,7 @@ function showForgotPass()
 	if (typeof dialogForgotPass === "undefined" || dialogForgotPass==null || dialogForgotPass=="" ) { 	    
 		ons.createDialog('forgotPassword.html').then(function(dialog) {
 	        dialog.show();	        
-	        $(".email_address").attr("placeholder",  getTrans('E-mail','email_address') );
+	        $(".email_address").attr("placeholder",  getTrans('Email Address','email_address') );
 	    });	
 	} else {
 		dialogForgotPass.show();		
@@ -900,11 +975,14 @@ function logout()
 {
    removeStorage("merchant_token");
    removeStorage("merchant_info");
-   var pages = kNavigator.getPages();     
-   dump(pages);
-   dump(pages.length);
+   //var pages = kNavigator.getPages();        
    
-   if ( pages.length<=1){   	  
+   $(".auto-login-wrap").hide();
+   $(".frm-login").show();
+   
+   kNavigator.popPage();
+        
+   /*if ( pages.length<=1){   	  
       kNavigator.resetToPage('pageLogin.html', {     	  		  
   	   closeMenu:true,
        animation: 'none',       
@@ -914,8 +992,7 @@ function logout()
       });
    } else {
    	  kNavigator.popPage();
-   }   
-   //kNavigator.resetToPage('slidemenu.html',options);
+   }      */
 }
 
 function load(done)
@@ -923,7 +1000,7 @@ function load(done)
 	dump('pull');
 	
 	if ( !hasConnection() ){
-		notyAlert(  getTrans("CONEXÃO PERDIDA",'connection_lost'),'error' );
+		notyAlert(  getTrans("CONNECTION LOST",'connection_lost'),'error' );
 		done();
 		return;
 	}
@@ -1027,7 +1104,7 @@ function displayOrders(data,div_id)
 		
 		var new_tag='';
 		if (val.viewed==1){
-			new_tag='<div class="new-tag rounded">'+ getTrans('Novo','new') +'</div>';
+			new_tag='<div class="new-tag rounded">'+ getTrans('new','new') +'</div>';
 		}
 		
 		htm+='<ons-col width="25%" class="center" >';
@@ -1044,7 +1121,7 @@ function displayOrders(data,div_id)
 								
 		htm+='<ons-col >';
 		   htm+='<p class="margin2 small-font-dim small-font-dim-smaller concat-text bold">'+val.customer_name+'</p>';
-		   htm+='<p class="margin2 small-font-dim small-font-dim-smaller">'+ getTrans("Pedido Nº",'order_no') +'. <b>'+val.order_id+'</b></p>';
+		   htm+='<p class="margin2 small-font-dim small-font-dim-smaller">'+ getTrans("Order No",'order_no') +'. <b>'+val.order_id+'</b></p>';
 		   htm+='<p class="margin2 small-font-dim small-font-dim-smaller">'+val.delivery_date+'</p>';
 		   htm+='<p class="status margin2 '+ val.status_raw +' ">';
 		   //htm+='<ons-icon icon="'+icons+'" class="icon '+icons2+'"></ons-icon>';
@@ -1165,7 +1242,7 @@ function viewOrder(order_id)
       animation: 'slide',
       onTransitionEnd: function() { 
       	
-      	 $("#order-details-page-title").html( getTrans("Obtendo detalhes do pedido...",'getting_order_details') );
+      	 $("#order-details-page-title").html( getTrans("Getting order details..",'getting_order_details') );
       	
       	 var info=getMerchantInfoStorage();	
 		 var params="token="+getStorage("merchant_token");
@@ -1192,11 +1269,11 @@ function acceptOrder()
       onTransitionEnd: function() { 
       	   $(".order_id").val(order_id);
       	   if ( trans_type=="delivery"){
-      	   	   $(".delivery-notes").html( getTrans("Enviaremos uma confirmação incluindo o horário de entrega para o seu cliente",'send_confirm_msg') );        
-      	   	   $(".delivery_time").attr("placeholder", getTrans("Hora da Entrega",'delivery_time') );
+      	   	   $(".delivery-notes").html( getTrans("We'll send a confirmation including delivery time to your customer",'send_confirm_msg') );        
+      	   	   $(".delivery_time").attr("placeholder", getTrans("Delivery Time",'delivery_time') );
       	   } else {
-      	   	   $(".delivery-notes").html( getTrans("Enviaremos uma confirmação, incluindo o horário de retirada para o seu cliente",'send_cinfirm_pickup'));        
-      	   	   $(".delivery_time").attr("placeholder",getTrans("Hora da Retirada",'pickup_time') );
+      	   	   $(".delivery-notes").html( getTrans("We'll send a confirmation including pickup time to your customer",'send_cinfirm_pickup'));        
+      	   	   $(".delivery_time").attr("placeholder",getTrans("Pickup Time",'pickup_time') );
       	   }      	   
       	   
       	   if(!empty(getStorage("delivery_time") && getStorage("delivery_time")!="false" )){      	      
@@ -1225,14 +1302,15 @@ function displayOrderDetails(data)
 	if (data.trans_type_raw=="delivery"){
 		setStorage("delivery_time",data.delivery_time);
 	} else {
-		setStorage("delivery_time",'');
+		//setStorage("delivery_time",'');
+		setStorage("delivery_time",data.delivery_time);
 	}
 	
 	var html='';
 	var html='<ons-list-header class="header">';
         html+='<ons-row>';
         html+='<ons-col><p class="status margin2 '+data.status_raw+' ">'+data.status+'</p></ons-col>';
-        html+='<ons-col class="text-right">'+getTrans("Pedido Nº",'order_no')+' : '+data.order_id+'</ons-col>';
+        html+='<ons-col class="text-right">'+getTrans("Order No",'order_no')+' : '+data.order_id+'</ons-col>';
         html+='</ons-row>';
      html+='</ons-list-header>';
      
@@ -1246,6 +1324,12 @@ function displayOrderDetails(data)
      html+='<ons-col>';
      html+='<ons-icon icon="ion-ios-telephone"></ons-icon> <a href="tel:'+data.client_info.contact_phone+'">'+ data.client_info.contact_phone+"</a>";
      html+='</ons-col>';
+     
+     /*html+='<ons-col class="text-right">';
+     html+='<ons-button modifier="quiet" onclick="YourPrintFunctinns()" class="view-location">';
+     html+= getTrans("Print",'print') + '</ons-button>';
+     html+='</ons-col>';*/
+     
      html+='</ons-row>';
      html+='</ons-list-item>';
      }
@@ -1261,47 +1345,51 @@ function displayOrderDetails(data)
 	        html+='<ons-col class="fixed-col">'+data.client_info.address+'</ons-col>';
 	        html+='<ons-col class="text-right">';
 	          html+='<ons-button modifier="quiet" onclick="viewLocationNew('+lat_lng+')" class="view-location">';
-	          html+= getTrans("Ver Localização",'view_location') + '</ons-button>';
+	          html+= getTrans("View Location",'view_location') + '</ons-button>';
 	        html+='</ons-col>';
 	       html+='</ons-row>';  
 	     html+='</ons-list-item>';
      }
           
-     html+=TPLorderRow( getTrans("LOGISTICA",'trn_type') ,  data.trans_type);
-     html+=TPLorderRow( getTrans("Modo de Pagto.",'payment_type') ,  data.payment_type);
+     html+=TPLorderRow( getTrans("TRN Type",'trn_type') ,  data.trans_type);
+     html+=TPLorderRow( getTrans("Payment Type",'payment_type') ,  data.payment_type);
      
-     if( data.payment_type=="PYR" || data.payment_type=="pyr"){
-     	html+=TPLorderRow( getTrans("Cartão #",'card_number') ,  data.payment_provider_name);
+     //if( data.payment_type=="PYR" || data.payment_type=="pyr"){
+     if( data.payment_type_raw=="PYR" || data.payment_type_raw=="pyr"){
+     	html+=TPLorderRow( getTrans("Card#",'card_number') ,  data.payment_provider_name);
      }
-     if( data.payment_type=="OCR" || data.payment_type=="ocr"){
-     	html+=TPLorderRow( getTrans("Cartão #",'card_number') , data.credit_card_number );
+     //if( data.payment_type=="OCR" || data.payment_type=="ocr"){
+     if( data.payment_type_raw=="OCR" || data.payment_type_raw=="ocr"){
+     	html+=TPLorderRow( getTrans("Card#",'card_number') , data.credit_card_number );
      }
      
      if ( data.trans_type_raw=="delivery"){
-        html+=TPLorderRow( getTrans("Data da Entrega",'delivery_date') ,  data.delivery_date);     
+        html+=TPLorderRow( getTrans("Delivery Date",'delivery_date') ,  data.delivery_date);     
      } else {
-     	html+=TPLorderRow( getTrans("Data da Retirada",'pickup_date') ,  data.delivery_date);     
+     	html+=TPLorderRow( getTrans("Pickup Date",'pickup_date') ,  data.delivery_date);     
      }
      
      if (!empty(data.delivery_time)){
      	 if ( data.trans_type_raw=="delivery"){
-            html+=TPLorderRow( getTrans("Horário da Entrega",'delivery_time') ,  data.delivery_time);
+            html+=TPLorderRow( getTrans("Delivery Time",'delivery_time') ,  data.delivery_time);
      	 } else {
-     	 	html+=TPLorderRow( getTrans("Horário da Retirada",'pickup_time') ,  data.delivery_time);
+     	 	html+=TPLorderRow( getTrans("Pickup Time",'pickup_time') ,  data.delivery_time);
      	 }
      }
      if (!empty(data.delivery_asap)){
-         html+=TPLorderRow( getTrans("Entrega Imediata?",'delivery_asap') ,  data.delivery_asap);
+         html+=TPLorderRow( getTrans("Delivery Asap",'delivery_asap') ,  data.delivery_asap);
      }
      
      if ( data.trans_type_raw=="delivery"){
-        html+=TPLorderRow( getTrans("Instruções para Entrega",'delivery_instructions') ,  data.delivery_instruction);
+        html+=TPLorderRow( getTrans("Delivery Instruction",'delivery_instructions') ,  data.delivery_instruction);     
+	
+	//Atualiza��o MasterHub (CPF na nota)
         html+=TPLorderRow( getTrans("CPF na Nota?",'cpf_nota') ,  data.cpf_nota);     
-        html+=TPLorderRow( getTrans("Nome da Localidade",'location_name') ,  data.client_info.location_name);     
+        html+=TPLorderRow( getTrans("Location Name",'location_name') ,  data.client_info.location_name);     
      }
      
      if (!empty(data.total.order_change)){
-         html+=TPLorderRow( getTrans("Mudar",'change') ,  data.total.order_change );
+         html+=TPLorderRow( getTrans("Change",'change') ,  data.total.order_change );
      }
      	
      createElement("order-details",html);
@@ -1317,7 +1405,7 @@ function displayOrderDetails(data)
      
      html+='<ons-list-header class="header">';
         html+='<ons-row>';
-        html+='<ons-col>'+ getTrans("Detalhes do Pedido",'order_details') +'</ons-col>';        
+        html+='<ons-col>'+ getTrans("Order Details",'order_details') +'</ons-col>';        
         html+='</ons-row>';
      html+='</ons-list-header>';
      
@@ -1354,7 +1442,7 @@ function displayOrderDetails(data)
      		  /*ingredients*/
      		  if (!empty(val.ingredients)){
      		  	  if ( val.ingredients.length>0){
-	     		  	  html+='<ons-list-header>'+ getTrans("Itens",'ingredients') +'</ons-list-header>';
+	     		  	  html+='<ons-list-header>'+ getTrans("Ingredients",'ingredients') +'</ons-list-header>';
 	     		  	  $.each( val.ingredients , function( key1, ingredients ) {       		  	  	  
 	     		  	  	  html+=TPLorderRow( ingredients ,  '' );     
 	     		  	  });	
@@ -1387,54 +1475,54 @@ function displayOrderDetails(data)
      if ( !empty(data.total)){
      	
      	if (!empty(data.total.discounted_amount)){
-     		html+=TPLorderRow( getTrans("Desconto",'discount') +" "+ data.total.discount_percentage , "("+data.total.discounted_amount1 +")");
+     		html+=TPLorderRow( getTrans("Discount",'discount') +" "+ data.total.discount_percentage , "("+data.total.discounted_amount1 +")");
      		
      		if (!empty(data.total.points_discount)){
      			if (data.total.points_discount>0){
-     				html+=TPLorderRow( getTrans("Desconto por Pontos",'point_discount'),"("+data.total.points_discount1 +")");
+     				html+=TPLorderRow( getTrans("Points Discount",'point_discount'),"("+data.total.points_discount1 +")");
      			}
      		}
      		
-     		html+=TPLorderRow( getTrans("Sub-Total",'sub_total') ,  data.total.subtotal );
+     		html+=TPLorderRow( getTrans("Sub Total",'sub_total') ,  data.total.subtotal );
      		
      	} else {
      		
      		if (!empty(data.total.points_discount)){
      			if (data.total.points_discount>0){
-     				html+=TPLorderRow( getTrans("Desconto por Pontos",'point_discount'),"("+data.total.points_discount1 +")");
+     				html+=TPLorderRow( getTrans("Points Discount",'point_discount'),"("+data.total.points_discount1 +")");
      			}
      		}
      		
-     		html+=TPLorderRow( getTrans("Sub-Total",'sub_total') ,  data.total.subtotal );
+     		html+=TPLorderRow( getTrans("Sub Total",'sub_total') ,  data.total.subtotal );
      	}
      	                  
         if (!empty(data.total.voucher_amount)){
          	if (data.total.voucher_amount>0){
          		
          		if ( data.total.voucher_type=="percentage"){
-         		   html+=TPLorderRow( getTrans("Sem o Cupom",'less_voucher') + " " + data.total.voucher_percentage , "("+data.total.voucher_amount1 +")");
+         		   html+=TPLorderRow( getTrans("Less Voucher",'less_voucher') + " " + data.total.voucher_percentage , "("+data.total.voucher_amount1 +")");
          		} else {
-         		   html+=TPLorderRow( getTrans("Sem o Cupom",'less_voucher') , "("+data.total.voucher_amount1 +")");
+         		   html+=TPLorderRow( getTrans("Less Voucher",'less_voucher') , "("+data.total.voucher_amount1 +")");
          		}
          		
-         		html+=TPLorderRow( getTrans("Sub-Total (after less voucher)",'sub_total_after_voucher') ,  data.total.subtotal2 ,'fixed-col');
+         		html+=TPLorderRow( getTrans("Sub Total (after less voucher)",'sub_total_after_voucher') ,  data.total.subtotal2 ,'fixed-col');
          	}
          }
          
          if (!empty(data.total.delivery_charges)){
-             html+=TPLorderRow( getTrans("Taxa de Entrega",'delivery_fee') ,  data.total.delivery_charges );
+             html+=TPLorderRow( getTrans("Delivery Fee",'delivery_fee') ,  data.total.delivery_charges );
          }
          
          if (!empty(data.total.merchant_packaging_charge)){
-             html+=TPLorderRow( getTrans("Embalagem",'packaging') ,  data.total.merchant_packaging_charge );
+             html+=TPLorderRow( getTrans("Packaging",'packaging') ,  data.total.merchant_packaging_charge );
          }
                   
          if (!empty(data.total.taxable_total)){
-             html+=TPLorderRow( getTrans("Comodidade",'tax') +" " +  data.total.tax_amt ,  data.total.taxable_total );
+             html+=TPLorderRow( getTrans("Tax",'tax') +" " +  data.total.tax_amt ,  data.total.taxable_total );
          }
                   
          if (!empty(data.total.cart_tip_value)){
-             html+=TPLorderRow( getTrans("Gorjeta",'tips')  ,  data.total.cart_tip_value );
+             html+=TPLorderRow( getTrans("Tips",'tips')  ,  data.total.cart_tip_value );
          }         
      }
      
@@ -1468,11 +1556,11 @@ function displayOrderDetails(data)
 			  case "assigned":			
 			  case "declined": 
 				  if (data.driver_id>0){
-		     	   	  $(".assign_driver_label").html( getTrans("Novo Entregador",'re_assigned_driver') );
-		     	   	  $("#assign_driver_label").val( getTrans("Novo Entregador",'re_assigned_driver') );
+		     	   	  $(".assign_driver_label").html( getTrans("Re-assigned Driver",'re_assigned_driver') );
+		     	   	  $("#assign_driver_label").val( getTrans("Re-assigned Driver",'re_assigned_driver') );
 		     	   } else {
-		     	   	  $(".assign_driver_label").html( getTrans("Novo Entregador",'assigned_driver') );
-		     	   	  $("#assign_driver_label").val( getTrans("Novo Entregador",'assigned_driver') );
+		     	   	  $(".assign_driver_label").html( getTrans("Assigned Driver",'assigned_driver') );
+		     	   	  $("#assign_driver_label").val( getTrans("Assigned Driver",'assigned_driver') );
 		     	   }     	   
 		     	   
 		     	   $(".actions-3").show();
@@ -1485,8 +1573,8 @@ function displayOrderDetails(data)
 			  case "started":
 			  case "inprogress":
 			  
-			     $(".assign_driver_label").html( getTrans("Rastrear Pedido",'track_order') );
-		     	 $("#assign_driver_label").val( getTrans("Rastrear Pedido",'track_order') );
+			     $(".assign_driver_label").html( getTrans("Track Order",'track_order') );
+		     	 $("#assign_driver_label").val( getTrans("Track Order",'track_order') );
 		     	 
 		     	 $(".actions-4").show();
 		     	 $(".actions-3").hide();
@@ -1632,7 +1720,7 @@ function changeOrderStatus()
 function statusList(data)
 {
 	var htm='';
-	htm+='<ons-list-header class="list-header">'+ getTrans('Selecionar Status','select_status') +'</ons-list-header>';	
+	htm+='<ons-list-header class="list-header">'+ getTrans('Select Status','select_status') +'</ons-list-header>';	
 	htm+='<ons-list>';	
 	$.each( data.status_list, function( key, val ) {    
 
@@ -1694,18 +1782,17 @@ function displayLanguageSelection(data)
 	dump("selected=>"+selected);	
 	var htm='';
 	htm+='<ons-list>';
-	htm+='<ons-list-header class="list-header trn" data-trn-key="language">'+ getTrans("Idioma",'language') +'</ons-list-header>';
-	$.each( data, function( key, val ) {        		  		  
-		dump(val.lang_id);
+	htm+='<ons-list-header class="list-header trn" data-trn-key="language">'+ getTrans("Language",'language') +'</ons-list-header>';
+	$.each( data, function( key, val ) {        		  		  		
 		ischecked='';
-		if ( val.lang_id==selected){
+		if ( val==selected){
 			ischecked='checked="checked"';
 		}
-		htm+='<ons-list-item modifier="tappable" onclick="setLanguage('+"'"+val.lang_id+"'"+');">';
+		htm+='<ons-list-item modifier="tappable" onclick="setLanguage('+"'"+val+"'"+');">';
 		 htm+='<label class="radio-button checkbox--list-item">';
-			htm+='<input type="radio" name="country_code" class="country_code" value="'+val.lang_id+'" '+ischecked+' >';
+			htm+='<input type="radio" name="country_code" class="country_code" value="'+val+'" '+ischecked+' >';
 			htm+='<div class="radio-button__checkmark checkbox--list-item__checkmark"></div>';
-			htm+=' '+val.language_code;
+			htm+=' '+val;
 		  htm+='</label>'; 
 		htm+='</ons-list-item>';
 	});		
@@ -1721,9 +1808,9 @@ function setLanguage(lang_id)
 	if (typeof getStorage("mt_translation") === "undefined" || getStorage("mt_translation")==null || getStorage("mt_translation")=="" ) { 	
 	   languageOptions.hide();   
        ons.notification.confirm({
-		  message: 'O arquivo de idioma não foi carregado, você gostaria de recarregar?',		  
+		  message: 'Language file has not been loaded, would you like to reload?',		  
 		  title: dialog_title_default ,
-		  buttonLabels: ['Sim', 'Não'],
+		  buttonLabels: ['Yes', 'No'],
 		  animation: 'none',
 		  primaryButtonIndex: 1,
 		  cancelable: true,
@@ -1737,7 +1824,7 @@ function setLanguage(lang_id)
 	}	
 		
 	if ( getStorage("mt_translation").length<=5 ){	
-		onsenAlert("O arquivo de tradução ainda não está pronto.");	
+		onsenAlert("Translation file is not yet ready.");	
 		return;
 	}
 	
@@ -1786,7 +1873,7 @@ function initMap(data)
 	    map.initialize('location-map', data.lat, data.lng , 15);
 	} else {
 		$("#location-map").hide();
-		notyAlert("Localização não disponível",'error' );
+		notyAlert("location not available",'error' );
 	}
 }
 
@@ -1829,7 +1916,7 @@ function viewHistory()
 	var options = {
       animation: 'none',
       onTransitionEnd: function() {    
-      	 $(".order-history-title").html('Obtendo histórico...');
+      	 $(".order-history-title").html('Getting history...');
       	 var info=getMerchantInfoStorage();	
       	 var params='';
 			 params+="&token="+getStorage("merchant_token");
@@ -1846,9 +1933,9 @@ function displayHistory(data)
 {
 	var htm='<ons-list-header class="header">';
 	htm+='<ons-row>';
-	  htm+='<ons-col class="fixed-col">'+ getTrans("Data/Hora",'date_time')  +'</ons-col>';
+	  htm+='<ons-col class="fixed-col">'+ getTrans("Date/Time",'date_time')  +'</ons-col>';
 	  htm+='<ons-col class="fixed-col">'+ getTrans("Status",'status') +'</ons-col>';
-	  htm+='<ons-col class="fixed-col">'+ getTrans("Observações",'remarks') +'</ons-col>';
+	  htm+='<ons-col class="fixed-col">'+ getTrans("Remarks",'remarks') +'</ons-col>';
 	htm+='</ons-row>';
 	htm+='</ons-list-header>';
 	
@@ -1889,70 +1976,22 @@ function saveProfile()
 function getLanguageSettings()
 {
 	if ( !hasConnection() ){
+		toastMsg( getTrans("Internet connection lost","net_connection_lost") );	
+		$(".retry-language").show();
 		return;
 	}	
-	//callAjax("getLanguageSettings",'');	
-	var action = 'getLanguageSettings';	
-	var params='';
 	
-	dump("Action=>"+action);
-	dump(ajax_url+"/"+action+"?"+params);
-	
-	 var ajax_request2 = $.ajax({
-	 url: ajax_url+"/"+action, 
-	 data: params,
-	 type: 'post',                  
-	 async: false,
-	 dataType: 'jsonp',
-	 timeout: 6000,
-	 crossDomain: true,
-	 beforeSend: function() {
-		if(ajax_request2 != null) {			 	
-		   /*abort ajax*/
-		   hideAllModal();	
-           ajax_request2.abort();
-		} else {    
-			/*show modal*/			   
-			switch(action)
-			{
-				case "none":
-				   break;				
-				default:
-				   kloader.show();
-				   break;
-			}
-		}
-	},
-	complete: function(data) {					
-		ajax_request2=null;   	     				
-		hideAllModal();				
-	},
-	success: function (data) {	  
-	     if (data.code==1){
-	     	  dump('getLanguageSettings OK');	     	 
-	     	  setStorage("mt_translation",JSON.stringify(data.details.translation));			      
-		      var device_set_lang=getStorage("mt_default_lang");
-		      dump("device_set_lang=>"+device_set_lang);
-		      
-		      if (empty(device_set_lang)){
-		       	   dump('proceed');
-			       if(!empty(data.details.settings.default_lang)){			       	  
-			          setStorage("mt_default_lang",data.details.settings.default_lang);
-			       } else {
-			       	  setStorage("mt_default_lang","");
-			       }			
-		       }			       
-		       translatePage();	 	     	 
-	     }
-    },
-	error: function (request,error) {	        
-		hideAllModal();				
+	params ="&token="+getStorage("merchant_token");
+	var info=getMerchantInfoStorage();	
+	if (!empty(info)){
+		params+="&user_type="+info.user_type;
+	    params+="&mtid="+info.merchant_id;	
 	}
-   });       			
+	callAjax("getLanguageSettings", params );		
 }
 
 function translatePage()
-{
+{	
 	dump("TranslatePage Functions");				
 	if (typeof getStorage("mt_translation") === "undefined" || getStorage("mt_translation")==null || getStorage("mt_translation")=="" ) { 	   
 		return;		
@@ -2012,15 +2051,15 @@ function translateValidationForm()
 		switch (validation_type)
 		{
 			case "number":			
-			$(this).attr("data-validation-error-msg",getTrans("O valor de entrada não era um número correto",'validation_numeric') );
+			$(this).attr("data-validation-error-msg",getTrans("The input value was not a correct number",'validation_numeric') );
 			break;
 			
 			case "required":
-			$(this).attr("data-validation-error-msg",getTrans("Este campo é obrigatório!",'validaton_mandatory') );
+			$(this).attr("data-validation-error-msg",getTrans("this field is mandatory!",'validaton_mandatory') );
 			break;
 			
 			case "email":
-			$(this).attr("data-validation-error-msg",getTrans("Você não nos deu um e-mail correto!",'validation_email') );
+			$(this).attr("data-validation-error-msg",getTrans("You have not given a correct e-mail address!",'validation_email') );
 			break;
 		}
 		
@@ -2146,7 +2185,7 @@ function pullNotification(done)
 	dump('pull');
 	
 	if ( !hasConnection() ){
-		notyAlert(  getTrans("CONEXÃO PERDIDA",'connection_lost'),'error' );
+		notyAlert(  getTrans("CONNECTION LOST",'connection_lost'),'error' );
 		done();
 		return;
 	}
@@ -2244,9 +2283,9 @@ function searchOrder()
 function deviceBackButton()
 {
 	ons.notification.confirm({
-	  message: getTrans('Deseja realmente se Desconectar?','do_you_want_to_logout') ,	  
+	  message: getTrans('Do you want to logout?','do_you_want_to_logout') ,	  
 	  title: dialog_title_default ,
-	  buttonLabels: [ getTrans('Sim','yes') ,  getTrans('Não','no') ],
+	  buttonLabels: [ getTrans('Yes','yes') ,  getTrans('No','no') ],
 	  animation: 'default', // or 'none'
 	  primaryButtonIndex: 1,
 	  cancelable: true,
@@ -2268,7 +2307,7 @@ function loadTable(done)
 	dump('pull');
 	
 	if ( !hasConnection() ){
-		notyAlert(  getTrans("CONEXÃO PERDIDA",'connection_lost'),'error' );
+		notyAlert(  getTrans("CONNECTION LOST",'connection_lost'),'error' );
 		done();
 		return;
 	}
@@ -2335,13 +2374,13 @@ function displayBooking(data,div_id)
           html+='<ons-row>';
                        
              html+='<ons-col width="50%"   class="fixed-col" >';
-             html+='<b>Agendamento Nº</b>' + val.booking_id +'<br/>';
+             html+='<b>'+ getTrans("Booking",'booking') +' #</b>' + val.booking_id +'<br/>';
              html+=val.date_of_booking
              html+='<p class="status margin2 '+val.status_raw+' ">';
 	             //html+='<ons-icon class="icon '+icon.classname+'" icon="'+icon.icons+'"></ons-icon>';
 	             html+=' '+val.status;
 	             if ( val.viewed==1){
-	                html+= '&nbsp;<span class="new-tags">'+ getTrans('Novo','new') +'</span>'
+	                html+= '&nbsp;<span class="new-tags">'+ getTrans('new','new') +'</span>'
 	             }
 	             html+='</p>';
              html+='</ons-col>';      
@@ -2420,7 +2459,7 @@ function viewBooking(booking_id)
     var options = {
       animation: 'slide',
       onTransitionEnd: function() {                     	  
-      	  $("#booking-view-title").html( getTrans("Obtendo detalhes do agendamento","getting_booking") +"..." );
+      	  $("#booking-view-title").html( getTrans("Getting booking details","getting_booking") +"..." );
       	  var info=getMerchantInfoStorage();	
 		  var params="token="+getStorage("merchant_token");
 		  params+="&user_type="+info.user_type;
@@ -2489,13 +2528,13 @@ function displayBookingDetails(data)
      
      html+='<ons-list-header class="header">';
         html+='<ons-row>';
-        html+= getTrans( 'Detalhes','details' ) ;        
+        html+= getTrans( 'Details','details' ) ;        
         html+='</ons-row>';
      html+='</ons-list-header>';
      
-     html+=TPLorderRow( getTrans("Nº de Pessoas",'number_of_guest') , data.number_guest);
-     html+=TPLorderRow( getTrans("Data do Agendamento",'date_of_booking') , data.date_booking);
-     html+=TPLorderRow( getTrans("Hora",'time') , data.booking_time);
+     html+=TPLorderRow( getTrans("Number Of Guests",'number_of_guest') , data.number_guest);
+     html+=TPLorderRow( getTrans("Date Of Booking",'date_of_booking') , data.date_booking);
+     html+=TPLorderRow( getTrans("Time",'time') , data.booking_time);
                 
 	 createElement('booking-details',html);
 }
@@ -2506,9 +2545,9 @@ function bookingApproved()
 	 var options = {
       animation: 'none',
       onTransitionEnd: function() {        
-      	  $(".booking-form-title").html( getTrans("Agendamento Nº", 'booking_nos') +" "+ booking_id);    	 
-      	  $(".booking-btn").html( getTrans("Aceitar & Confirmar", 'accept_n_confirm') );      	  
-      	  $(".booking-notes").html( getTrans( "enviará uma confirmação de agendamento ao seu cliente",'booking_confirm_msg') );
+      	  $(".booking-form-title").html( getTrans("Booking #", 'booking_nos') +" "+ booking_id);    	 
+      	  $(".booking-btn").html( getTrans("Accept & Confirm", 'accept_n_confirm') );      	  
+      	  $(".booking-notes").html( getTrans( "will send a booking confirmation to your customer",'booking_confirm_msg') );
       	  
       	  $(".booking_id").val( booking_id );
       	  $(".status").val( 'approved' );
@@ -2523,9 +2562,9 @@ function bookingDenied()
 	var options = {
       animation: 'none',
       onTransitionEnd: function() {               
-      	  $(".booking-form-title").html( getTrans("Agendamento Nº", 'booking_nos') +" "+ booking_id);    	 
-      	  $(".booking-btn").html( getTrans("Recusar Agendamento", 'decline_booking') );      	  
-      	  $(".booking-notes").html( getTrans( "enviará um e-mail para o seu cliente",'booking_denied_msg') );
+      	  $(".booking-form-title").html( getTrans("Booking #", 'booking_nos') +" "+ booking_id);    	 
+      	  $(".booking-btn").html( getTrans("Decline Booking", 'decline_booking') );      	  
+      	  $(".booking-notes").html( getTrans( "will send an email to your customer",'booking_denied_msg') );
       	  $(".booking_id").val( booking_id );
       	  $(".status").val( 'denied' );
       } 
@@ -2703,8 +2742,8 @@ function assignDriver()
 	var options = {
       animation: 'none',
       onTransitionEnd: function() {       
-      	  $(".assign-driver-title").html( getTrans('Entregador Escolhido','assigned_driver') + 
-      	  " - " + getTrans('Pedido Nº','order_no') +":"+ $(".order_id").val() );
+      	  $(".assign-driver-title").html( getTrans('Assigned Driver','assigned_driver') + 
+      	  " - " + getTrans('Order No','order_no') +":"+ $(".order_id").val() );
       	  
       	  $(".task_id").val( $(".task_id").val() );
       } 
@@ -2733,7 +2772,7 @@ function showTeamList()
 function showDriverList()
 {
 	if ( $(".team_id").val()==""){
-		toastMsg( getTrans('Por favor selecione uma equipe','select_team')  );
+		toastMsg( getTrans('Please select a team','select_team')  );
 		return;
 	}
 	if (typeof driverListDialog === "undefined" || driverListDialog==null || driverListDialog=="" ) {
@@ -2832,7 +2871,7 @@ function viewLocationNew(lat, lng, address)
 	var options = {
       animation: 'none',
       onTransitionEnd: function() {
-      	  $(".map_title").html( getTrans("Localização",'location') );
+      	  $(".map_title").html( getTrans("Location",'location') );
       	  InitMap();
       } 
    };
@@ -2858,7 +2897,7 @@ function TrackOrder()
 	var options = {
       animation: 'none',
       onTransitionEnd: function() {
-      	  $(".map_title").html( getTrans("Rastrear Pedido",'track_order') );
+      	  $(".map_title").html( getTrans("Track Order",'track_order') );
       	  InitMap();
       } 
    };
@@ -2916,7 +2955,7 @@ function InitMap()
 	        	     map.addMarker({
 	        	     	 'position': location ,
 						  'title': getStorage("map_address") ,
-						 'snippet': getTrans( "Endereço da Entrega" ,'delivery_address'),
+						 'snippet': getTrans( "Delivery ddress" ,'delivery_address'),
 						  }, function(marker) {						  	
 						     marker.showInfoWindow();
 						     marker.setAnimation(plugin.google.maps.Animation.BOUNCE);
@@ -2965,14 +3004,14 @@ function InitMap()
 						 { 
 					        'title': getStorage("driver_location") ,
 					        'position': driver_location ,
-					        'snippet': getTrans( "Localização do Entregador" ,'driver_location'),
+					        'snippet': getTrans( "Driver Location" ,'driver_location'),
 					        'icon': {
 						       'url': getStorage("icon_driver")
 						    }
 					      },{ 
 					        'title': getStorage("map_address") ,   
 					        'position': location ,
-					        'snippet': getTrans( "Local da Entrega" ,'delivery_address'),
+					        'snippet': getTrans( "Delivery Address" ,'delivery_address'),
 					        'icon': {
 						       'url': getStorage("icon_location")
 						    }
@@ -3004,7 +3043,7 @@ function InitMap()
 	     	break;
 	     	
 	     	default:
-	     	 toastMsg(  getTrans("Acão indefinida no mapa",'undefined_map_action') );
+	     	 toastMsg(  getTrans("Undefined map action",'undefined_map_action') );
 	     	break;
 	     }
 	     	     
@@ -3046,7 +3085,7 @@ function loadBooking(done)
 	dump('pull');
 	
 	if ( !hasConnection() ){
-		notyAlert(  getTrans("CONEXÃO PERDIDA",'connection_lost'),'error' );
+		notyAlert(  getTrans("CONNECTION LOST",'connection_lost'),'error' );
 		done();
 		return;
 	}

@@ -930,13 +930,15 @@ background:#EC1414;
 
 .status.cancelled,
 .status.declined,
+.status.decline,
 .status.denied  
 {
 background:#e53935;
 }
 .status.successful,
 .status.paid,
-.status.approved 
+.status.approved,
+.status.delivered 
 {
 background:#2c9f2c;
 }
@@ -975,4 +977,40 @@ font-size:16px;
 margin:0;
 padding:0;
 font-weight:normal;
+}
+
+.page__background.page--getsettings__background
+{
+background:#EC1414;
+}
+
+.page__background.page--page-slidingmenu__background{
+background:rgba(0,0,0,0) !important;
+}
+
+.main-getsettings{
+margin: 40% auto auto;
+max-width: 70%;
+}
+
+.main-getsettings img{
+width:100%;
+height:auto;
+}
+
+.retry-language{
+display:none;
+}
+
+.icon-green{
+font-size:30px;
+}
+
+.auto-login-wrap{
+margin:40px 20px;
+margin-top:100px;
+font-family: 'Open Sans',sans-serif;
+text-align:center;
+font-size: 14px;
+display:none;
 }

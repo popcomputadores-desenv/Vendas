@@ -3,8 +3,8 @@
     xmlns:gap = "http://phonegap.com/ns/1.0"
     xmlns:android = "http://schemas.android.com/apk/res/android"
     id        		= "app.masterhub.venda"
-	versionCode   	= "0002"
-    version   		= "2.2.6">
+	versionCode   	= "0003"
+    version   = "2.0">
     <name>Vendas</name>
     <description>
         Aplicativo - Módulo Estabelecimentos para interação com o sistema Master Hub, Um MUNDO na palma da sua mão!
@@ -12,46 +12,36 @@
     <author email="robson@popcomputadores.com.br" href="http://popcomputadores.com.br">
         popcomputadores.com.br 
     </author> 
-            
+    <icon src="icon.png" />           
     <content src="index.html" />
-    <preference name="phonegap-version" value="cli-6.5.0" />       
+               
 	<preference name="orientation" value="portrait" />
-	<preference name="android-build-tool" value="gradle" />
-	<preference name="windows-appx-target" value="8.1-phone" />
-	<preference name="WindowsToastCapable" value="true" />   	
-
-	<gap:plugin name="cordova-plugin-whitelist" source="npm" spec="1.3.2" />
-    <gap:plugin name="phonegap-plugin-push" source="npm" spec="1.10.5" >
+	<preference name="android-build-tool" value="gradle" />	
+		
+	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
+    <gap:plugin name="phonegap-plugin-push" source="npm" spec="1.5.3" >
 	<param name="SENDER_ID" value="700766185398" />
     </gap:plugin>    
 	<gap:plugin name="onesignal-cordova-plugin" spec="^2.1.1" source="npm" />
-    <gap:plugin name="cordova-plugin-device" source="npm" spec="1.1.5" />
-	<gap:plugin name="cordova-plugin-inappbrowser" source="npm" spec="1.7.0" />
-	<gap:plugin name="cordova-plugin-splashscreen" source="npm" spec="4.0.2" />
-	<gap:plugin name="cordova-plugin-geolocation" source="npm" spec="2.4.2" />
-	<gap:plugin name="cordova-plugin-network-information" source="npm" spec="1.3.2" />
+    <gap:plugin name="cordova-plugin-device" source="npm" />		
+	<gap:plugin name="cordova-plugin-inappbrowser" source="npm"  />		
+	<gap:plugin name="cordova-plugin-splashscreen" source="npm" />	
+	<gap:plugin name="cordova-plugin-geolocation" source="npm" />
+	<gap:plugin name="cordova-plugin-network-information" source="npm" />
 
-	<gap:plugin name="cordova-plugin-x-toast" source="npm" spec="2.6.0" />	
-	<gap:plugin name="cordova-plugin-media" source="npm" spec="3.0.0" />	
-    <gap:plugin name="cordova-plugin-googlemaps"  source="npm"  spec="1.3.9" >
+	<gap:splash src="splash.png" />
+	<preference name="AutoHideSplashScreen" value="false" />  	
+    <preference name="SplashScreenDelay" value="10000" />  
+    <preference name="ShowSplashScreenSpinner" value="false" />	   
+    
+    <gap:plugin name="cordova-plugin-googlemaps"  source="npm" spec="1.3.9" >
 	   <param name="API_KEY_FOR_ANDROID" value="AIzaSyCjgZJOBT5K3Ms5ns20Q3lbopscSoGt3aI" />
 	   <param name="API_KEY_FOR_IOS" value="AIzaSyA25o715jyOs7AxFwYH11FfTPUjVR0DOMY" />
 	</gap:plugin>	
 	
-    <gap:plugin name="cordova-plugin-buildinfo" source="npm" spec="1.1.0"  />	 
-		
-    <gap:config-file platform="ios" target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
-        <string>My custom message for always using location.</string>
-    </gap:config-file>
-        
-    <gap:config-file platform="ios" target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
-        <string>My custom message for using location when in use.</string>
-    </gap:config-file>	
-			
-	<preference name="AutoHideSplashScreen" value="false" />  	
-    <preference name="SplashScreenDelay" value="8000" />    
-    <preference name="fullscreen" value="false" />
-    <preference name="android-minSdkVersion" value="16" />     
+	<gap:plugin name="cordova-plugin-media" source="npm" />
+	<gap:plugin name="cordova-plugin-x-toast" source="npm" />	
+	<gap:plugin name="cordova-plugin-buildinfo" source="npm" />	
 	
     <access origin="*" />
     <access origin="tel:*" launch-external="yes" />
@@ -61,9 +51,34 @@
         <application android:theme="@android:style/Theme.NoTitleBar" >            
         </application>
     </gap:config-file>    
+    
+    <platform name="android" /> 
+    
+    <gap:config-file platform="ios" target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
+        <string>MasterHub want to always use your location</string>
+    </gap:config-file>
+        
+    <gap:config-file platform="ios" target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+        <string>MasterHub wants to use your location</string>
+    </gap:config-file>	
 	    
-	<icon src="icon.png" />
-	
+	<platform name="android">
+	<icon gap:platform="android" gap:qualifier="ldpi" src="res/icons/android/icon-36-ldpi.png" />
+	<icon gap:platform="android" gap:qualifier="mdpi" src="res/icons/android/icon-48-mdpi.png" />
+	<icon gap:platform="android" gap:qualifier="hdpi" src="res/icons/android/icon-72-hdpi.png" />
+	<icon gap:platform="android" gap:qualifier="xhdpi" src="res/icons/android/icon-96-xhdpi.png" />
+	<icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icons/android/icon-144-xxhdpi.png" />
+	<icon gap:platform="android" gap:qualifier="xxxhdpi" src="res/icons/android/icon-192-xxxhdpi.png" />
+	<splash gap:platform="android" gap:qualifier="land-hdpi" src="res/screens/android/screen-hdpi-landscape.png" />
+	<splash gap:platform="android" gap:qualifier="land-ldpi" src="res/screens/android/screen-ldpi-landscape.png" />
+	<splash gap:platform="android" gap:qualifier="land-mdpi" src="res/screens/android/screen-mdpi-landscape.png" />
+	<splash gap:platform="android" gap:qualifier="land-xhdpi" src="res/screens/android/screen-xhdpi-landscape.png" />
+	<splash gap:platform="android" gap:qualifier="port-hdpi" src="res/screens/android/screen-hdpi-portrait.png" />
+	<splash gap:platform="android" gap:qualifier="port-ldpi" src="res/screens/android/screen-ldpi-portrait.png" />
+	<splash gap:platform="android" gap:qualifier="port-mdpi" src="res/screens/android/screen-mdpi-portrait.png" />
+	<splash gap:platform="android" gap:qualifier="port-xhdpi" src="res/screens/android/screen-xhdpi-portrait.png" />    
+	</platform>
+	<platform name="ios">
 	<icon gap:platform="ios" height="60" width="60" src="res/icons/ios/icon-60.png" />
 	<icon gap:platform="ios" height="120" width="120" src="res/icons/ios/icon-60-2x.png" />
 	<icon gap:platform="ios" height="180" width="180" src="res/icons/ios/icon-60-3x.png" />
@@ -79,16 +94,6 @@
 	<icon gap:platform="ios" height="58" width="58" src="res/icons/ios/icon-small-2x.png" />
 	<icon gap:platform="ios" height="50" width="50" src="res/icons/ios/icon-50.png" />
 	<icon gap:platform="ios" height="100" width="100" src="res/icons/ios/icon-50-2x.png" />
-	
-	<icon gap:platform="android" gap:qualifier="ldpi" src="res/icons/android/icon-36-ldpi.png" />
-	<icon gap:platform="android" gap:qualifier="mdpi" src="res/icons/android/icon-48-mdpi.png" />
-	<icon gap:platform="android" gap:qualifier="hdpi" src="res/icons/android/icon-72-hdpi.png" />
-	<icon gap:platform="android" gap:qualifier="xhdpi" src="res/icons/android/icon-96-xhdpi.png" />
-	<icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icons/android/icon-144-xxhdpi.png" />
-	<icon gap:platform="android" gap:qualifier="xxxhdpi" src="res/icons/android/icon-192-xxxhdpi.png" />
-	
-	<splash src="splash.png" />
-	
 	<splash gap:platform="ios" height="480" width="320" src="res/screens/ios/screen-iphone-portrait.png" />
 	<splash gap:platform="ios" height="960" width="640" src="res/screens/ios/screen-iphone-portrait-2x.png" />
 	<splash gap:platform="ios" height="1024" width="768" src="res/screens/ios/screen-ipad-portrait.png" />
@@ -99,14 +104,6 @@
 	<splash gap:platform="ios" height="1334" width="750" src="res/screens/ios/screen-iphone-portrait-667h.png" />
 	<splash gap:platform="ios" height="2208" width="1242" src="res/screens/ios/screen-iphone-portrait-736h.png" />
 	<splash gap:platform="ios" height="1242" width="2208" src="res/screens/ios/screen-iphone-landscape-736h.png" />
-	
-	<splash gap:platform="android" gap:qualifier="land-hdpi" src="res/screens/android/screen-hdpi-landscape.png" />
-	<splash gap:platform="android" gap:qualifier="land-ldpi" src="res/screens/android/screen-ldpi-landscape.png" />
-	<splash gap:platform="android" gap:qualifier="land-mdpi" src="res/screens/android/screen-mdpi-landscape.png" />
-	<splash gap:platform="android" gap:qualifier="land-xhdpi" src="res/screens/android/screen-xhdpi-landscape.png" />
-	<splash gap:platform="android" gap:qualifier="port-hdpi" src="res/screens/android/screen-hdpi-portrait.png" />
-	<splash gap:platform="android" gap:qualifier="port-ldpi" src="res/screens/android/screen-ldpi-portrait.png" />
-	<splash gap:platform="android" gap:qualifier="port-mdpi" src="res/screens/android/screen-mdpi-portrait.png" />
-	<splash gap:platform="android" gap:qualifier="port-xhdpi" src="res/screens/android/screen-xhdpi-portrait.png" />    
+	</platform>    
     
 </widget>
