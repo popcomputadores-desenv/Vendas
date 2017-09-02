@@ -4,7 +4,7 @@
     xmlns:android = "http://schemas.android.com/apk/res/android"
     id        		= "app.masterhub.venda"
 	versionCode   	= "0003"
-    version   = "2.0">
+    version   = "2.2.6">
     <name>Vendas</name>
     <description>
         Aplicativo - Módulo Estabelecimentos para interação com o sistema Master Hub, Um MUNDO na palma da sua mão!
@@ -34,7 +34,7 @@
     <preference name="SplashScreenDelay" value="10000" />  
     <preference name="ShowSplashScreenSpinner" value="false" />	   
     
-    <gap:plugin name="cordova-plugin-googlemaps"  source="npm" spec="1.3.9" >
+    <gap:plugin name="cordova-plugin-googlemaps"  source="npm" >
 	   <param name="API_KEY_FOR_ANDROID" value="AIzaSyCjgZJOBT5K3Ms5ns20Q3lbopscSoGt3aI" />
 	   <param name="API_KEY_FOR_IOS" value="AIzaSyA25o715jyOs7AxFwYH11FfTPUjVR0DOMY" />
 	</gap:plugin>	
