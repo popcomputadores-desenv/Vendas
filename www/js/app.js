@@ -226,7 +226,7 @@ ons.ready(function() {
 	removeStorage("mt_default_lang");*/
 	
 	if (isDebug()){	    
-	   setStorage("merchant_device_id","device_555");
+	   setStorage("merchant_device_id","dispositivo_web");
 	   setTimeout('getLanguageSettings()', 500);
 	}				
 	
@@ -362,7 +362,7 @@ document.addEventListener("pageinit", function(e) {
 	   
 	    $(".device_id_val").html( getStorage("merchant_device_id") );
 	    if (isDebug()){
-	    	$(".software_version_text").html( "1.0" );
+	    	$(".software_version_text").html( "2.0 - Debug" );
 	    } else {
 	    	$(".software_version_text").html( BuildInfo.version );
 	    }
