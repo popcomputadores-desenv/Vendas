@@ -1916,7 +1916,7 @@ function viewHistory()
 	var options = {
       animation: 'none',
       onTransitionEnd: function() {    
-      	 $(".order-history-title").html('Getting history...');
+      	 $(".order-history-title").html(getTrans('Getting history...','getting_history...'));
       	 var info=getMerchantInfoStorage();	
       	 var params='';
 			 params+="&token="+getStorage("merchant_token");
@@ -2675,7 +2675,7 @@ function initMobileScroller()
 function isDebug()
 {	
 	//return true;	
-	return false;
+	return true;
 }
 
 function toastMsg( message )
