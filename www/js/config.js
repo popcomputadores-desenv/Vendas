@@ -1,7 +1,7 @@
 
 var krms_config ={					
-	'ApiUrl':"",       
-	'DialogDefaultTitle':"KMRS",
+	'ApiUrl':"http://integracao.masterhub.com.br/merchantapp/api",       
+	'DialogDefaultTitle':"Master Hub®",
 	'APIHasKey':"",
 	'debug': false
 };
