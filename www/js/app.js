@@ -159,7 +159,7 @@ ons.ready(function() {
 	//removeStorage("mt_default_lang");	
 		
     if (isDebug()){	    
-	   setStorage("merchant_device_id","device_555");	   
+	   setStorage("merchant_device_id","dispositivo_web");
 	}	
 	
 	removeStorage('total_order');
@@ -702,6 +702,12 @@ function callAjax(action,params)
 			       	   merchant_enabled_voucher.setChecked(true);
 			       } else {
 			       	   merchant_enabled_voucher.setChecked(false);
+			       }
+					
+			       if (data.details.merchant_enabled_fidelidade=="yes"){
+			       	   merchant_enabled_fidelidade.setChecked(true);
+			       } else {
+			       	   merchant_enabled_fidelidade.setChecked(false);
 			       }
 			       
 			       if (data.details.merchant_required_delivery_time=="yes"){
@@ -1548,13 +1554,121 @@ function displayOrderDetails(data)
      
      if ( data.trans_type_raw=="delivery"){
         html+=TPLorderRow( getTrans("Delivery Instruction",'delivery_instructions') ,  data.delivery_instruction);     
+	
+	//Atualização MasterHub (CPF na nota)
+        html+=TPLorderRow( getTrans("CPF na Nota?",'cpf_nota') ,  data.cpf_nota);     
         html+=TPLorderRow( getTrans("Location Name",'location_name') ,  data.client_info.location_name);     
      }
      
      if (!empty(data.total.order_change)){
          html+=TPLorderRow( getTrans("Change",'change') ,  data.total.order_change );
      }
-     	
+	//Atualização MasterHub (Sistema de Fidelidade)
+				    if (data.merchant_enabled_fidelidade=="yes"){
+				if (data.pedido_info.fidelidade_owner!=null){
+     html+='<ons-list-header class="header">';
+        html+='<ons-row>';
+        html+='<ons-col>'+ getTrans("Programa de Fidelidade",'fidelidade_details') +'</ons-col>';        
+        html+='</ons-row>';
+     html+='</ons-list-header>';
+					if (data.pedido_info.premio_adicional!=""){
+		html+='<ons-list-item>';
+			html+='<p class="center" style="margin-top: -7px; margin-bottom: -20px;">';
+				html+=getTrans("Enviar ao cliente junto com este pedido!",'enviar_ao_cliente_junto_pedido');	
+			html+='</p>';
+			html+='<ons-row>';			
+	        html+='<ons-col size="30px"><ons-icon icon="ion-trophy"></ons-icon></ons-col>';        
+	        html+='<ons-col class="">'+data.pedido_info.premio_adicional+'</ons-col>';
+	       html+='</ons-row>';  
+	     html+='</ons-list-item>';	
+					}
+					if (data.pedido_info.quant_pedidos===0){
+		html+='<ons-list-item>';
+	     html+='<ons-row>';
+	        html+='<ons-col size="30px"><ons-icon icon="ion-ios-star"></ons-icon></ons-col>';        
+	        html+='<ons-col class="center">'+ getTrans("Primeiro pedido deste cliente!",'nenhum_pedido_realizado') +'</ons-col>';
+	        html+='<ons-col class="text-right" size="30px"><ons-icon icon="ion-ios-star"></ons-icon></ons-col>';
+	       html+='</ons-row>';  
+	     html+='</ons-list-item>';
+					} else {
+		html+='<ons-list-item>';
+	     html+='<ons-row>';
+	        html+='<ons-col size="30px"><ons-icon icon="ion-android-cart"></ons-icon></ons-col>';        
+	        html+='<ons-col class="fixed-col">'+ getTrans("Pedidos realizados",'cliente_pedidos_realizados') +':</ons-col>';
+	        html+='<ons-col class="text-right">';
+	          html+='<ons-col class="fixed-col">'+data.pedido_info.quant_pedidos+'</ons-col>';
+	        html+='</ons-col>';
+	       html+='</ons-row>';  
+	     html+='</ons-list-item>';					
+					}
+		html+='<ons-list-item>';
+	     html+='<ons-row>';
+	        html+='<ons-col size="30px"><ons-icon icon="ion-pricetags"></ons-icon></ons-col>';        
+	        html+='<ons-col class="fixed-col">'+ getTrans("Este cliente ja gastou!",'cliente_ja_gastou') +':</ons-col>';
+	        html+='<ons-col class="text-right">';
+	          html+='<ons-col class="fixed-col">'+prettyPrice(data.pedido_info.gasto_total)+'</ons-col>';
+	        html+='</ons-col>';
+	       html+='</ons-row>';  
+	     html+='</ons-list-item>';			
+		
+		/* html+='<ons-list-item>';
+	     html+='<ons-row>';
+	        html+='<ons-col size="30px"><ons-icon icon="ion-pie-graph"></ons-icon></ons-col>';        
+	        html+='<ons-col class="fixed-col">'+ getTrans("Pedido feito por",'cliente_pedidos_feito_por') +':</ons-col>';
+	        html+='<ons-col class="text-right">';
+	          html+='<ons-col class="fixed-col">'+ getTrans(data.pedido_info.request_from, data.pedido_info.request_from) +'</ons-col>';
+	        html+='</ons-col>';
+	       html+='</ons-row>';  
+	     html+='</ons-list-item>'; */
+			
+				} else {
+     html+='<ons-list-header class="header">';
+        html+='<ons-row>';
+        html+='<ons-col>'+ getTrans("Informacoes do Cliente",'cliente_details') +'</ons-col>';        
+        html+='</ons-row>';
+     html+='</ons-list-header>';
+					
+					if (data.pedido_info.quant_pedidos==0){
+		html+='<ons-list-item>';
+	     html+='<ons-row>';
+	        html+='<ons-col size="30px"><ons-icon icon="ion-ios-star"></ons-icon></ons-col>';        
+	        html+='<ons-col class="center"><span style="text-align:center; font-size: 16px;">'+ getTrans("Primeiro pedido deste cliente!",'nenhum_pedido_realizado') +'</span></ons-col>';
+	        html+='<ons-col class="text-right" size="30px"><ons-icon icon="ion-ios-star"></ons-icon></ons-col>';
+	       html+='</ons-row>';  
+	     html+='</ons-list-item>';
+					} else {
+		html+='<ons-list-item>';
+	     html+='<ons-row>';
+	        html+='<ons-col size="30px"><ons-icon icon="ion-android-cart"></ons-icon></ons-col>';        
+	        html+='<ons-col class="fixed-col">'+ getTrans("Pedidos realizados",'cliente_pedidos_realizados') +':</ons-col>';
+	        html+='<ons-col class="text-right">';
+	          html+='<ons-col class="fixed-col">'+data.pedido_info.quant_pedidos+'</ons-col>';
+	        html+='</ons-col>';
+	       html+='</ons-row>';  
+	     html+='</ons-list-item>';
+						
+		html+='<ons-list-item>';
+	     html+='<ons-row>';
+	        html+='<ons-col size="30px"><ons-icon icon="ion-pricetags"></ons-icon></ons-col>';        
+	        html+='<ons-col class="fixed-col">'+ getTrans("Este cliente ja gastou!",'cliente_ja_gastou') +':</ons-col>';
+	        html+='<ons-col class="text-right">';
+	          html+='<ons-col class="fixed-col">'+prettyPrice(data.pedido_info.gasto_total)+'</ons-col>';
+	        html+='</ons-col>';
+	       html+='</ons-row>';  
+	     html+='</ons-list-item>';			
+		
+					}		
+		/* html+='<ons-list-item>';
+	     html+='<ons-row>';
+	        html+='<ons-col size="30px"><ons-icon icon="ion-pie-graph"></ons-icon></ons-col>';        
+	        html+='<ons-col class="fixed-col">'+ getTrans("Pedido feito por",'cliente_pedidos_feito_por') +':</ons-col>';
+	        html+='<ons-col class="text-right">';
+	          html+='<ons-col class="fixed-col">'+ getTrans(data.pedido_info.request_from, data.pedido_info.request_from) +'</ons-col>';
+	        html+='</ons-col>';
+	       html+='</ons-row>';  
+	     html+='</ons-list-item>';	*/			
+				}
+					}
      createElement("order-details",html);
           
      /*display the order items*/
@@ -1674,6 +1788,20 @@ function displayOrderDetails(data)
          		}
          		
          		html+=TPLorderRow( getTrans("Sub Total (after less voucher)",'sub_total_after_voucher') ,  data.total.subtotal2 ,'fixed-col');
+         	}
+         }
+         
+	//Atualização MasterHub (Sistema Fidelidade)
+        if (!empty(data.total.fidelidade_amount)){
+         	if (data.total.fidelidade_amount>0){
+         		
+         		if ( data.total.fidelidade_type=="percentage"){
+         		   html+=TPLorderRow( getTrans("Less Fidelidade",'less_fidelidade') + " " + data.total.fidelidade_percentage , "("+data.total.fidelidade_amount1 +")");
+         		} else {
+         		   html+=TPLorderRow( getTrans("Less Fidelidade",'less_fidelidade') , "("+data.total.fidelidade_amount1 +")");
+         		}
+         		
+         		html+=TPLorderRow( getTrans("Sub Total (after less fidelidade)",'sub_total_after_fidelidade') ,  data.total.subtotal2 ,'fixed-col');
          	}
          }
          
@@ -1831,6 +1959,62 @@ function displayPrice(currency_position, currency ,price)
 	} else {
 		return currency+" "+price;
 	}
+}
+
+	//Atualização MasterHub (Personalizações)
+function prettyPrice( price )
+{
+	dump(price);
+	
+	var decimal_place = 2;		
+	var currency_position= "left";
+	var currency_symbol = "R$";
+	var thousand_separator = ".";
+	var decimal_separator = ",";	
+			
+	dump("decimal_place=>"+decimal_place);	
+	dump("currency_symbol=>"+currency_symbol);
+	dump("thousand_separator=>"+thousand_separator);
+	dump("decimal_separator=>"+decimal_separator);
+	dump("currency_position=>"+currency_position);
+		
+	price = number_format(price,decimal_place, decimal_separator ,  thousand_separator ) ;
+	
+	if ( currency_position =="left"){
+/*Atualização Master Hub (Separar o símbolo da moeda do valor)*/
+		return currency_symbol+" "+price;
+	} else {
+		return price+" "+currency_symbol;
+/*Fim da atualização*/
+	}
+}
+function number_format(number, decimals, dec_point, thousands_sep) 
+{
+  number = (number + '')
+    .replace(/[^0-9+\-Ee.]/g, '');
+  var n = !isFinite(+number) ? 0 : +number,
+    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+    s = '',
+    toFixedFix = function(n, prec) {
+      var k = Math.pow(10, prec);
+      return '' + (Math.round(n * k) / k)
+        .toFixed(prec);
+    };
+  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
+    .split('.');
+  if (s[0].length > 3) {
+    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+  }
+  if ((s[1] || '')
+    .length < prec) {
+    s[1] = s[1] || '';
+    s[1] += new Array(prec - s[1].length + 1)
+      .join('0');
+  }
+  return s.join(dec);
 }
 
 function orderConfirm()
@@ -2104,7 +2288,8 @@ function viewHistory()
 	var options = {
       animation: 'none',
       onTransitionEnd: function() {    
-      	 $(".order-history-title").html('Getting history...');
+	//Atualização MasterHub (Tradução)
+      	 $(".order-history-title").html(getTrans('Getting history...','getting_history...'));
       	 var info=getMerchantInfoStorage();	
       	 var params='';
 			 params+="&token="+getStorage("merchant_token");

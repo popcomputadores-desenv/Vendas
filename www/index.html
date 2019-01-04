@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="lib/animate.css">
 
 <script src="lib/mobiscroll/js/mobiscroll.core.js"></script>
+<script src="lib/mobiscroll/js/i18n/mobiscroll.i18n.pt-BR.js"></script>
 <script src="lib/mobiscroll/js/mobiscroll.frame.js"></script>
 <script src="lib/mobiscroll/js/mobiscroll.scroller.js"></script>
 <script src="lib/mobiscroll/js/mobiscroll.util.datetime.js"></script>
@@ -263,11 +264,11 @@
    <ons-pull-hook on-action="load(done);" var="loader">
     <span ng-switch="loader.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim trn"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualiza��o</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
              
@@ -285,11 +286,11 @@
    <ons-pull-hook on-action="load(done);" var="loader">
     <span ng-switch="loader.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualiza��o</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
              
@@ -308,11 +309,11 @@
    <ons-pull-hook on-action="load(done);" var="loader">
     <span ng-switch="loader.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualiza��o</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
              
@@ -334,7 +335,7 @@
     
     <div class="right">
        <ons-toolbar-button onclick="viewHistory();"><ons-icon icon="ion-ios-help"></ons-icon></ons-toolbar-button>
-       <ons-toolbar-button onclick="print();"><ons-icon icon="ion-ios-printer-outline"></ons-icon></ons-toolbar-button>
+      <!-- <ons-toolbar-button onclick="print();"><ons-icon icon="ion-ios-printer-outline"></ons-icon></ons-toolbar-button> -->
     </div>
     
    </ons-toolbar>
@@ -630,6 +631,16 @@
         </ons-list-item>
       
       </ons-list>
+	  
+      <div class="settings-header trn" data-trn-key="fidelidade_program">Programa de Fidelidade</div>
+      <ons-list modifier="inset" class="settings-list">        
+      
+		<ons-list-item >
+          <span class="trn" data-trn-key="enabled_fidelidade">Enabled Fidelidade</span>
+          <ons-switch modifier="list-item" var="merchant_enabled_fidelidade" name="merchant_enabled_fidelidade" id="merchant_enabled_fidelidade" ></ons-switch>
+        </ons-list-item>
+     
+      </ons-list>
       
       <div class="settings-header trn" data-trn-key="tips">Tips</div>
       <ons-list modifier="inset" class="settings-list">        
@@ -869,11 +880,11 @@
   <ons-pull-hook on-action="pullNotification(done);" var="loaderNotification">
     <span ng-switch="loaderNotification.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim trn"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualiza��o</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
   
@@ -992,11 +1003,11 @@
    <ons-pull-hook on-action="loadTable(done);" var="loaderTable">
     <span ng-switch="loaderTable.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim trn"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
              
@@ -1014,11 +1025,11 @@
    <ons-pull-hook on-action="loadTable(done);" var="loaderTable">
     <span ng-switch="loaderTable.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim trn"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim trn" data-trn-key="loading_data">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
   
@@ -1208,11 +1219,11 @@
    <ons-pull-hook on-action="loadBooking(done);" var="loader">
     <span ng-switch="loader.getCurrentState()">
     <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
-    </ons-icon><span class="small-font-dim"> Pull down to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
     <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
-    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
     <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
-    </ons-icon> <span class="small-font-dim">Loading data...</span></span>
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
     </span>
   </ons-pull-hook>
              
