@@ -26,6 +26,7 @@
     <preference name="android-minSdkVersion" value="19" />
     <preference name="android-targetSdkVersion" value="26" />
     <preference name="phonegap-version" value="cli-7.1.0" /> 
+    <preference name="StatusBarBackgroundColor" value="#dc143c" />
 		
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
     <gap:plugin name="phonegap-plugin-push" source="npm" spec="2.1.2"  />   
@@ -34,6 +35,7 @@
 	<gap:plugin name="cordova-plugin-splashscreen" source="npm" />	
 	<gap:plugin name="cordova-plugin-geolocation" source="npm" />
 	<gap:plugin name="cordova-plugin-network-information" source="npm" />
+	<gap:plugin name="cordova-plugin-statusbar" source="npm" />
 	
 	<gap:plugin name="cordova-plugin-media" source="npm" spec="5.0.2" />
 	<gap:plugin name="cordova-plugin-x-toast" source="npm" spec="2.7.0" />  
