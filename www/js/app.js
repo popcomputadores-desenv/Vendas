@@ -446,6 +446,7 @@ document.addEventListener("pageinit", function(e) {
 	   break; 
 	   
 	   case "page_cancel_order":
+			translatePage();
 	     $(".tab-active-page").html( getTrans('Cancel Orders','cancel_orders') );
 	     loadCancelOrder();
 	   break; 
@@ -1287,7 +1288,7 @@ function displayOrders(data,div_id)
 		var icons2=icon.classname;
 								
 		htm+='<ons-col class="stic-row-pad">';
-		   htm+='<p class="margin2 small-font-dim small-font-dim-smaller red mybold stic-order">'+'Order #'+val.order_id+'</b></p>';
+		   htm+='<p class="margin2 small-font-dim small-font-dim-smaller red mybold stic-order">'+ getTrans('Order No','order_#')+' '+val.order_id+'</b></p>';
 		   htm+='<p class="margin2 nospacing uppercase small-font-dim small-font-dim-smaller concat-text bold stic-name">'+val.customer_name+'</p>';
 		   htm+='<p class="margin2 small-font-dim small-font-dim-smaller stic-date">'+val.delivery_date+'</p>';
 		   htm+='<p class="status line15 margin2 '+ val.status_raw +' ">';

@@ -1,0 +1,1295 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="lib/onsen/css/onsenui.css">
+<link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css">
+
+<link rel="stylesheet" href="css/app.css?ver=1.0">
+<link href="lib/mobiscroll/css/mobiscroll.frame.css" rel="stylesheet" type="text/css" />
+<link href="lib/mobiscroll/css/mobiscroll.frame.android.css" rel="stylesheet" type="text/css" />
+<link href="lib/mobiscroll/css/mobiscroll.frame.android-holo.css" rel="stylesheet" type="text/css" />
+<link href="lib/mobiscroll/css/mobiscroll.frame.ios-classic.css" rel="stylesheet" type="text/css" />
+<link href="lib/mobiscroll/css/mobiscroll.frame.ios.css" rel="stylesheet" type="text/css" />
+<link href="lib/mobiscroll/css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
+<link href="lib/mobiscroll/css/mobiscroll.scroller.android.css" rel="stylesheet" type="text/css" />
+<link href="lib/mobiscroll/css/mobiscroll.scroller.android-holo.css" rel="stylesheet" type="text/css" />
+<link href="lib/mobiscroll/css/mobiscroll.scroller.ios-classic.css" rel="stylesheet" type="text/css" />
+<link href="lib/mobiscroll/css/mobiscroll.scroller.ios.css" rel="stylesheet" type="text/css" />
+<link href="lib/mobiscroll/css/mobiscroll.android-holo-light.css" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> 
+
+<script src="lib/angular/angular.js"></script>
+<script src="lib/onsen/js/onsenui.js"></script>
+<script src="lib/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+
+<script src="lib/jquery.form-validator.min.js"></script>
+<script src="lib/noty-2.3.7/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+<link rel="stylesheet" href="lib/animate.css">
+
+<script src="lib/mobiscroll/js/mobiscroll.core.js"></script>
+<script src="lib/mobiscroll/js/i18n/mobiscroll.i18n.pt-BR.js"></script>
+<script src="lib/mobiscroll/js/mobiscroll.frame.js"></script>
+<script src="lib/mobiscroll/js/mobiscroll.scroller.js"></script>
+<script src="lib/mobiscroll/js/mobiscroll.util.datetime.js"></script>
+<script src="lib/mobiscroll/js/mobiscroll.datetimebase.js"></script>
+<script src="lib/mobiscroll/js/mobiscroll.datetime.js"></script>
+<script src="lib/mobiscroll/js/mobiscroll.frame.android-holo.js"></script>
+
+<script src="lib/jquery.translate.js"></script>
+
+<script src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCjgZJOBT5K3Ms5ns20Q3lbopscSoGt3aI"></script>
+<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+
+<script src="lib/leaflet/leaflet.js"></script>
+<link href="lib/leaflet/leaflet.css" rel="stylesheet" type="text/css" />
+
+<script src="lib/gmaps.js?version=1.0.0"></script>
+
+<script src="js/config.js?ver=1.0"></script>
+<script src="js/googlemap.js?ver=1.0"></script>
+<script src="js/km_mapbox.js?ver=1.0"></script>
+<script src="js/app.js?ver=1.0"></script>
+</head>
+<body>
+
+<ons-modal var="kloader">
+  <div class="myloader"></div>
+</ons-modal>
+
+<ons-navigator id="kSettingsNavigator" page="pageGetSettings.html" var="kNavigator" >
+</ons-navigator> 
+
+<script type="text/ons-template" id="pageGetSettings.html">
+  <ons-page modifier="getsettings" id="page-getsettings">
+
+   <div class="main-getsettings center">
+     <img src="css/images/banner.png" alt="" title="">
+     <div class="retry-language center">
+           <button class="button button--quiet green" onclick="getLanguageSettings();">	       
+	         <ons-icon icon="ion-android-refresh" size="30px"></ons-icon>
+	       </button>       
+     </div>
+   </div> 
+  
+  </ons-page>
+</script>
+
+<script type="text/ons-template" id="pageLogin.html">    
+<ons-page id="page-login" modifier="back" on-device-backbutton="closeApp()" >
+  
+  <ons-toolbar> 	
+     
+  </ons-toolbar>
+   
+  <div class="center home-header">
+      <img src="css/images/banner.png" alt="" title="">
+   </div> 
+   
+   <form id="frm-login" class="frm-login box" method="post">       
+   
+   <h4 class="normal white center trn" data-trn-key="login">Log In</h4>
+         
+   <div class="wrapper">
+      <div class="field-wrapper search bborder margins nmtop" style="box-shadow: none;">
+      <input type="text" name="username"  class="text-input center noborder text-input--underbar has_validation" 
+      placeholder="Username" value="" data-validation="required" data-validation-error-msg="this field is mandatory!" data-trn-key="username" >
+      </div>
+
+      <div class="field-wrapper search bborder" style="box-shadow: none;">
+      <input type="password" name="password"  class="password center noborder text-input text-input--underbar has_validation" 
+      placeholder="Password" value="" data-validation="required" data-validation-error-msg="this field is mandatory!" data-trn-key="password"  >
+      </div>                    
+   </div>
+   
+   <div class="wrapper">
+	   <button class="button green-btn button--large trn" onclick="login();" data-trn-key="login">
+		Log in		
+	   </button>
+   </div>
+   
+   <div class="wrapper center">                  
+      <button class="trn button uppercase button--quiet ajdst white" onclick="showForgotPass();" data-trn-key="forgot_your_pass">
+       Forgot your password?
+       </button>                   
+   </div>    
+   </form>
+
+   <div class="auto-login-wrap">       
+       <p>
+       <span class="white trn" data-trn-key="login_in" >Logging in ...</span>
+       </p>
+   </div>  
+         
+  
+</ons-page>
+</script>
+
+<script type="text/ons-template" id="forgotPassword.html">    
+  <ons-dialog var="dialogForgotPass" style="width:90%;height:260px;" cancelable  >
+
+  <ons-page id="page-forgotpass" >  
+	  <ons-toolbar> 
+	      <div class="center white trn" data-trn-key="forgot_pass">Forgot Password</div>  	      	      
+	  </ons-toolbar>
+	  
+	  <form id="frm-forgotpass" class="frm-forgotpass" method="post">   
+      <div class="wrapper">
+      
+      <p class="center small-font-dim trn" data-trn-key="forgot_pass_message">
+      Enter your email address you registered<br/>with and we will send you
+      <br/>a unique verification code.
+      </p>
+      
+          <div class="field-wrapper">
+          <input type="text" name="email_address"  class="stic-rgba email_address text-input text-input--underbar has_validation" 
+           placeholder="Email address" value="" data-validation="required" data-validation-error-msg="this field is mandatory!" >
+          </div>
+      </div>      
+      
+      <div class="wrapper center">
+      <button class="trn button green-btn" onclick="forgotPassword();" data-trn-key="reset_password">
+	  Reset Password	  
+	  </button>
+	  </div>
+	  </form>
+	    
+  </ons-page>
+  </ons-dialog> 
+</script>
+
+<script type="text/ons-template" id="slidemenu.html">
+<ons-page id="page-slidemenu" >
+<ons-sliding-menu main-page="home.html" menu-page="menu.html" side="left" var="menu" close-on-tap type="push" >
+</ons-sliding-menu>
+</ons-page>
+</script>
+
+
+<script type="text/ons-template" id="menu.html">
+  <ons-page modifier="menu-page">
+  <ons-list class="main-menu-list">
+    <ons-list-item onclick="setHome();" class="bottom-menu-item" >
+      <ons-icon icon="ion-android-home" class="red"></ons-icon>
+      <span class="trn" data-trn-key="home">Home</span>
+    </ons-list-item>
+        
+    <ons-list-item onclick="menu.setMainPage('bookingHome.html', {closeMenu: true})" class="bottom-menu-item">
+      <ons-icon icon="ion-android-restaurant" class="red" ></ons-icon> 
+      <span class="trn" data-trn-key="booking_table">Booking Table</span>
+    </ons-list-item>     
+
+    <ons-list-item onclick="menu.setMainPage('cancel_order.html', {closeMenu: true})" class="bottom-menu-item">
+      <ons-icon icon="ion-android-cancel" class="red" ></ons-icon> 
+      <span class="trn" data-trn-key="cancel_orders">Cancel Order</span>
+    </ons-list-item>    
+    
+    <ons-list-item onclick="menu.setMainPage('settings.html', {closeMenu: true})" class="bottom-menu-item">
+      <ons-icon icon="ion-android-settings" class="red" ></ons-icon> 
+      <span class="trn" data-trn-key="settings">Settings</span>
+    </ons-list-item>    
+    
+    <ons-list-item onclick="menu.setMainPage('profile.html', {closeMenu: true})" class="bottom-menu-item">
+      <ons-icon icon="ion-android-contact" class="red" ></ons-icon> 
+      <span class="trn" data-trn-key="profile">Profile</span>
+    </ons-list-item>    
+    
+    <ons-list-item onclick="logout();" class="bottom-menu-item">
+      <ons-icon icon="ion-log-out" class="red" ></ons-icon> 
+      <span class="trn" data-trn-key="logout">Logout</span>
+    </ons-list-item>    
+            
+  </ons-list>
+  </ons-page> 
+</script>
+
+<script type="text/ons-template" id="home.html">
+  <ons-page id="page-home" on-device-backbutton="closeApp()" sliding-menu-ignore="true" >
+
+    <input type="hidden" name="tab-action" id="tab-action" class="tab-action" value="GetTodaysOrder">
+    <input type="hidden" name="display-div" id="display-div" class="display-div" value="new-orders">
+       
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button ng-click="menu.toggleMenu()"><ons-icon icon="ion-android-menu"></ons-icon></ons-toolbar-button>
+      </div>              
+      
+      <div class="center white">
+      <span id="search-text" class="trn tab-active-page" data-trn-key="new_order">New Orders</span>
+      </div>      
+      
+     <div class="right no-float">      
+     
+     <ons-toolbar-button onclick="showNotificationPage()" ><ons-icon icon="ion-android-notifications">
+     </ons-icon></ons-toolbar-button>
+     
+     </div> 
+                  
+    </ons-toolbar> 
+    
+    <ons-tabbar position="top" var="tabbar" class="main-home-tab stic-white">
+    <ons-tab page="ordersToday.html"active="true" class="tabs">
+			<p class="trn concat-text uppercase">Today</p>
+    </ons-tab>
+    
+    <ons-tab page="pendingOrders.html" class="tabs">
+	 		<p class="trn concat-text uppercase">Pending</p>
+    </ons-tab>    
+    
+    <ons-tab page="allOrders.html" class="tabs">
+	 		<p class="trn concat-text uppercase">All Orders</p>
+    </ons-tab>    
+   </ons-tabbar>
+
+   <div class="searchposition">
+      <button class="fixedsearch" onclick="showSearchPopUp();">
+        <ons-icon icon="ion-android-search"></ons-icon>
+      </button>
+   </div>
+        
+  </ons-page>
+</script>
+
+
+<script type="text/ons-template" id="ordersToday.html">
+  <ons-page id="page-orderstoday">
+  
+   <ons-pull-hook on-action="load(done);" var="loader">
+    <span ng-switch="loader.getCurrentState()">
+    <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
+    <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
+    <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
+    </span>
+  </ons-pull-hook>
+             
+      <ons-scroller>
+        <ons-list id="new-orders" class="new-orders stic-white top15">                  
+        </ons-list>
+    </ons-scroller>
+    
+  </ons-page>
+</script>
+
+<script type="text/ons-template" id="pendingOrders.html">
+  <ons-page id="page-pendingorders">
+  
+   <ons-pull-hook on-action="load(done);" var="loader">
+    <span ng-switch="loader.getCurrentState()">
+    <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
+    <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
+    <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
+    </span>
+  </ons-pull-hook>
+             
+    <ons-scroller>
+      <ons-list id="pending-orders" class="pending-orders stic-white top15"  >            
+      </ons-list>
+    </ons-scroller>
+    
+  </ons-page>
+</script>
+
+
+<script type="text/ons-template" id="allOrders.html">
+  <ons-page id="page-allorders">
+  
+   <ons-pull-hook on-action="load(done);" var="loader">
+    <span ng-switch="loader.getCurrentState()">
+    <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
+    <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
+    <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
+    </span>
+  </ons-pull-hook>
+             
+    <ons-scroller>
+      <ons-list id="allorders-orders" class="allorders-orders stic-white top15"> 
+      </ons-list>
+    </ons-scroller>
+    
+  </ons-page>
+</script>
+
+<script type="text/ons-template" id="displayOrder.html">    
+<ons-page id="page-displayOrder" >
+   <ons-toolbar>          
+    <div class="left"><ons-back-button onclick="OrderRefresh();"></ons-back-button></div> 
+    <div class="center white" id="order-details-page-title">      
+    </div>   
+    
+    <div class="right">
+       <ons-toolbar-button onclick="viewHistory();"><ons-icon icon="ion-ios-help"></ons-icon></ons-toolbar-button>
+      <!-- <ons-toolbar-button onclick="print();"><ons-icon icon="ion-ios-printer-outline"></ons-icon></ons-toolbar-button> -->
+    </div>
+    
+   </ons-toolbar>
+   
+   <input type="hidden" name="order_id" id="order_id" class="order_id">
+   <input type="hidden" name="trans_type" id="trans_type" class="trans_type">
+   <input type="hidden" name="task_id" id="task_id" class="task_id">
+   <input type="hidden" name="assign_driver_label" id="assign_driver_label" >
+   
+   
+   <input type="hidden" name="task_lat" id="task_lat" class="task_lat" >
+   <input type="hidden" name="task_lng" id="task_lng" class="task_lng" >
+   <input type="hidden" name="task_address" id="task_address" class="task_address" >
+   
+   <input type="hidden" name="driver_lat" id="driver_lat" class="driver_lat" >
+   <input type="hidden" name="driver_lng" id="driver_lng" class="driver_lng" >
+   <input type="hidden" name="driver_name" id="driver_name" class="driver_name" >
+   <input type="hidden" name="driver_phone" id="driver_phone" class="driver_phone" >
+   <input type="hidden" name="driver_location" id="driver_location" class="driver_location" >
+   
+   <input type="hidden" name="driver_id" id="driver_id" class="driver_id" >
+   
+   <input type="hidden" name="drop_address" id="drop_address" class="drop_address" >
+   <input type="hidden" name="dropoff_lat" id="dropoff_lat" class="dropoff_lat" >
+   <input type="hidden" name="dropoff_lng" id="dropoff_lng" class="dropoff_lng" >
+   
+   
+    <ons-list id="order-details" class="order-details">        
+    </ons-list> 
+    
+    <ons-list id="order-details-item" class="order-details">
+    </ons-list> 
+        
+    <div class="wrapper order-details actions-1">    
+    <ons-row>        
+     <ons-col>     
+     <button class="button green-btn button--large trn" onclick="acceptOrder();" data-trn-key="accept">
+	  Accept
+	  </button>
+     </ons-col>    
+     
+     <ons-col>
+     <button class="button grey-btn button--large trn" onclick="declineOrder();" data-trn-key="decline">
+	  Decline
+	  </button>
+     </ons-col>
+    </ons-row>    
+    </div>
+    
+    <div class="wrapper order-details actions-2">    
+    <ons-row>        
+     <ons-col>     
+     <button class="trn button green-btn button--large" onclick="changeOrderStatus();" data-trn-key="change_order_status">
+	  Change Order Status
+	  </button>
+     </ons-col>                   
+    </ons-row>    
+    </div>     
+    
+    <div class="wrapper order-details actions-3">    
+    <ons-row>        
+     <ons-col>     
+     <button class="trn button green-btn button--large" onclick="changeOrderStatus();" data-trn-key="change_status">
+	  Change Status
+	  </button>
+     </ons-col>     
+     
+     <ons-col>            
+       <button class="trn button grey-btn button--large" onclick="assignDriver();">
+	    <span class="assign_driver_label"></span>
+	  </button>
+     </ons-col>     
+          
+    </ons-row>    
+    </div>     
+    
+    <div class="wrapper order-details actions-4">    
+    <ons-row>        
+     <ons-col>     
+     <button class="trn button green-btn button--large" onclick="changeOrderStatus();" data-trn-key="change_status">
+	  Change Status
+	  </button>
+     </ons-col>     
+     
+     <ons-col>            
+       <button class="button grey-btn button--large" onclick="TrackOrder();">
+	    <span class="trn" data-trn-key="track_order">Track Order</span>
+	  </button>
+     </ons-col>     
+          
+    </ons-row>    
+    </div>     
+    
+     
+</ons-page>
+</script>
+
+
+<script type="text/ons-template" id="acceptOrderForm.html">    
+<ons-page id="page-acceptOrderForm">
+   <ons-toolbar>          
+    <div class="left"><ons-back-button></ons-back-button></div>     
+    <div class="center white trn" data-trn-key="accept">
+      Accept
+    </div>   
+   </ons-toolbar>
+   
+   <div class="wrapper">
+     <form id="frm-acceptorder" class="frm-acceptorder" method="post">
+          
+     <input type="hidden" name="order_id" id="order_id" class="order_id">
+     
+     <div class="center">
+       <h4 class="stic-marg-bot white trn" data-trn-key="accept_order">Accept order</h4>
+      </div>
+     
+      <div class="field-wrapper wfield">
+      <textarea name="remarks" id="remarks" class="text-input text-area text-input--underbar" rows="3" placeholder="Write a comments..." data-trn-key="write_comments"></textarea>
+      </div>
+     
+      <button class="trn button grey-btn button--large" style="color: #5cc45c;" onclick="orderConfirm();" data-trn-key="accept_n_confirm">
+	   Accept & Confirm	   
+      </button>
+       
+     </form>
+   </div>
+
+   </ons-page>
+</script>
+
+<script type="text/ons-template" id="declineOrderForm.html">    
+<ons-page id="page-declineOrderForm">
+   <ons-toolbar>          
+    <div class="left"><ons-back-button></ons-back-button></div>     
+    <div class="center white trn" data-trn-key="decline">
+      Decline
+    </div>   
+   </ons-toolbar>
+   
+   <div class="wrapper">
+     <form id="frm-decline" class="frm-decline" method="post">
+          
+     <input type="hidden" name="order_id" id="order_id" class="order_id">
+     
+     <div class="center">
+       <h4 class="stic-marg-bot white trn" data-trn-key="decline_text">Decline order</h4>
+     </div>
+           
+      <div class="field-wrapper wfield">
+      <textarea name="remarks" id="remarks" class="text-input text-area text-input--underbar" rows="3" 
+      placeholder="Reason.." data-trn-key="reason" ></textarea>
+      </div>
+     
+      <button class="trn button grey-btn button--large" style="color: #e82e2e;" onclick="declineConfirm();" data-trn-key="decline_order">
+	   Decline Order
+      </button>
+       
+      <p class="small-font-dim text-center delivery-notes"></p>
+                 
+     </form>
+   </div>
+
+   </ons-page>
+</script>
+
+
+<script type="text/ons-template" id="changesStatus.html">    
+<ons-page id="page-changesStatus" on-device-backbutton="setButtonTask2();" >
+   <ons-toolbar>          
+    <div class="left"><ons-back-button onclick="setButtonTask();"></ons-back-button></div>     
+    <div class="center white trn" data-trn-key="change_status">
+      Change Status
+    </div>   
+   </ons-toolbar>
+       
+     <form id="frm-changestatus" class="frm-changestatus" method="post">
+               
+      <input type="hidden" name="order_id" id="order_id" class="order_id">
+          
+      <ons-scroller class="filter-options" id="status-list">	  
+	  </ons-scroller> 	 	  	  	  
+                    
+      <div class="field-wrapper wfield">
+      <textarea name="remarks" id="remarks" class="text-input text-area text-input--underbar" style="color: black" rows="3" 
+      placeholder="Write a comments..." data-trn-key="write_comments"></textarea>
+      </div>
+     
+      <button class="trn button green-btn button--large" onclick="changeStatus();" data-trn-key="submit">
+	   Submit
+      </button>
+                              
+     </form>
+   
+   </ons-page>
+</script>
+
+<script type="text/ons-template" id="settings.html">    
+<ons-page id="page-settings" on-device-backbutton="setHome()" >
+   <ons-toolbar>     
+   
+    <div class="left">
+     <ons-toolbar-button onclick="setHome();">
+        <ons-icon icon="ion-ios-arrow-back" size="2em"></ons-icon>
+     </ons-toolbar-button>        
+    </div> 
+         
+    <div class="center white"><span id="search-text" class="trn" data-trn-key="settings">Settings</span></div>
+    
+   </ons-toolbar>
+      
+   <form id="frm-settings" class="frm-settings" method="post">   
+   <input type="hidden" name="country_code_set" id="country_code_set" class="country_code_set">   
+   		   
+   <div class="wrapper">
+   
+     <div class="settings-header trn" data-trn-key="software_version">Software Version</div>
+     <ons-list modifier="inset" class="settings-list">        
+        <ons-list-item >
+          <span class="software_version_text concat-text"></span>          
+        </ons-list-item>
+      </ons-list>
+   
+     <div class="settings-header trn" data-trn-key="device_id">Device ID</div>
+     <ons-list modifier="inset" class="settings-list">        
+        <ons-list-item >
+          <span class="device_id_val concat-text"></span>          
+        </ons-list-item>
+      </ons-list>
+      
+     <div class="settings-header trn" data-trn-key="notifications">Notifications</div>
+     <ons-list modifier="inset" class="settings-list">        
+        <ons-list-item >
+          <span class="trn" data-trn-key="enabled_push_notification">Enabled Push Notification</span>
+          <ons-switch modifier="list-item" var="enabled_push" name="enabled_push" id="enabled_push"  ></ons-switch>
+        </ons-list-item>
+      </ons-list>
+      
+      <div class="settings-header trn" data-trn-key="others">Others</div>
+                        
+      <ons-list modifier="inset" class="settings-list">
+        <ons-list-item modifier="chevron" onclick="showLanguageList();" class="trn" data-trn-key="select_your_language">
+          Select your language
+        </ons-list-item>        
+      </ons-list>
+      
+      <div class="settings-header trn" data-trn-key="food_item_options">Food Item Options</div>
+      <p class="trn small-font-dim" data-trn-key="item_not_available" style="text-indent: 10px" >
+      If item is not available do the following actions
+      </p>
+      
+      <ons-list modifier="inset" class="settings-list">        
+      
+        <ons-list-item >
+          <span class="trn" data-trn-key="hide">Hide</span>
+          <ons-switch modifier="list-item" var="food_option_not_available" name="food_option_not_available" id="food_option_not_available" onchange="foodOptions(1)"  ></ons-switch>
+        </ons-list-item>
+        
+        <ons-list-item >
+          <span class="trn" data-trn-key="disabled">Disabled</span>
+          <ons-switch modifier="list-item" var="food_option_not_available_disabled" name="food_option_not_available_disabled" id="food_option_not_available_disabled" onchange="foodOptions(2)"   ></ons-switch>
+        </ons-list-item>
+      
+     </ons-list>
+        
+     <div class="settings-header trn" data-trn-key="merchant_settings">Merchant Settings</div>
+     <ons-list modifier="inset" class="settings-list">        
+        <ons-list-item >
+          <span class="trn" data-trn-key="merchant_close_store">Close Store</span>
+          <ons-switch modifier="list-item" var="merchant_close_store" name="merchant_close_store" id="merchant_close_store" ></ons-switch>
+        </ons-list-item>
+        
+        <ons-list-item >
+          <span class="trn" data-trn-key="show_time">Show Merchant Current Time</span>
+          <ons-switch modifier="list-item" var="merchant_show_time" name="merchant_show_time" id="merchant_show_time" ></ons-switch>
+        </ons-list-item>
+        
+        <ons-list-item >
+          <span class="trn" data-trn-key="disabled_ordering">Disabled Ordering</span>
+          <ons-switch modifier="list-item" var="merchant_disabled_ordering" name="merchant_disabled_ordering" id="merchant_disabled_ordering" ></ons-switch>
+        </ons-list-item>
+        
+      </ons-list>
+      
+      <div class="settings-header trn" data-trn-key="voucher">Voucher</div>
+      <ons-list modifier="inset" class="settings-list">        
+      
+       <ons-list-item >
+          <span class="trn" data-trn-key="enabled_voucher">Enabled Voucher</span>
+          <ons-switch modifier="list-item" var="merchant_enabled_voucher" name="merchant_enabled_voucher" id="merchant_enabled_voucher" ></ons-switch>
+        </ons-list-item>
+        
+        <ons-list-item >
+          <span class="trn" data-trn-key="make_delivery_time_required">Make Delivery Time Required</span>
+          <ons-switch modifier="list-item" var="merchant_required_delivery_time" name="merchant_required_delivery_time" id="merchant_required_delivery_time" ></ons-switch>
+        </ons-list-item>
+      
+      </ons-list>
+	  
+      <div class="settings-header trn" data-trn-key="fidelidade_program">Programa de Fidelidade</div>
+      <ons-list modifier="inset" class="settings-list">        
+      
+		<ons-list-item >
+          <span class="trn" data-trn-key="enabled_fidelidade">Enabled Fidelidade</span>
+          <ons-switch modifier="list-item" var="merchant_enabled_fidelidade" name="merchant_enabled_fidelidade" id="merchant_enabled_fidelidade" ></ons-switch>
+        </ons-list-item>
+     
+      </ons-list>
+      
+      <div class="settings-header trn" data-trn-key="tips">Tips</div>
+      <ons-list modifier="inset" class="settings-list">        
+      
+       <ons-list-item >
+          <span class="trn" data-trn-key="enabled_tip">Enabled Tip</span>
+          <ons-switch modifier="list-item" var="merchant_enabled_tip" name="merchant_enabled_tip" id="merchant_enabled_tip" ></ons-switch>
+        </ons-list-item>
+               
+      </ons-list>
+      
+      <div class="settings-header trn" data-trn-key="table_booking">Table Booking</div>
+      <ons-list modifier="inset" class="settings-list">        
+      
+       <ons-list-item >
+          <span class="trn" data-trn-key="disabled_table_booking">Disabled Table Booking</span>
+          <ons-switch modifier="list-item" var="merchant_table_booking" name="merchant_table_booking" id="merchant_table_booking" ></ons-switch>
+        </ons-list-item>
+        
+       <ons-list-item >
+          <span class="trn" data-trn-key="accept_booking_sameday">Accept booking same day</span>
+          <ons-switch modifier="list-item" var="accept_booking_sameday" name="accept_booking_sameday" id="accept_booking_sameday" ></ons-switch>
+        </ons-list-item> 
+               
+      </ons-list>
+            
+   
+   <button class="button green-btn button--large trn stic-marg10" onclick="saveSettings();" data-trn-key="save">
+	Save	
+   </button>
+   
+   </div>
+   </form>      
+       
+</ons-page>
+</script>
+
+<script type="text/ons-template" id="languageOptions.html">    
+  <ons-dialog var="languageOptions" style="width:90%;height:350px;" cancelable  >
+
+  <ons-page id="page-languageoptions" >  
+	  <ons-toolbar> 
+	      <div class="center white trn" data-trn-key="select_your_language">Select your language</div>   	      	      	      	      
+	      <div class="right">         
+            <ons-toolbar-button onclick="languageOptions.hide();" >
+            <ons-icon icon="ion-checkmark-round"></ons-toolbar-button>
+          </div>
+      
+	  </ons-toolbar>	  	 
+      
+	  <ons-scroller class="language-options" id="language-options-list">	  
+	  </ons-scroller> 	 
+	  	  	  	  	  
+  </ons-page>
+  </ons-dialog> 
+</script>
+
+
+<script type="text/ons-template" id="map.html">    
+<ons-page id="page-map">
+   <ons-toolbar>     
+   
+    <div class="left"><ons-back-button></ons-back-button></div>          
+    <div class="center white">      
+      <span class="trn" data-trn-key="location">
+      Location
+      </span>
+    </div>
+    
+   </ons-toolbar>
+   
+   <div id="location-map" class="location-map">
+   
+   </div>   
+
+</ons-page>
+</script>   
+
+<script type="text/ons-template" id="lostPassword.html">    
+<ons-page id="page-lostPassword">
+   <ons-toolbar>     
+   
+    <div class="left"><ons-back-button></ons-back-button></div>          
+    
+   </ons-toolbar>
+   
+   <div class="home-header">
+      <img src="css/images/banner.png" alt="" title="">
+   </div> 
+   
+   <form id="frm-changepassword" class="frm-changepassword" method="post">      
+   <input type="hidden" name="email_address" class="email_address" id="email_address">
+   <input type="hidden" name="user_type" class="user_type" id="user_type">
+   
+   <div class="wrapper">
+   <p class="changepass-msg small-font-dim text-center"></p>
+   
+   
+   <div class="field-wrapper">
+   <input type="text" name="code"  class="code text-input text-input--underbar has_validation" 
+   placeholder="Verification code" value="" data-validation="required" data-validation-error-msg="this field is mandatory!" data-trn-key="verification_code" >
+   </div>
+   
+   <div class="field-wrapper">
+   <input type="password" name="newpass"  class="newpass text-input text-input--underbar has_validation" 
+   placeholder="New Password" value="" data-validation="required" data-validation-error-msg="this field is mandatory!" data-trn-key="new_password" >
+   </div>
+   
+   <button class="button green-btn button--large trn" onclick="changePassWord();" data-trn-key="change_password">
+	Change Password
+   </button>
+   
+   </div> 
+   
+   </form>
+
+</ons-page>
+</script>   
+
+
+<script type="text/ons-template" id="orderHistory.html">    
+<ons-page id="page-orderHistory" on-device-backbutton="setButtonTask2();" >
+
+   <ons-toolbar>        
+    <div class="left"><ons-back-button onclick="setButtonTask()" ></ons-back-button></div>              
+    <div class="center white">
+      <span class="order-history-title"></span>
+    </div>
+   </ons-toolbar>
+   
+   <ons-scroller class="order-history order-details" >	  
+     <ons-list id="order-history">
+        
+     </ons-list>
+   </ons-scroller> 	 
+
+</ons-page>
+</script>      
+
+
+<script type="text/ons-template" id="profile.html">    
+<ons-page id="page-profile" on-device-backbutton="setHome()"  >
+   <ons-toolbar>     
+   
+    <div class="left">
+     <ons-toolbar-button onclick="setHome();">
+        <ons-icon icon="ion-ios-arrow-back" size="2em"></ons-icon>
+     </ons-toolbar-button>        
+    </div> 
+         
+    <div class="center white">    
+    <span id="search-text" class="trn" data-trn-key="profile">Profile</span></div>
+    
+   </ons-toolbar>
+         
+   <form id="frm-profile" class="frm-profile" method="post">      
+   <div class="wrapper">
+     
+    <div class="field-wrapper">
+      <input type="text" name="username"  class="stic-rgba username text-input text-input--underbar has_validation" 
+      placeholder="Username" disabled value="" data-trn-key="username" >
+    </div> 
+    
+    <div class="field-wrapper">
+      <input type="password" name="password"  class="stic-rgba text-input text-input--underbar has_validation" 
+      placeholder="Password" value="" data-validation="required" data-validation-error-msg="this field is mandatory!" data-trn-key="password"  >
+    </div>  
+    
+    <div class="field-wrapper">
+      <input type="password" name="cpassword"  class="stic-rgba text-input text-input--underbar has_validation" 
+      placeholder="Confirm Password" value="" data-validation="required" data-validation-error-msg="this field is mandatory!" data-trn-key="confirm_password" >
+    </div>  
+   
+   <button class="button green-btn button--large trn" onclick="saveProfile();" data-trn-key="update_profile">
+	Update Profile	
+   </button>
+   
+   </div>
+   </form>      
+       
+</ons-page>
+</script>
+
+
+<script type="text/ons-template" id="pushNotification.html">    
+  <ons-dialog var="pushDialog" style="width:90%;height:250px;"  >
+
+  <input type="hidden" name="order_id" id="order_id">
+  
+  <ons-page id="page-notification" >  
+	  <ons-toolbar> 
+	      <div class="center white push-title"></div>   	      	      
+	  </ons-toolbar>
+
+	  <div class="wrapper center pad-top20">
+	  <p class="small-font-dim push-message"></p>
+	  
+	   <p>          
+          <ons-button class="trn button green-btn button--large" onclick="viewOrders();" data-trn-key="view">
+          View</ons-button>
+          <button onclick="pushDialog.hide();" class="button button--quiet trn" data-trn-key="cancel">Cancel</button>
+        </p>
+	  
+	  </div>  
+	  	  	   
+  </ons-page>
+  </ons-dialog> 
+</script>
+
+<script type="text/ons-template" id="pushNotificationCampaign.html">    
+  <ons-dialog var="pushcampaignDialog" style="width:90%;height:250px;"  >
+
+  <ons-page id="page-notificationcampaign" >  
+	  <ons-toolbar> 
+	      <div class="center white push-title"></div>   	      	      
+	  </ons-toolbar>
+
+	  <div class="wrapper center pad-top20">
+	  <p class="small-font-dim push-message"></p>
+	  
+	   <p>          
+          <ons-button class="trn button green-btn button--large" 
+          onclick="pushcampaignDialog.hide();" data-trn-key="ok">
+          Ok
+          </ons-button>          
+        </p>
+	  
+	  </div>  
+	  	  	   
+  </ons-page>
+  </ons-dialog> 
+</script>
+
+<script type="text/ons-template" id="showNotification.html">
+  <ons-page id="page-showNotification">
+      
+  <ons-pull-hook on-action="pullNotification(done);" var="loaderNotification">
+    <span ng-switch="loaderNotification.getCurrentState()">
+    <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
+    <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
+    <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
+    </span>
+  </ons-pull-hook>
+  
+   <ons-toolbar>          
+    <div class="left"><ons-back-button></ons-back-button></div> 
+    <div class="center white trn" data-trn-key="notifications">      
+      Notifications
+    </div>      
+    
+    <div class="right clear_noti_div"  >      
+    
+      <ons-toolbar-button onclick="clearNotification();" >       
+       <ons-icon icon="ion-android-remove-circle"></ons-icon>
+     </ons-toolbar-button>   
+    
+    </div>      
+    
+  </ons-toolbar>
+  
+     <ons-scroller>
+      <ons-list id="notification" > 
+         
+      </ons-list>
+    </ons-scroller>
+    
+  </ons-page>
+</script>
+
+
+<script type="text/ons-template" id="SearchPopUp.html" >    
+  <ons-dialog var="SearchPopUpDialog" style="width:90%;height:200px;"  cancelable >
+
+  <ons-page id="page-SearchPopUp" >  
+	  <ons-toolbar> 
+	      <div class="center white trn" data-trn-key="search_order" >Search Order</div>   	      	      
+	  </ons-toolbar>
+
+	  <form id="frm-search" class="frm-search" method="post">       
+	  <div class="wrapper">
+	  
+	  <div class="field-wrapper">
+      <input type="text" name="order_id_customername"  class="stic-rgba order_id_customername text-input text-input--underbar has_validation" 
+      placeholder="Enter Order No or Customer name" value="" data-validation="required" data-validation-error-msg="this field is mandatory!" data-trn-key="enter_order_id_or_customername" >
+      </div>
+	  
+	  </div> 
+	  
+	 <div class="wrapper center">                  
+      <button class="button green-btn button--large trn" onclick="searchOrder();" data-trn-key="search">
+       Search
+       </button>                   
+   </div>  
+	  </form>
+	  	  	  	   
+  </ons-page>
+  </ons-dialog> 
+</script>
+
+<script type="text/ons-template" id="searchResults.html">
+  <ons-page id="page-searchResults">
+      
+   <ons-toolbar>          
+    <div class="left"><ons-back-button></ons-back-button></div> 
+    <div class="center white trn search_results_found" data-trn-key="search_results">      
+      Search Results
+    </div>      
+  </ons-toolbar>
+  
+     <ons-scroller>
+      <ons-list id="search-resuls" class="new-orders" > 
+         
+      </ons-list>
+    </ons-scroller>
+    
+  </ons-page>
+</script>
+
+
+<script type="text/ons-template" id="bookingHome.html">
+  <ons-page id="page-bookingHome" on-device-backbutton="setHomeBooking()" >
+      
+  <input type="hidden" name="tab-action" id="tab-action" class="tab-action" value="pendingBooking">
+  <input type="hidden" name="display-div" id="display-div" class="display-div" value="table-pending">
+    
+   <ons-toolbar>          
+    <div class="left">
+       <ons-toolbar-button onclick="setHomeBooking();">
+         <ons-icon icon="ion-ios-arrow-back" size="2em"></ons-icon>
+       </ons-toolbar-button>        
+    </div> 
+    <div class="center white trn page_label_book" data-trn-key="booking_table">      
+      Booking Table
+    </div>      
+  </ons-toolbar>
+  
+  <ons-tabbar position="top">
+  
+    <ons-tab page="tablePending.html" active="true" class="tabs">
+	 <p class="trn concat-text uppercase" data-trn-key="pending">Pending</p>
+	</ons-tab>
+	
+	<ons-tab page="tableAll.html"  class="tabs">
+	 <p class="trn concat-text uppercase" data-trn-key="all_booking">All Booking</p>
+	</ons-tab>
+
+  </ons-tabbar>
+     
+  </ons-page>
+</script>
+
+<script type="text/ons-template" id="tablePending.html">
+  <ons-page id="page-tablePending" class="page-booking">
+  
+   <ons-pull-hook on-action="loadTable(done);" var="loaderTable">
+    <span ng-switch="loaderTable.getCurrentState()">
+    <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
+    <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
+    <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
+    </span>
+  </ons-pull-hook>
+             
+      <ons-scroller>
+      <ons-list id="table-pending" class="list-normal"> 
+      </ons-list>
+    </ons-scroller>
+    
+  </ons-page>
+</script>
+
+<script type="text/ons-template" id="tableAll.html">
+  <ons-page id="page-tableAll" class="page-booking"> 
+  
+   <ons-pull-hook on-action="loadTable(done);" var="loaderTable">
+    <span ng-switch="loaderTable.getCurrentState()">
+    <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
+    <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
+    <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
+    </span>
+  </ons-pull-hook>
+  
+      <ons-scroller>
+      <ons-list id="table-all" class="list-normal" >                  
+                  
+      </ons-list>
+    </ons-scroller>
+    
+  </ons-page>
+</script>
+
+
+<script type="text/ons-template" id="bookingView.html">
+  <ons-page id="page-bookingView" class="page-bookingView"> 
+  
+    <input type="hidden" name="booking_id" id="booking_id" >
+    <input type="hidden" name="booking_status" id="booking_status" >
+  
+    <ons-toolbar>          
+    <div class="left"><ons-back-button></ons-back-button></div> 
+    <div class="center white" id="booking-view-title">      
+    </div>   
+    </ons-toolbar>          
+    
+    <ons-list id="booking-details" class="order-details">        
+    </ons-list>     
+    
+     <div class="wrapper order-details booking-action">    
+    <ons-row>        
+     <ons-col>     
+     <button class="button green-btn button--large trn" onclick="bookingApproved();" data-trn-key="accept">
+	  Accept
+	  </button>
+     </ons-col>    
+     
+     <ons-col>
+     <button class="button grey-btn button--large trn" onclick="bookingDenied();" data-trn-key="decline">
+	  Decline
+	  </button>
+     </ons-col>
+    </ons-row>    
+    </div>
+    
+    <div class="wrapper">
+    </div>
+    
+    
+  </ons-page>
+</script>  
+
+
+<script type="text/ons-template" id="bookingForm.html">    
+<ons-page id="page-bookingForm">
+   <ons-toolbar>          
+    <div class="left"><ons-back-button></ons-back-button></div>     
+    <div class="center white booking-form-title" >
+      Accept
+    </div>   
+   </ons-toolbar>
+   
+   <div class="wrapper">
+     <form id="frm-booking" class="frm-booking" method="post">
+          
+      <input type="hidden" name="booking_id" id="booking_id" class="booking_id">
+      <input type="hidden" name="status" id="status" class="status">
+               
+      <div class="field-wrapper wfield">
+      <textarea name="remarks" id="remarks" class="text-input text-area text-input--underbar write_comments" rows="3" placeholder="Write a comments..." data-trn-key="write_comments"></textarea>
+      </div>
+     
+      <button class="booking-btn trn button green-btn button--large stic-marg10" onclick="bookingChangeStats();" data-trn-key="getting_booking">	    
+      Getting booking details
+      </button>
+       
+      <!-- <p class="small-font-dim text-center booking-notes"></p> -->
+                 
+     </form>
+   </div>
+
+   </ons-page>
+</script>
+
+
+<script type="text/ons-template" id="pushNotificationBooking.html">    
+  <ons-dialog var="pushDialogBooking" style="width:90%;height:250px;"  >
+
+  <input type="hidden" name="booking_id" id="booking_id">
+  
+  <ons-page id="page-notification" >  
+	  <ons-toolbar> 
+	      <div class="center white push-title"></div>   	      	      
+	  </ons-toolbar>
+
+	  <div class="wrapper center pad-top20">
+	  <p class="small-font-dim push-message"></p>
+	  
+	   <p>          
+          <ons-button class="trn button green-btn button--large" onclick="viewBookings();" data-trn-key="view">
+          View</ons-button>
+          <button onclick="pushDialogBooking.hide();" class="button button--quiet trn" data-trn-key="cancel">Cancel</button>
+        </p>
+	  
+	  </div>  
+	  	  	   
+  </ons-page>
+  </ons-dialog> 
+</script>
+
+
+<script type="text/ons-template" id="assignDriver.html">    
+<ons-page id="page-assignDriver" on-device-backbutton="setButtonTask2();" >
+   <ons-toolbar>          
+    <div class="left"><ons-back-button onclick="setButtonTask()"></ons-back-button></div>     
+    <div class="center white assign-driver-title" >
+      
+    </div>   
+   </ons-toolbar>
+   
+   <form id="frm-assigntask" class="frm-assigntask" method="post">       
+   
+   <input type="hidden" name="team_id" class="team_id"  >
+   <input type="hidden" name="driver_id" class="driver_id" >
+   <input type="hidden" name="task_id" class="task_id" >
+   
+     <ons-list>       
+     
+       <ons-list-item modifier="chevron" onclick="showTeamList();" > 
+       <span class="trn team_selected" data-trn-key="select_team">Select Team</span>       
+       </ons-list-item>    
+       
+       <ons-list-item modifier="chevron" onclick="showDriverList();" > 
+       <span class="trn driver_selected" data-trn-key="assign_driver">Assign Driver</span>       
+       </ons-list-item>    
+       
+     </ons-list>   
+     
+      <div class="wrapper">
+      <button class="booking-btn trn button green-btn button--large stic-marg10" onclick="assignTask();" data-trn-key="assign">	    
+      Assign
+      </button>
+      </div>
+   
+   </form>   
+   </ons-page>
+</script>   
+
+<script type="text/ons-template" id="teamList.html">    
+  <ons-dialog var="teamListDialog" style="width:90%;height:250px;" cancelable  >
+     
+   <ons-toolbar inline>
+      <div class="center white trn" data-trn-key="select_team" >
+        Select Team
+      </div>
+    </ons-toolbar>
+    
+   <ons-scroller>
+      <ons-list id="team-list" class="team-list">           
+      </ons-list>
+    </ons-scroller>
+  
+  </ons-page>
+</script>
+
+
+<script type="text/ons-template" id="driverList.html">    
+  <ons-dialog var="driverListDialog" style="width:90%;height:250px;" cancelable  >
+     
+   <ons-toolbar inline>
+      <div class="center white trn" data-trn-key="assign_driver" >
+        Assign Driver
+      </div>
+    </ons-toolbar>
+    
+   <ons-scroller>
+      <ons-list id="driver-list" class="driver-list">          
+      </ons-list>
+    </ons-scroller>
+  
+  </ons-page>
+</script>
+
+
+<script type="text/ons-template" id="bookingTab.html">
+  <ons-page id="page-bookingtab">
+  
+   <ons-pull-hook on-action="loadBooking(done);" var="loader">
+    <span ng-switch="loader.getCurrentState()">
+    <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
+    </ons-icon><span class="small-font-dim"> Puxe para baixo para atualizar</span></span>
+    <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
+    </ons-icon><span class="small-font-dim"> Solte para ver a atualização</span></span>
+    <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
+    </ons-icon> <span class="small-font-dim">Carregando Dados...</span></span>
+    </span>
+  </ons-pull-hook>
+             
+    <ons-scroller>
+      <ons-list id="newbooking-list" class="list-normal"> 
+                 
+      </ons-list>
+    </ons-scroller>
+    
+  </ons-page>
+</script>
+
+
+<script type="text/ons-template" id="map_track.html">    
+<ons-page id="page_map_track">
+   <ons-toolbar>     
+   
+    <div class="left"><ons-back-button></ons-back-button></div>          
+    <div class="center white map_title"></div>
+    
+   </ons-toolbar>
+   
+   <div id="track_map" class="track_map"></div>   
+   
+   <div class="driver_information_wrap">
+     <div class="table">
+     
+       <div class="col col_1">
+         <h4 class="driver_display_name"></h4>
+         <p><span class="trn" data-trn-key="tel" >Tel</span>: <a href="" class="driver_contact">+6328138934</a></p>
+       </div>
+       
+       <div class="col col_2">
+         <img class="driver_profile_pic" src="">
+       </div>
+       
+     </div>
+   </div> 
+
+</ons-page>
+</script>   
+
+<script type="text/ons-template" id="cancel_order.html">
+  <ons-page id="page_cancel_order">
+
+   <ons-toolbar>          
+    <div class="left">
+       <ons-toolbar-button onclick="setHomeBooking();">
+         <ons-icon icon="ion-ios-arrow-back" size="2em"></ons-icon>
+       </ons-toolbar-button>        
+    </div> 
+    <div class="center white trn page_label_book" data-trn-key="cancel_orders">      
+      Cancel Order
+    </div>      
+  </ons-toolbar>
+  
+   <ons-pull-hook on-action="loadCancelOrder(done);" var="loader">
+    <span ng-switch="loader.getCurrentState()">
+    <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a">
+    </ons-icon><span class="small-font-dim"> Pull down to refresh</span></span>
+    <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a">
+    </ons-icon><span class="small-font-dim"> Release to refresh</span></span>
+    <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d">
+    </ons-icon> <span class="small-font-dim">Loading data...</span></span>
+    </span>
+  </ons-pull-hook>
+             
+    <ons-scroller>
+      <ons-list id="cancel_order_list" class="list-normal"> 
+                 
+      </ons-list>
+    </ons-scroller>
+    
+  </ons-page>
+</script>
+
+</body>
