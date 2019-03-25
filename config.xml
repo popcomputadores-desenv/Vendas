@@ -4,7 +4,7 @@
     xmlns:android = "http://schemas.android.com/apk/res/android"
     id        = "app.masterhub.venda"
     version   = "2.5.1"
-	android-versionCode="4"
+	android-versionCode="5"
   	ios-CFBundleVersion="1">
     <!-- Merchant App 2.5.1 -->
     <name>Master Hub® - Vendas</name>
