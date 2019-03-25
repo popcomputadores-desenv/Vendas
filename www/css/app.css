@@ -79,7 +79,7 @@ background:#3B5998;
 width: 250px;
 margin: auto;
 border-radius: 25px;
-border-bottom: 5px solid #b10557;
+border-bottom: 5px solid #dc143c;
 box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302),0 1px 3px 1px rgba(60,64,67,0.149);
 text-transform: uppercase;
 font-size: 12px;
@@ -559,7 +559,7 @@ font-size:100px;
 price.discount,
 #menu-list price.discount
 {
-color:#D4232B;
+color:#dc143c;
 margin-right:5px;
 text-decoration:line-through;
 }
@@ -1038,7 +1038,7 @@ background:#dc143c;
 .status.decline,
 .status.denied  
 {
-background:#e82e2e;
+background:#dc143c;
 font-size: 10px;
 text-transform: uppercase;
 }
