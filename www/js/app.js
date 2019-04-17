@@ -1,6 +1,6 @@
 /**
 Karenderia Order Taking App
-Version 2.5.1
+Version 3.0
 */
 
 /**
@@ -1301,13 +1301,17 @@ function displayOrders(data,div_id)
 		 htm+='<ons-col width="25%" style="margin-right:-5px;" class="stic-top10 center" >';
 		   htm+='<price class="pricemargin">'+val.total_w_tax_prety+'</price>';
 		   htm+='<p class="small-font-dim orange-text">';
+		   if(val.delivery_asap_raw!=1){
 		   if (!empty(val.delivery_time)){
 		     htm+='<ons-icon icon="ion-android-alarm-clock" class="stic-datetime icon" style="padding-right: 3px;"></ons-icon>';
 		     htm+='<span class="stic-datetime">'+val.delivery_time+'</span>';
+			   }
 		   }
+		   if(val.delivery_asap_raw==1){
 		   if (!empty(val.delivery_asap)){
 		     // htm+='<ons-icon icon="ion-android-alarm-clock" class="icon"></ons-icon>';		   
 		     htm+=' '+val.delivery_asap;
+			   }
 		   }
 		   htm+='</p>';
 		 htm+='</ons-col>';
@@ -1540,19 +1544,34 @@ function displayOrderDetails(data)
      
      if ( data.trans_type_raw=="delivery"){
         html+=TPLorderRow( getTrans("Delivery Date",'delivery_date') ,  data.delivery_date);     
+     } else if ( data.trans_type_raw == "dinein") {
+     	html+=TPLorderRow( getTrans("Dine in Date",'dinein_date') ,  data.delivery_date);     
      } else {
      	html+=TPLorderRow( getTrans("Pickup Date",'pickup_date') ,  data.delivery_date);     
      }
-     
-     if (!empty(data.delivery_time)){
-     	 if ( data.trans_type_raw=="delivery"){
-            html+=TPLorderRow( getTrans("Delivery Time",'delivery_time') ,  data.delivery_time);
-     	 } else {
-     	 	html+=TPLorderRow( getTrans("Pickup Time",'pickup_time') ,  data.delivery_time);
-     	 }
+          
+     if(data.delivery_asap_raw!=1){
+	     if (!empty(data.delivery_time)){
+	     	 if ( data.trans_type_raw=="delivery"){
+	            html+=TPLorderRow( getTrans("Delivery Time",'delivery_time') ,  data.delivery_time);
+	          } else if ( data.trans_type_raw == "dinein") {
+	          	html+=TPLorderRow( getTrans("Dine in Time",'dinein_time') ,  data.delivery_time);
+	     	 } else {
+	     	 	html+=TPLorderRow( getTrans("Pickup Time",'pickup_time') ,  data.delivery_time);
+	     	 }
+	     }
      }
+     
+     if ( data.trans_type_raw=="dinein"){     	
+     	html+=TPLorderRow( getTrans("Number of guest",'number_of_guest') ,  data.dinein_number_of_guest );
+     	html+=TPLorderRow( getTrans("Table number",'table_number') ,  data.dinein_table_number );
+     	html+=TPLorderRow( getTrans("Special instructions",'special_instructions') , data.dinein_special_instruction );
+     }
+     
      if (!empty(data.delivery_asap)){
-         html+=TPLorderRow( getTrans("Delivery Asap",'delivery_asap') ,  data.delivery_asap);
+     	 if(data.delivery_asap_raw==1){
+            html+=TPLorderRow( getTrans("Delivery Asap",'delivery_asap') ,  data.delivery_asap);
+     	 }
      }
      
      if ( data.trans_type_raw=="delivery"){
@@ -3873,8 +3892,8 @@ handleNotification = function(data){
 	  setNotificationCount();
 	  
 	  if ( data.additionalData.foreground ){
-	  if( push_type == "order"){
-	  	  GetTodaysOrder();
+		  if( push_type == "order"){
+		  	  GetTodaysOrder();
 		  }
 	  }
 	  
@@ -3987,6 +4006,7 @@ initTrackMap = function(page){
 		
 		if(!empty(driver_phone)){
 		  $(".driver_contact").attr("href", "tel:"+ driver_phone);
+		  $(".driver_contact").html( driver_phone );
 		} else {
 		  $(".driver_contact").hide();
 		}

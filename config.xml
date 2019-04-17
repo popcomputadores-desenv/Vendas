@@ -3,10 +3,10 @@
     xmlns:gap = "http://phonegap.com/ns/1.0"
     xmlns:android = "http://schemas.android.com/apk/res/android"
     id        = "app.masterhub.venda"
-    version   = "2.5.1"
-	android-versionCode="5"
+    version   = "3.0"
+	android-versionCode="6"
   	ios-CFBundleVersion="1">
-    <!-- Merchant App 2.5.1 -->
+    <!-- Merchant App 3.0 -->
     <name>Master Hub® - Vendas</name>
     <description>
         Aplicativo - Módulo Vendas para interação com o sistema Master Hub, Um MUNDO na palma da sua mão!
@@ -24,8 +24,8 @@
     <preference name="ShowSplashScreenSpinner" value="false" />	 
     <preference name="KeepRunning" value="true"/>
     <preference name="android-minSdkVersion" value="19" />
-    <preference name="android-targetSdkVersion" value="26" />
-    <preference name="phonegap-version" value="cli-7.1.0" /> 
+    <preference name="android-targetSdkVersion" value="26" />    
+    <preference name="phonegap-version" value="cli-8.1.1" />
     <preference name="StatusBarBackgroundColor" value="#dc143c" />
 		
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
