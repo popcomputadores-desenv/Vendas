@@ -38,7 +38,7 @@ function onDeviceReady() {
 	    		
 	try {
 		
-		window.sunmiInnerPrinter.lineWrap(1);
+		//window.sunmiInnerPrinter.lineWrap(1);
 
 	
 		navigator.splashscreen.hide();

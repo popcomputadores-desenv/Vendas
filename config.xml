@@ -43,8 +43,8 @@
 	
 	<gap:plugin name="cordova.plugins.diagnostic" source="npm" spec="4.0.0" />	
 	<gap:plugin spec="https://github.com/katzer/cordova-plugin-local-notifications.git#06baff7" source="git" />	
-	<gap:plugin name="cordova-sunmi-inner-printer" source="npm" spec="1.0.3"/>
-	
+	<gap:plugin spec="https://github.com/KiengKnot/cordova-sunmi-inner-printer.git" source="git" />	
+		
 	<plugin name="cordova-plugin-insomnia" version="4.3.0" source="npm" /> 
 	
     <access origin="*" />
