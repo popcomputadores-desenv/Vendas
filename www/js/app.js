@@ -3670,23 +3670,23 @@ function printsunmiv1()
 	var order_id=$("#order_id").val(); 
 	callAjax('printsunmi','order_id='+order_id);
 	window.sunmiInnerPrinter.lineWrap(2);
-	window.sunmiInnerPrinter.printerInit(callback);
+	window.sunmiInnerPrinter.printerInit();
 	window.sunmiInnerPrinter.printOriginalText("printerInit");
-	window.sunmiInnerPrinter.printerSelfChecking(callback);
-	window.sunmiInnerPrinter.printOriginalText("printerSelfChecking",callback);
-	window.sunmiInnerPrinter.getPrinterSerialNo(callback);
-	window.sunmiInnerPrinter.printOriginalText("getPrinterSerialNo",callback);
-	window.sunmiInnerPrinter.getPrintedLength(callback);
-	window.sunmiInnerPrinter.printOriginalText("getPrintedLength",callback);
+	window.sunmiInnerPrinter.printerSelfChecking();
+	window.sunmiInnerPrinter.printOriginalText("printerSelfChecking");
+	window.sunmiInnerPrinter.getPrinterSerialNo();
+	window.sunmiInnerPrinter.printOriginalText("getPrinterSerialNo");
+	window.sunmiInnerPrinter.getPrintedLength();
+	window.sunmiInnerPrinter.printOriginalText("getPrintedLength");
 	window.sunmiInnerPrinter.lineWrap(2);
-    window.sunmiInnerPrinter.printOriginalText("Master Hub®",callback);
+    window.sunmiInnerPrinter.printOriginalText("Master Hub®");
 	window.sunmiInnerPrinter.lineWrap(2);
-    window.sunmiInnerPrinter.printString("Master Hub® - printString",callback);
-	window.sunmiInnerPrinter.printQRCode("Texto do Codigo qr",4,3,callback);
-	window.sunmiInnerPrinter.printBarCode("1234567890", 8, 162, 2, 2, callback);
+    window.sunmiInnerPrinter.printString("Master Hub® - printString");
+	window.sunmiInnerPrinter.printQRCode("Texto do Codigo qr",4,3);
+	window.sunmiInnerPrinter.printBarCode("1234567890", 8, 162, 2, 2);
 	window.sunmiInnerPrinter.lineWrap(2);
 	
-	window.sunmiInnerPrinter.printtext(" sunmi \n", callback);
+	window.sunmiInnerPrinter.printString(" sunmi \n");
 
 }
 
