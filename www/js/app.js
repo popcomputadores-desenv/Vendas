@@ -38,6 +38,8 @@ function onDeviceReady() {
 	    		
 	try {
 		
+		window.sunmiInnerPrinter.lineWrap(1);
+
 	
 		navigator.splashscreen.hide();
 		
@@ -3663,33 +3665,6 @@ function print()
     var order_id=$("#order_id").val();    
     callAjax('print','order_id='+order_id);
 }
-
-function printsunmiv1()
-{
-
-	var order_id=$("#order_id").val(); 
-	callAjax('printsunmi','order_id='+order_id);
-	window.sunmiInnerPrinter.lineWrap(2);
-	window.sunmiInnerPrinter.printerInit();
-	window.sunmiInnerPrinter.printOriginalText("printerInit");
-	window.sunmiInnerPrinter.printerSelfChecking();
-	window.sunmiInnerPrinter.printOriginalText("printerSelfChecking");
-	window.sunmiInnerPrinter.getPrinterSerialNo();
-	window.sunmiInnerPrinter.printOriginalText("getPrinterSerialNo");
-	window.sunmiInnerPrinter.getPrintedLength();
-	window.sunmiInnerPrinter.printOriginalText("getPrintedLength");
-	window.sunmiInnerPrinter.lineWrap(2);
-    window.sunmiInnerPrinter.printOriginalText("Master Hub®");
-	window.sunmiInnerPrinter.lineWrap(2);
-    window.sunmiInnerPrinter.printString("Master Hub® - printString");
-	window.sunmiInnerPrinter.printQRCode("Texto do Codigo qr",4,3);
-	window.sunmiInnerPrinter.printBarCode("1234567890", 8, 162, 2, 2);
-	window.sunmiInnerPrinter.lineWrap(2);
-	
-	window.sunmiInnerPrinter.printString(" sunmi \n");
-
-}
-
 
 /*UNOPEN ORDER*/
 
