@@ -3666,21 +3666,32 @@ function print()
 
 function printsunmiv1()
 {
+
 	var order_id=$("#order_id").val(); 
 	callAjax('printsunmi','order_id='+order_id);
 	window.sunmiInnerPrinter.lineWrap(2);
-	window.sunmiInnerPrinter.printerInit();
+	window.sunmiInnerPrinter.printerInit(callback);
 	window.sunmiInnerPrinter.printOriginalText("printerInit");
-	window.sunmiInnerPrinter.printerSelfChecking();
+	window.sunmiInnerPrinter.printerSelfChecking(callback);
 	window.sunmiInnerPrinter.printOriginalText("printerSelfChecking");
-	window.sunmiInnerPrinter.getPrinterSerialNo();
+	window.sunmiInnerPrinter.getPrinterSerialNo(callback);
 	window.sunmiInnerPrinter.printOriginalText("getPrinterSerialNo");
-	window.sunmiInnerPrinter.getPrintedLength();
+	window.sunmiInnerPrinter.getPrintedLength(callback);
 	window.sunmiInnerPrinter.printOriginalText("getPrintedLength");
-	window.sunmiInnerPrinter.lineWrap(5);
-    window.sunmiInnerPrinter.printOriginalText("Master Hub®");
-	window.sunmiInnerPrinter.printQRCode(order_id, "1.0mm", "Level M");
 	window.sunmiInnerPrinter.lineWrap(2);
+    window.sunmiInnerPrinter.printOriginalText("Master Hub®");
+	window.sunmiInnerPrinter.lineWrap(2);
+    window.sunmiInnerPrinter.printString("Master Hub® - printString");
+	window.sunmiInnerPrinter.printQRCode("Texto do Codigo qr",4,3,callback);
+	window.sunmiInnerPrinter.printBarCode("1234567890", 8, 162, 2, 2, callback);
+	window.sunmiInnerPrinter.lineWrap(2);
+	window.sunmiInnerPrinter.printColumnsText(new String[]{"ColumnsText","ColumnsText","ColumnsText"}, new int[]{4,4,8}, new int[]{1,1,1},callback);
+	window.sunmiInnerPrinter.lineWrap(2);
+	
+	window.sunmiInnerPrinter.printColumnsString(new String[]{"printColumnsString","printColumnsString","printColumnsString"}, new int[]{1,1,2}, new int[]{1,1,1},callback);
+	window.sunmiInnerPrinter.lineWrap(2);
+	
+	window.sunmiInnerPrinter.printtext(" sunmi \n", callback);
 
 }
 
