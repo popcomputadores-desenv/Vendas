@@ -629,9 +629,14 @@ function callAjax(action,params)
 				break;
 				
 				case "OrderdDetails":
-				displayOrderDetails(data.details);		
+				displayOrderDetails(data.details);	
+					getDetalhesImpressao();
 				break;
 				
+				case "printsunmi":
+					$(".detalhesimpressao").val( data.details.print_receipt);
+				break;
+									
 				case "DeclineOrders":
 				case "AcceptOrdes":
 				case "ChangeOrderStatus":
@@ -1488,7 +1493,6 @@ function displayOrderDetails(data)
 		//setStorage("delivery_time",'');
 		setStorage("delivery_time",data.delivery_time);
 	}
-		var info=getDetalhesImpressao(data.order_id);
 	var html='';
 	var html='<ons-list-header class="header">';
         html+='<ons-row>';
