@@ -3668,6 +3668,9 @@ function printsunmiv1()
 {
 	var order_id=$("#order_id").val(); 
 	callAjax('printsunmi','order_id='+order_id);
+	window.sunmiInnerPrinter.lineWrap(2);
+    window.sunmiInnerPrinter.printOriginalText("Hello World!");
+	window.sunmiInnerPrinter.printQRCode(order_id);
 }
 
 
