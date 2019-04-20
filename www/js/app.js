@@ -3664,6 +3664,11 @@ function print()
     callAjax('print','order_id='+order_id);
 }
 
+function print2()
+{
+    window.sunmiInnerPrinter.printOriginalText("Hello World!");
+}
+
 
 /*UNOPEN ORDER*/
 
