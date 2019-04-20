@@ -25,7 +25,7 @@
     <preference name="KeepRunning" value="true"/>
     <preference name="android-minSdkVersion" value="19" />
     <preference name="android-targetSdkVersion" value="26" />    
-    <preference name="phonegap-version" value="cli-7.1.1" />
+    <preference name="phonegap-version" value="cli-8.0.0" />
     <preference name="StatusBarBackgroundColor" value="#dc143c" />
 		
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
