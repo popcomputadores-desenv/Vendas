@@ -3669,8 +3669,19 @@ function printsunmiv1()
 	var order_id=$("#order_id").val(); 
 	callAjax('printsunmi','order_id='+order_id);
 	window.sunmiInnerPrinter.lineWrap(2);
-    window.sunmiInnerPrinter.printOriginalText("Hello World!");
-	window.sunmiInnerPrinter.printQRCode(order_id);
+	window.sunmiInnerPrinter.printerInit();
+	window.sunmiInnerPrinter.printOriginalText("printerInit");
+	window.sunmiInnerPrinter.printerSelfChecking();
+	window.sunmiInnerPrinter.printOriginalText("printerSelfChecking");
+	window.sunmiInnerPrinter.getPrinterSerialNo();
+	window.sunmiInnerPrinter.printOriginalText("getPrinterSerialNo");
+	window.sunmiInnerPrinter.getPrintedLength();
+	window.sunmiInnerPrinter.printOriginalText("getPrintedLength");
+	window.sunmiInnerPrinter.lineWrap(5);
+    window.sunmiInnerPrinter.printOriginalText("Master Hub®");
+	window.sunmiInnerPrinter.printQRCode(order_id, "1.0mm", "Level M");
+	window.sunmiInnerPrinter.lineWrap(2);
+
 }
 
 
