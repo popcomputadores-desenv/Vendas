@@ -25,7 +25,6 @@ var alert_delayed = 15000;
 var total_order=0;
 var timer = null;
 var SunmiInnerPrinter;
-var let;
 
 var app_version = "2.5";
 var map_style = [ {stylers: [ { "saturation":-100 }, { "lightness": 0 }, { "gamma": 1 } ]}];
@@ -40,9 +39,6 @@ function onDeviceReady() {
 	    		
 	try {
 		
-		//window.sunmiInnerPrinter.lineWrap(1);
-
-	
 		navigator.splashscreen.hide();
 		
 		if(!isDebug()){		
@@ -237,9 +233,9 @@ document.addEventListener("pageinit", function(e) {
 		initMobileScroller();
 		translatePage();
 		break;
-		
-		case "page-declineOrderForm":		
+			
 		case "page-displayOrder":
+		case "page-declineOrderForm":		
 		case "page-forgotpass":
 		case "page-lostPassword":
 		case "page-orderHistory":
@@ -1226,6 +1222,12 @@ function GetTodaysOrder()
 	
 }
 
+function getDetalhesImpressao()
+{	
+	var order_id=$("#order_id").val(); 
+	callAjax('printsunmi','order_id='+order_id);
+}
+
 function getPendingOrders()
 {	
 	var info=getMerchantInfoStorage();	
@@ -1486,7 +1488,7 @@ function displayOrderDetails(data)
 		//setStorage("delivery_time",'');
 		setStorage("delivery_time",data.delivery_time);
 	}
-	
+		var info=getDetalhesImpressao(data.order_id);
 	var html='';
 	var html='<ons-list-header class="header">';
         html+='<ons-row>';
