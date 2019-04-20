@@ -3664,9 +3664,10 @@ function print()
     callAjax('print','order_id='+order_id);
 }
 
-function print2()
+function printsunmiv1()
 {
-    window.sunmiInnerPrinter.printOriginalText("Hello World!");
+	var order_id=$("#order_id").val(); 
+	callAjax('printsunmi','order_id='+order_id);
 }
 
 
