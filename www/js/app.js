@@ -24,6 +24,8 @@ var alert_handle;
 var alert_delayed = 15000;
 var total_order=0;
 var timer = null;
+var SunmiInnerPrinter;
+var let;
 
 var app_version = "2.5";
 var map_style = [ {stylers: [ { "saturation":-100 }, { "lightness": 0 }, { "gamma": 1 } ]}];
