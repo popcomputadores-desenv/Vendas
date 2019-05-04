@@ -36,7 +36,7 @@ var marker_dropoff;
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function delay(ms) {
-    return setTimeout("", ms);
+    return setTimeout('', ms);
   }
 
 function onDeviceReady() {    
@@ -68,19 +68,20 @@ function onDeviceReady() {
 
 		// Mostra o resultado
 		//alert('Hoje é ' + str_data + ' às ' + str_hora);
+		
     	SunmiInnerPrinter.printerInit();
         SunmiInnerPrinter.printerStatusStartListener();
-        this.delay(56);
+        delay(56);
         SunmiInnerPrinter.setFontSize(20);
-        this.delay(56);
+        delay(56);
         SunmiInnerPrinter.lineWrap(1);
-        this.delay(56);
+        delay(56);
 		SunmiInnerPrinter.setAlignment(1);
-        this.delay(56);
+        delay(56);
 		SunmiInnerPrinter.printOriginalText("Sistema aberto em");
-        this.delay(56);
+        delay(56);
 		SunmiInnerPrinter.printOriginalText(str_data + ' as ' + str_hora);
-        this.delay(56);
+        delay(56);
 		//SunmiInnerPrinter.printOriginalText("\n");
 		//SunmiInnerPrinter.printBarCode("7898087031818",2,162,2,2);
         SunmiInnerPrinter.lineWrap(4);
