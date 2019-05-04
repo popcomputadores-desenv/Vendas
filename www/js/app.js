@@ -68,16 +68,7 @@ function onDeviceReady() {
 
 		// Mostra o resultado
 		//alert('Hoje é ' + str_data + ' às ' + str_hora);
-		
-    	SunmiInnerPrinter.printerInit();
-        delay('SunmiInnerPrinter.printerStatusStartListener()',56);
-        delay('SunmiInnerPrinter.setFontSize(27)',56);
-		delay('SunmiInnerPrinter.setAlignment(1)',56);
-		delay('SunmiInnerPrinter.printOriginalText("Sistema aberto em")',56);
-		delay('SunmiInnerPrinter.printOriginalText("\n")',56);
-		delay("SunmiInnerPrinter.printOriginalText(str_data + ' às ' + str_hora)",3000);
-        delay('SunmiInnerPrinter.lineWrap(4)',3000);
-		
+				
 		document.addEventListener("pause", onPause, false);
 		document.addEventListener("resume", onResume, false);
 			
@@ -863,7 +854,17 @@ function callAjax(action,params)
 			       	   setStorage("is_login_already",1);			       	   
 			       	   kNavigator.resetToPage("slidemenu.html", {
 			       	   	  animation: 'slide',
-			       	   });			       	   
+			       	   });	
+					   
+    	SunmiInnerPrinter.printerInit();
+        delay('SunmiInnerPrinter.printerStatusStartListener()',56);
+        delay('SunmiInnerPrinter.setFontSize(27)',56);
+		delay('SunmiInnerPrinter.setAlignment(1)',56);
+		delay('SunmiInnerPrinter.printOriginalText("Sistema aberto em")',56);
+		delay('SunmiInnerPrinter.printOriginalText("\n")',56);
+		delay("SunmiInnerPrinter.printOriginalText(str_data + ' às ' + str_hora)",3000);
+        delay('SunmiInnerPrinter.lineWrap(4)',3000);
+					   
 			       } else {			       	   
 			       	   dump('show login page');			       	   			       	   
 			       	   kNavigator.resetToPage("pageLogin.html", {
