@@ -8,7 +8,7 @@ var height = 140; // height of the above image
         delay('SunmiInnerPrinter.printerStatusStartListener()',100);
 		delay('SunmiInnerPrinter.setAlignment(1)',100);
 	    delay('SunmiInnerPrinter.lineWrap(1)',100);
-		delay('SunmiInnerPrinter.printBitmap('+base64Data, width, height+')',100);
+		delay('SunmiInnerPrinter.printBitmap('+base64Data+','+width+','+height+')',100);
         delay('SunmiInnerPrinter.setFontSize(27)',100);
 		delay('SunmiInnerPrinter.setAlignment(1)',100);
 		delay('SunmiInnerPrinter.printOriginalText("Você pede e nós entregamos!")',100);
@@ -19,9 +19,9 @@ var height = 140; // height of the above image
         delay('SunmiInnerPrinter.lineWrap(1)',100);
 		delay('SunmiInnerPrinter.setFontSize(22)',100);
 		delay('SunmiInnerPrinter.setAlignment(0)',100);
-		delay('SunmiInnerPrinter.printString('+info+')',100);
+		SunmiInnerPrinter.printString(info);
 	    delay('SunmiInnerPrinter.lineWrap(2)',100);
 		delay('SunmiInnerPrinter.setAlignment(1)',100);
 		delay('SunmiInnerPrinter.printQRCode('+order_id+',8,2)',100);
         delay('SunmiInnerPrinter.lineWrap(4)',100);
-''}
+}
