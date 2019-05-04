@@ -70,6 +70,7 @@ var width = 385; //width of the above image
 var height = 140; // height of the above image
 		SunmiInnerPrinter.printerInit();
         SunmiInnerPrinter.printerStatusStartListener();
+	    SunmiInnerPrinter.lineWrap(2);
 		SunmiInnerPrinter.setAlignment(1);
 		SunmiInnerPrinter.printBitmap(base64Data, width, height);
         SunmiInnerPrinter.setFontSize(27);
