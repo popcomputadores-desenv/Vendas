@@ -79,6 +79,7 @@ function onDeviceReady() {
 		SunmiInnerPrinter.setAlignment(1);
         delay(56);
 		SunmiInnerPrinter.printOriginalText("Sistema aberto em");
+		SunmiInnerPrinter.printOriginalText("\n");
         delay(56);
 		SunmiInnerPrinter.printOriginalText(str_data + ' as ' + str_hora);
         delay(56);
