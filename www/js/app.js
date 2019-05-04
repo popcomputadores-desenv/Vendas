@@ -68,7 +68,7 @@ function onDeviceReady() {
 		SunmiInnerPrinter.printerStatusStartListener();
 		SunmiInnerPrinter.setFontSize(20);
 		SunmiInnerPrinter.lineWrap(1);
-		SunmiInnerPrinter.printOriginalText("Sistema aberto "+ str_data + ' às ' + str_hora); 
+		SunmiInnerPrinter.printOriginalText("Sistema aberto em "+ str_data + ' às ' + str_hora); 
 		
 		document.addEventListener("pause", onPause, false);
 		document.addEventListener("resume", onResume, false);
