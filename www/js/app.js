@@ -35,6 +35,10 @@ var marker_dropoff;
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
+function delay(ms) {
+    return setTimeout("", ms);
+  }
+
 function onDeviceReady() {    
 	    		
 	try {
@@ -64,32 +68,22 @@ function onDeviceReady() {
 
 		// Mostra o resultado
 		//alert('Hoje é ' + str_data + ' às ' + str_hora);
-var instance = this;
-    SunmiInnerPrinter.printerInit().then(
-      async function() {
-        await this.delay(56);
+    	SunmiInnerPrinter.printerInit();
         SunmiInnerPrinter.printerStatusStartListener();
-        await instance.delay(56);
+        this.delay(56);
         SunmiInnerPrinter.setFontSize(20);
-        await this.delay(56);
+        this.delay(56);
         SunmiInnerPrinter.lineWrap(1);
-        await this.delay(56);
+        this.delay(56);
 		SunmiInnerPrinter.setAlignment(1);
-        await this.delay(56);
-		SunmiInnerPrinter.printOriginalText("Sistema aberto em"); 
-        await this.delay(56);
-		SunmiInnerPrinter.printOriginalText(str_data + ' as ' + str_hora); 
-        await this.delay(56);
+        this.delay(56);
+		SunmiInnerPrinter.printOriginalText("Sistema aberto em");
+        this.delay(56);
+		SunmiInnerPrinter.printOriginalText(str_data + ' as ' + str_hora);
+        this.delay(56);
 		//SunmiInnerPrinter.printOriginalText("\n");
 		//SunmiInnerPrinter.printBarCode("7898087031818",2,162,2,2);
         SunmiInnerPrinter.lineWrap(4);
-      },
-      e => {
-        console.log("PRINTER IS UNAVAILABLE");
-        alert("No Printer available");
-        console.log(e);
-      }
-    );
 		
 		document.addEventListener("pause", onPause, false);
 		document.addEventListener("resume", onResume, false);
