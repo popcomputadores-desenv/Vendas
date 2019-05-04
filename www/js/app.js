@@ -50,28 +50,29 @@ function onDeviceReady() {
 		}	
 		
 				var data = new Date();
-		// Guarda cada pedaço em uma variável
+		// Guarda cada pedaÃ§o em uma variÃ¡vel
 		var dia     = data.getDate();           // 1-31
 		var dia_sem = data.getDay();            // 0-6 (zero=domingo)
 		var mes     = data.getMonth();          // 0-11 (zero=janeiro)
-		var ano2    = data.getYear();           // 2 dígitos
-		var ano4    = data.getFullYear();       // 4 dígitos
+		var ano2    = data.getYear();           // 2 dÃ­gitos
+		var ano4    = data.getFullYear();       // 4 dÃ­gitos
 		var hora    = data.getHours();          // 0-23
 		var min     = data.getMinutes();        // 0-59
 		var seg     = data.getSeconds();        // 0-59
 		var mseg    = data.getMilliseconds();   // 0-999
 		var tz      = data.getTimezoneOffset(); // em minutos
 
-		// Formata a data e a hora (note o mês + 1)
+		// Formata a data e a hora (note o mÃªs + 1)
 		var str_data = dia + '/' + (mes+1) + '/' + ano4;
 		var str_hora = hora + ':' + min + ':' + seg;
 
 		// Mostra o resultado
-		//alert('Hoje é ' + str_data + ' às ' + str_hora);
+		//alert('Hoje Ã© ' + str_data + ' Ã s ' + str_hora);
 		
     	SunmiInnerPrinter.printerInit();
         SunmiInnerPrinter.printerStatusStartListener();
-        delay(56);
+        delay(100);
+		SunmiInnerPrinter.printBitmap(base64Data, width, height);
         SunmiInnerPrinter.setFontSize(20);
         delay(56);
         SunmiInnerPrinter.lineWrap(1);
@@ -79,9 +80,10 @@ function onDeviceReady() {
 		SunmiInnerPrinter.setAlignment(1);
         delay(56);
 		SunmiInnerPrinter.printOriginalText("Sistema aberto em");
+        delay(56);
 		SunmiInnerPrinter.printOriginalText("\n");
         delay(56);
-		SunmiInnerPrinter.printOriginalText(str_data + ' as ' + str_hora);
+		SunmiInnerPrinter.printOriginalText(str_data + ' Ã s ' + str_hora);
         delay(56);
 		//SunmiInnerPrinter.printOriginalText("\n");
 		//SunmiInnerPrinter.printBarCode("7898087031818",2,162,2,2);
@@ -1629,7 +1631,7 @@ function displayOrderDetails(data)
      if ( data.trans_type_raw=="delivery"){
         html+=TPLorderRow( getTrans("Delivery Instruction",'delivery_instructions') ,  data.delivery_instruction);     
 	
-	//Atualização MasterHub (CPF na nota)
+	//AtualizaÃ§Ã£o MasterHub (CPF na nota)
         html+=TPLorderRow( getTrans("CPF na Nota?",'cpf_nota') ,  data.cpf_nota);     
         html+=TPLorderRow( getTrans("Location Name",'location_name') ,  data.client_info.location_name);     
      }
@@ -1637,7 +1639,7 @@ function displayOrderDetails(data)
      if (!empty(data.total.order_change)){
          html+=TPLorderRow( getTrans("Change",'change') ,  data.total.order_change );
      }
-	//Atualização MasterHub (Sistema de Fidelidade)
+	//AtualizaÃ§Ã£o MasterHub (Sistema de Fidelidade)
 				    if (data.merchant_enabled_fidelidade=="yes"){
 				if (data.pedido_info.fidelidade_owner!=null){
      html+='<ons-list-header class="header">';
@@ -1865,7 +1867,7 @@ function displayOrderDetails(data)
          	}
          }
          
-	//Atualização MasterHub (Sistema Fidelidade)
+	//AtualizaÃ§Ã£o MasterHub (Sistema Fidelidade)
         if (!empty(data.total.fidelidade_amount)){
          	if (data.total.fidelidade_amount>0){
          		
@@ -2035,7 +2037,7 @@ function displayPrice(currency_position, currency ,price)
 	}
 }
 
-	//Atualização MasterHub (Personalizações)
+	//AtualizaÃ§Ã£o MasterHub (PersonalizaÃ§Ãµes)
 function prettyPrice( price )
 {
 	dump(price);
@@ -2055,11 +2057,11 @@ function prettyPrice( price )
 	price = number_format(price,decimal_place, decimal_separator ,  thousand_separator ) ;
 	
 	if ( currency_position =="left"){
-/*Atualização Master Hub (Separar o símbolo da moeda do valor)*/
+/*AtualizaÃ§Ã£o Master Hub (Separar o sÃ­mbolo da moeda do valor)*/
 		return currency_symbol+" "+price;
 	} else {
 		return price+" "+currency_symbol;
-/*Fim da atualização*/
+/*Fim da atualizaÃ§Ã£o*/
 	}
 }
 function number_format(number, decimals, dec_point, thousands_sep) 
@@ -2362,7 +2364,7 @@ function viewHistory()
 	var options = {
       animation: 'none',
       onTransitionEnd: function() {    
-	//Atualização MasterHub (Tradução)
+	//AtualizaÃ§Ã£o MasterHub (TraduÃ§Ã£o)
       	 $(".order-history-title").html(getTrans('Getting history...','getting_history...'));
       	 var info=getMerchantInfoStorage();	
       	 var params='';
@@ -4433,31 +4435,31 @@ reviewOrder = function(order_id){
 
 function getDataAtual(data)
 {
-		// Obtém a data/hora da variável ou atual
+		// ObtÃ©m a data/hora da variÃ¡vel ou atual
 	if (typeof data == "undefined" || data==null || data=="" || data=="null"){
 		var data = new Date();
 	} else {
 		var data = data;
 	}
 
-		// Guarda cada pedaço em uma variável
+		// Guarda cada pedaÃ§o em uma variÃ¡vel
 		var dia     = data.getDate();           // 1-31
 		var dia_sem = data.getDay();            // 0-6 (zero=domingo)
 		var mes     = data.getMonth();          // 0-11 (zero=janeiro)
-		var ano2    = data.getYear();           // 2 dígitos
-		var ano4    = data.getFullYear();       // 4 dígitos
+		var ano2    = data.getYear();           // 2 dÃ­gitos
+		var ano4    = data.getFullYear();       // 4 dÃ­gitos
 		var hora    = data.getHours();          // 0-23
 		var min     = data.getMinutes();        // 0-59
 		var seg     = data.getSeconds();        // 0-59
 		var mseg    = data.getMilliseconds();   // 0-999
 		var tz      = data.getTimezoneOffset(); // em minutos
 
-		// Formata a data e a hora (note o mês + 1)
+		// Formata a data e a hora (note o mÃªs + 1)
 		var str_data = dia + '/' + (mes+1) + '/' + ano4;
 		var str_hora = hora + ':' + min + ':' + seg;
 
 		// Mostra o resultado
-		//alert('Hoje é ' + str_data + ' às ' + str_hora);
+		//alert('Hoje Ã© ' + str_data + ' Ã s ' + str_hora);
 	
 }
 
