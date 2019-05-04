@@ -35,7 +35,7 @@ var marker_dropoff;
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
-function delay(ms,funcao) {
+function delay(funcao,ms) {
     return setTimeout(funcao, ms);
   }
 
@@ -69,7 +69,7 @@ function onDeviceReady() {
 		// Mostra o resultado
 		//alert('Hoje é ' + str_data + ' às ' + str_hora);
 		
-    	delay('SunmiInnerPrinter.printerInit()',56);
+    	SunmiInnerPrinter.printerInit();
         delay('SunmiInnerPrinter.printerStatusStartListener()',56);
         delay('SunmiInnerPrinter.setFontSize(27)',56);
 		delay('SunmiInnerPrinter.setAlignment(1)',56);
