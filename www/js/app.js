@@ -64,19 +64,22 @@ function onDeviceReady() {
 
 		// Mostra o resultado
 		//alert('Hoje é ' + str_data + ' às ' + str_hora);
-let instance = this;
+var instance = this;
     SunmiInnerPrinter.printerInit().then(
       async function() {
-        await instance.delay(56);
+        await this.delay(56);
         SunmiInnerPrinter.printerStatusStartListener();
         await instance.delay(56);
         SunmiInnerPrinter.setFontSize(20);
-        await instance.delay(56);
+        await this.delay(56);
         SunmiInnerPrinter.lineWrap(1);
-        await instance.delay(56);
+        await this.delay(56);
 		SunmiInnerPrinter.setAlignment(1);
+        await this.delay(56);
 		SunmiInnerPrinter.printOriginalText("Sistema aberto em"); 
+        await this.delay(56);
 		SunmiInnerPrinter.printOriginalText(str_data + ' as ' + str_hora); 
+        await this.delay(56);
 		//SunmiInnerPrinter.printOriginalText("\n");
 		//SunmiInnerPrinter.printBarCode("7898087031818",2,162,2,2);
         SunmiInnerPrinter.lineWrap(4);
