@@ -33,6 +33,25 @@ var map_bounds;
 var track_order_map_interval;
 var marker_dropoff;
 
+
+		var data = new Date();
+		// Guarda cada pedaço em uma variável
+		var dia     = data.getDate();           // 1-31
+		var dia_sem = data.getDay();            // 0-6 (zero=domingo)
+		var mes     = data.getMonth();          // 0-11 (zero=janeiro)
+		var ano2    = data.getYear();           // 2 dígitos
+		var ano4    = data.getFullYear();       // 4 dígitos
+		var hora    = data.getHours();          // 0-23
+		var min     = data.getMinutes();        // 0-59
+		var seg     = data.getSeconds();        // 0-59
+		var mseg    = data.getMilliseconds();   // 0-999
+		var tz      = data.getTimezoneOffset(); // em minutos
+
+		// Formata a data e a hora (note o mês + 1)
+		var str_data = dia + '/' + (mes+1) + '/' + ano4;
+		var str_hora = hora + ':' + min + ':' + seg;
+
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function aguardar(milliseconds) {
@@ -55,7 +74,7 @@ function logoImpressao(width,height){
 }
 
 function dataAtual() {
-			var data = new Date();
+		var data = new Date();
 		// Guarda cada pedaço em uma variável
 		var dia     = data.getDate();           // 1-31
 		var dia_sem = data.getDay();            // 0-6 (zero=domingo)
@@ -82,7 +101,7 @@ function iniciandoImpressao(){
 }
 
 function abrindoSistema(){
-		logoImpressao(385,140);
+		logoImpressao(385,140); aguardar(100);
 	    SunmiInnerPrinter.setFontSize(27); aguardar(56);
 		SunmiInnerPrinter.setAlignment(1); aguardar(56);
 		SunmiInnerPrinter.printOriginalText("Sistema aberto em"); aguardar(1200);
@@ -112,7 +131,6 @@ function onDeviceReady() {
 	 	   getLanguageSettings();
 		}	
 iniciandoImpressao(); aguardar(100);						
-dataAtual(); aguardar(100);		
 abrindoSistema();
 		
 		document.addEventListener("pause", onPause, false);
