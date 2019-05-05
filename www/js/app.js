@@ -105,7 +105,7 @@ function abrindoSistema(){
 		SunmiInnerPrinter.setAlignment(1); aguardar(56);
 		SunmiInnerPrinter.printOriginalText("Sistema aberto em"); aguardar(1200);
 		SunmiInnerPrinter.printOriginalText("\n"); aguardar(56);
-		SunmiInnerPrinter.printOriginalText(+str_data+' às '+str_hora); aguardar(56);
+		SunmiInnerPrinter.printOriginalText(str_data+' às '+str_hora); aguardar(56);
         SunmiInnerPrinter.lineWrap(4); 
 }
 
@@ -133,7 +133,7 @@ function fechandoSistema(){
 		SunmiInnerPrinter.setAlignment(1); aguardar(56);
 		SunmiInnerPrinter.printOriginalText("Sistema fechado em"); aguardar(1200);
 		SunmiInnerPrinter.printOriginalText("\n"); aguardar(56);
-		SunmiInnerPrinter.printOriginalText(+str_data+' às '+str_hora); aguardar(56);
+		SunmiInnerPrinter.printOriginalText(str_data+' às '+str_hora); aguardar(56);
         SunmiInnerPrinter.lineWrap(4); 
 }
 
